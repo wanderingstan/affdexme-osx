@@ -17,14 +17,35 @@
 @implementation ExpressionViewController
 
 @dynamic metric;
+@synthesize classifier = _classifier;
 
-- (id)initWithName:(NSString *)name;
+- (ClassifierModel *)classifier;
+{
+    return _classifier;
+}
+
+- (void)setClassifier:(ClassifierModel *)classifier;
+{
+    _classifier = classifier;
+    if (_classifier == nil)
+    {
+        self.expressionLabel.stringValue = @"";
+        self.indicatorView.hidden = TRUE;
+    }
+    else
+    {
+        self.expressionLabel.stringValue = _classifier.title;
+        self.indicatorView.hidden = FALSE;
+    }
+}
+
+- (id)initWithClassifier:(ClassifierModel *)classifier;
 {
     self = [super initWithNibName:@"ExpressionView" bundle:nil];
 
     if (self)
     {
-        self.name = name;
+        self.classifier = classifier;
     }
     
     return self;
@@ -43,12 +64,13 @@
     self.expressionLabel.font = [NSFont fontWithName:@"SquareFont" size:labelSize];
     self.expressionLabel.backgroundColor = [NSColor clearColor];
 
-    self.expressionLabel.stringValue = self.name;
+    [self setClassifier:self.classifier];
 
     self.scoreLabel.font = [NSFont fontWithName:@"SquareFont" size:scoreSize];
     
     self.indicatorBounds = self.indicatorView.bounds;
     [self setMetric:0.0 animated:NO];
+    self.view.wantsLayer = YES;
 }
 
 - (float)metric;
@@ -91,15 +113,9 @@
 //            [NSView beginAnimations:nil context:NULL];
         }
 
-        [self.indicatorView setBounds:bounds];
+        [self.indicatorView.layer setBounds:bounds];
         self.scoreLabel.stringValue = [NSString stringWithFormat:@"%.0f%%", value];
-        float alphaValue = fmax(fabs(value) / 100.0, 0.35);
-#if TARGET_OS_IPHONE
-        self.view.alpha = alphaValue;
-#else
-        self.view.alphaValue = alphaValue;
-#endif
-        
+
         if (animated)
         {
 //            [NSView setAnimationDuration:0.25];
@@ -116,11 +132,7 @@
 {
 //    [NSView beginAnimations:nil context:NULL];
 //    [NSView setAnimationDuration:0.25];
-#if TARGET_OS_IPHONE
-    self.view.alpha = 0.0;
-#else
     self.view.alphaValue = 0.0;
-#endif
 //    [NSView commitAnimations];
 }
 

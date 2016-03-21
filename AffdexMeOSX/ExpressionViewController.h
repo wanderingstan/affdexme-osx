@@ -7,16 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ClassifierModel.h"
 
 @interface ExpressionViewController : NSViewController
 
 @property (strong) IBOutlet NSTextField *expressionLabel;
 @property (strong) IBOutlet NSTextField *scoreLabel;
 @property (strong) IBOutlet NSView *indicatorView;
-@property (strong) NSString *name;
 @property (assign) float metric;
+@property (strong) ClassifierModel *classifier;
 
-- (id)initWithName:(NSString *)name;
+- (id)initWithClassifier:(ClassifierModel *)classifier;
 - (void)faceDetected;
 - (void)faceUndetected;
 - (void)reset;

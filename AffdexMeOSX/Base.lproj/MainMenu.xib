@@ -13,7 +13,6 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
-                <outlet property="hudWindow" destination="6cH-B7-TNF" id="Xwa-TU-8Q3"/>
                 <outlet property="vc" destination="hw1-5l-3Je" id="fh5-dB-TO7"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -32,7 +31,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                <connections>
+                                    <action selector="showPreferencesWindow:" target="hw1-5l-3Je" id="9EI-Gf-Hgk"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                             <menuItem title="Services" id="NMo-om-nkz">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -669,123 +672,38 @@
             </items>
         </menu>
         <window title="AffdexMe" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="AffdexMe" animationBehavior="default" id="QvC-M9-y7g">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="480" height="360"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sfx-3a-2fc">
-                        <rect key="frame" x="20" y="20" width="446" height="320"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" id="z0h-np-8Cl"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="z0h-np-8Cl"/>
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="sfx-3a-2fc" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="2jF-wh-Eou"/>
-                    <constraint firstAttribute="trailing" secondItem="sfx-3a-2fc" secondAttribute="trailing" constant="14" id="ARO-gG-yqd"/>
-                    <constraint firstAttribute="bottom" secondItem="sfx-3a-2fc" secondAttribute="bottom" constant="20" symbolic="YES" id="DcO-5C-0ZK"/>
-                    <constraint firstItem="sfx-3a-2fc" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="uwX-3G-03V"/>
+                    <constraint firstItem="sfx-3a-2fc" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="2jF-wh-Eou"/>
+                    <constraint firstAttribute="trailing" secondItem="sfx-3a-2fc" secondAttribute="trailing" id="ARO-gG-yqd"/>
+                    <constraint firstAttribute="bottom" secondItem="sfx-3a-2fc" secondAttribute="bottom" id="DcO-5C-0ZK"/>
+                    <constraint firstItem="sfx-3a-2fc" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="uwX-3G-03V"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="593" y="308"/>
+            <connections>
+                <outlet property="delegate" destination="hw1-5l-3Je" id="ebC-uc-Jun"/>
+            </connections>
+            <point key="canvasLocation" x="493" y="224"/>
         </window>
-        <customObject id="hw1-5l-3Je" customClass="ViewController">
+        <customObject id="hw1-5l-3Je" customClass="AffdexMeViewController">
             <connections>
                 <outlet property="imageView" destination="sfx-3a-2fc" id="TdP-BW-nLH"/>
                 <outlet property="processedImageView" destination="sfx-3a-2fc" id="4w8-63-04q"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="MnD-4L-JWZ"/>
             </connections>
         </customObject>
-        <window title="Settings" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="Settings" animationBehavior="default" id="6cH-B7-TNF" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" HUD="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="90" y="125" width="289" height="134"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <view key="contentView" id="TSM-Jy-Mtn">
-                <rect key="frame" x="0.0" y="0.0" width="289" height="134"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sii-Zp-nLV">
-                        <rect key="frame" x="18" y="98" width="131" height="18"/>
-                        <buttonCell key="cell" type="check" title="Draw Face Points" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2tI-ce-j1n">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <binding destination="Voe-Tx-rLC" name="value" keyPath="self.vc.drawFacePoints" id="JYZ-LZ-mvl"/>
-                        </connections>
-                    </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="065-wP-zTA">
-                        <rect key="frame" x="18" y="78" width="116" height="18"/>
-                        <buttonCell key="cell" type="check" title="Draw Face Box" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Dkj-N3-4kT">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <binding destination="Voe-Tx-rLC" name="value" keyPath="self.vc.drawFaceBox" id="ufs-r4-zoT"/>
-                        </connections>
-                    </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3FZ-OY-jeN">
-                        <rect key="frame" x="18" y="52" width="66" height="17"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Point Size" id="9Rk-8P-3Lw">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DKS-17-cbz">
-                        <rect key="frame" x="210" y="50" width="59" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="lpn-bZ-avt">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            <connections>
-                                <binding destination="Voe-Tx-rLC" name="value" keyPath="self.vc.pointSize" id="3c8-TW-FRX"/>
-                            </connections>
-                        </textFieldCell>
-                        <connections>
-                            <binding destination="Voe-Tx-rLC" name="value" keyPath="self.vc.pointSize" id="zdV-Qh-Kac"/>
-                        </connections>
-                    </textField>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yQS-7s-dwU">
-                        <rect key="frame" x="113" y="20" width="96" height="20"/>
-                        <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="25" doubleValue="3" tickMarkPosition="above" allowsTickMarkValuesOnly="YES" sliderType="linear" id="3kO-e8-sMu"/>
-                        <connections>
-                            <binding destination="Voe-Tx-rLC" name="value" keyPath="self.vc.detector.maxProcessRate" id="0Sa-Js-1Jq"/>
-                        </connections>
-                    </slider>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="83k-gT-Q2d">
-                        <rect key="frame" x="18" y="22" width="86" height="17"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Process Rate" id="RD3-qd-HL0">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SSd-Iz-5aE">
-                        <rect key="frame" x="210" y="20" width="59" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="QRB-PR-4uU">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <binding destination="Voe-Tx-rLC" name="value" keyPath="self.vc.detector.maxProcessRate" id="n58-vR-1ye"/>
-                        </connections>
-                    </textField>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UYO-nW-cIc">
-                        <rect key="frame" x="113" y="50" width="91" height="20"/>
-                        <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="24" doubleValue="3" tickMarkPosition="above" allowsTickMarkValuesOnly="YES" sliderType="linear" id="a06-14-qJd"/>
-                        <connections>
-                            <binding destination="Voe-Tx-rLC" name="value" keyPath="self.vc.pointSize" id="Bru-BO-2gJ"/>
-                        </connections>
-                    </slider>
-                </subviews>
-            </view>
-            <point key="canvasLocation" x="585.5" y="0.0"/>
-        </window>
         <userDefaultsController representsSharedInstance="YES" id="joP-QY-KZx"/>
     </objects>
 </document>

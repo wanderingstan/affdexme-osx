@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		680079261C90C0C1009D9AD4 /* AffdexMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 680079251C90C0C1009D9AD4 /* AffdexMeViewController.m */; };
+		680079361C9325CF009D9AD4 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680079331C9325CF009D9AD4 /* PreferencesWindow.xib */; };
+		680079371C9325CF009D9AD4 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 680079351C9325CF009D9AD4 /* PreferencesWindowController.m */; };
+		680079391C932826009D9AD4 /* media in Resources */ = {isa = PBXBuildFile; fileRef = 680079381C932826009D9AD4 /* media */; };
+		6818F63A1C9B08A60013FAD1 /* ClassifierPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA0DE61C98486900DFB13A /* ClassifierPickerViewController.m */; };
+		686B4BCA1C9CFE7B007E69C1 /* NSImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 686B4BC91C9CFE7B007E69C1 /* NSImage+Extensions.m */; };
 		68773BF61A1794610087D532 /* ExpressionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68773BF41A17936A0087D532 /* ExpressionViewController.m */; };
 		68773BF81A1794970087D532 /* ExpressionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68773BF71A1794970087D532 /* ExpressionView.xib */; };
-		68773BFD1A17B83B0087D532 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68773BFC1A17B83B0087D532 /* ViewController.m */; };
-		68D14FCE1C8863FB00D312E0 /* Square.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 68773BF91A17967A0087D532 /* Square.ttf */; };
+		688DFABE1CA037510045A9F0 /* classifiers.png in Resources */ = {isa = PBXBuildFile; fileRef = 688DFABC1CA037510045A9F0 /* classifiers.png */; };
+		688DFABF1CA037510045A9F0 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 688DFABD1CA037510045A9F0 /* settings.png */; };
+		68BA0DED1C987F3100DFB13A /* ClassifierModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA0DEC1C987F3100DFB13A /* ClassifierModel.m */; };
 		68D8C6A01BE1A80D005851C8 /* Affdex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D8C69E1BE1A807005851C8 /* Affdex.framework */; };
 		68D8C6A11BE1A80D005851C8 /* Affdex.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 68D8C69E1BE1A807005851C8 /* Affdex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		68DEC4831A178731009FCB2E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEC4821A178731009FCB2E /* AppDelegate.m */; };
@@ -37,7 +44,6 @@
 			dstPath = Fonts;
 			dstSubfolderSpec = 7;
 			files = (
-				68D14FCE1C8863FB00D312E0 /* Square.ttf in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,21 +60,32 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		680079241C90C0C1009D9AD4 /* AffdexMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffdexMeViewController.h; sourceTree = "<group>"; };
+		680079251C90C0C1009D9AD4 /* AffdexMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffdexMeViewController.m; sourceTree = "<group>"; };
+		680079331C9325CF009D9AD4 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
+		680079341C9325CF009D9AD4 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
+		680079351C9325CF009D9AD4 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		680079381C932826009D9AD4 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
+		686B4BC81C9CFE7B007E69C1 /* NSImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+Extensions.h"; path = "AffdexMeOSX/NSImage+Extensions.h"; sourceTree = "<group>"; };
+		686B4BC91C9CFE7B007E69C1 /* NSImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+Extensions.m"; path = "AffdexMeOSX/NSImage+Extensions.m"; sourceTree = "<group>"; };
 		68773BF31A17936A0087D532 /* ExpressionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionViewController.h; sourceTree = "<group>"; };
 		68773BF41A17936A0087D532 /* ExpressionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionViewController.m; sourceTree = "<group>"; };
 		68773BF71A1794970087D532 /* ExpressionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpressionView.xib; sourceTree = "<group>"; };
-		68773BF91A17967A0087D532 /* Square.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Square.ttf; sourceTree = "<group>"; };
-		68773BFB1A17B83B0087D532 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		68773BFC1A17B83B0087D532 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		688DFABC1CA037510045A9F0 /* classifiers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = classifiers.png; path = media/classifiers.png; sourceTree = "<group>"; };
+		688DFABD1CA037510045A9F0 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = media/settings.png; sourceTree = "<group>"; };
+		68BA0DE51C98486900DFB13A /* ClassifierPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierPickerViewController.h; sourceTree = "<group>"; };
+		68BA0DE61C98486900DFB13A /* ClassifierPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierPickerViewController.m; sourceTree = "<group>"; };
+		68BA0DEB1C987F3100DFB13A /* ClassifierModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierModel.h; sourceTree = "<group>"; };
+		68BA0DEC1C987F3100DFB13A /* ClassifierModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierModel.m; sourceTree = "<group>"; };
 		68D8C69E1BE1A807005851C8 /* Affdex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Affdex.framework; sourceTree = SOURCE_ROOT; };
-		68DEC47C1A178731009FCB2E /* AffdexMeOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AffdexMeOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		68DEC47C1A178731009FCB2E /* AffdexMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AffdexMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DEC4801A178731009FCB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DEC4811A178731009FCB2E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		68DEC4821A178731009FCB2E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		68DEC4841A178731009FCB2E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		68DEC4861A178731009FCB2E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		68DEC4891A178731009FCB2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		68DEC48F1A178731009FCB2E /* AffdexMeOSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AffdexMeOSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		68DEC48F1A178731009FCB2E /* AffdexMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AffdexMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DEC4941A178731009FCB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AffdexMeOSXTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,7 +112,11 @@
 		68DEC4731A178731009FCB2E = {
 			isa = PBXGroup;
 			children = (
-				68773BF91A17967A0087D532 /* Square.ttf */,
+				688DFABC1CA037510045A9F0 /* classifiers.png */,
+				688DFABD1CA037510045A9F0 /* settings.png */,
+				686B4BC81C9CFE7B007E69C1 /* NSImage+Extensions.h */,
+				686B4BC91C9CFE7B007E69C1 /* NSImage+Extensions.m */,
+				680079381C932826009D9AD4 /* media */,
 				68DEC47E1A178731009FCB2E /* AffdexMeOSX */,
 				68DEC4921A178731009FCB2E /* AffdexMeOSXTests */,
 				68DEC47D1A178731009FCB2E /* Products */,
@@ -105,8 +126,8 @@
 		68DEC47D1A178731009FCB2E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				68DEC47C1A178731009FCB2E /* AffdexMeOSX.app */,
-				68DEC48F1A178731009FCB2E /* AffdexMeOSXTests.xctest */,
+				68DEC47C1A178731009FCB2E /* AffdexMe.app */,
+				68DEC48F1A178731009FCB2E /* AffdexMeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,9 +135,15 @@
 		68DEC47E1A178731009FCB2E /* AffdexMeOSX */ = {
 			isa = PBXGroup;
 			children = (
-				68D8C69E1BE1A807005851C8 /* Affdex.framework */,
-				68773BFB1A17B83B0087D532 /* ViewController.h */,
-				68773BFC1A17B83B0087D532 /* ViewController.m */,
+				68BA0DEB1C987F3100DFB13A /* ClassifierModel.h */,
+				68BA0DEC1C987F3100DFB13A /* ClassifierModel.m */,
+				680079331C9325CF009D9AD4 /* PreferencesWindow.xib */,
+				680079341C9325CF009D9AD4 /* PreferencesWindowController.h */,
+				680079351C9325CF009D9AD4 /* PreferencesWindowController.m */,
+				680079241C90C0C1009D9AD4 /* AffdexMeViewController.h */,
+				680079251C90C0C1009D9AD4 /* AffdexMeViewController.m */,
+				68BA0DE51C98486900DFB13A /* ClassifierPickerViewController.h */,
+				68BA0DE61C98486900DFB13A /* ClassifierPickerViewController.m */,
 				68773BF31A17936A0087D532 /* ExpressionViewController.h */,
 				68773BF41A17936A0087D532 /* ExpressionViewController.m */,
 				68773BF71A1794970087D532 /* ExpressionView.xib */,
@@ -132,6 +159,7 @@
 		68DEC47F1A178731009FCB2E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				68D8C69E1BE1A807005851C8 /* Affdex.framework */,
 				68DEC4801A178731009FCB2E /* Info.plist */,
 				68DEC4841A178731009FCB2E /* main.m */,
 			);
@@ -158,9 +186,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		68DEC47B1A178731009FCB2E /* AffdexMeOSX */ = {
+		68DEC47B1A178731009FCB2E /* AffdexMe */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 68DEC4991A178731009FCB2E /* Build configuration list for PBXNativeTarget "AffdexMeOSX" */;
+			buildConfigurationList = 68DEC4991A178731009FCB2E /* Build configuration list for PBXNativeTarget "AffdexMe" */;
 			buildPhases = (
 				68DEC4781A178731009FCB2E /* Sources */,
 				68DEC4791A178731009FCB2E /* Frameworks */,
@@ -172,14 +200,14 @@
 			);
 			dependencies = (
 			);
-			name = AffdexMeOSX;
+			name = AffdexMe;
 			productName = MeasureUpOSX;
-			productReference = 68DEC47C1A178731009FCB2E /* AffdexMeOSX.app */;
+			productReference = 68DEC47C1A178731009FCB2E /* AffdexMe.app */;
 			productType = "com.apple.product-type.application";
 		};
-		68DEC48E1A178731009FCB2E /* AffdexMeOSXTests */ = {
+		68DEC48E1A178731009FCB2E /* AffdexMeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 68DEC49C1A178731009FCB2E /* Build configuration list for PBXNativeTarget "AffdexMeOSXTests" */;
+			buildConfigurationList = 68DEC49C1A178731009FCB2E /* Build configuration list for PBXNativeTarget "AffdexMeTests" */;
 			buildPhases = (
 				68DEC48B1A178731009FCB2E /* Sources */,
 				68DEC48C1A178731009FCB2E /* Frameworks */,
@@ -190,9 +218,9 @@
 			dependencies = (
 				68DEC4911A178731009FCB2E /* PBXTargetDependency */,
 			);
-			name = AffdexMeOSXTests;
+			name = AffdexMeTests;
 			productName = MeasureUpOSXTests;
-			productReference = 68DEC48F1A178731009FCB2E /* AffdexMeOSXTests.xctest */;
+			productReference = 68DEC48F1A178731009FCB2E /* AffdexMeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -226,8 +254,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				68DEC47B1A178731009FCB2E /* AffdexMeOSX */,
-				68DEC48E1A178731009FCB2E /* AffdexMeOSXTests */,
+				68DEC47B1A178731009FCB2E /* AffdexMe */,
+				68DEC48E1A178731009FCB2E /* AffdexMeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -238,8 +266,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				68DEC4871A178731009FCB2E /* Images.xcassets in Resources */,
+				688DFABF1CA037510045A9F0 /* settings.png in Resources */,
 				68DEC48A1A178731009FCB2E /* MainMenu.xib in Resources */,
 				68773BF81A1794970087D532 /* ExpressionView.xib in Resources */,
+				680079361C9325CF009D9AD4 /* PreferencesWindow.xib in Resources */,
+				688DFABE1CA037510045A9F0 /* classifiers.png in Resources */,
+				680079391C932826009D9AD4 /* media in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,9 +289,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6818F63A1C9B08A60013FAD1 /* ClassifierPickerViewController.m in Sources */,
+				686B4BCA1C9CFE7B007E69C1 /* NSImage+Extensions.m in Sources */,
 				68773BF61A1794610087D532 /* ExpressionViewController.m in Sources */,
+				680079261C90C0C1009D9AD4 /* AffdexMeViewController.m in Sources */,
+				680079371C9325CF009D9AD4 /* PreferencesWindowController.m in Sources */,
 				68DEC4851A178731009FCB2E /* main.m in Sources */,
-				68773BFD1A17B83B0087D532 /* ViewController.m in Sources */,
+				68BA0DED1C987F3100DFB13A /* ClassifierModel.m in Sources */,
 				68DEC4831A178731009FCB2E /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,7 +313,7 @@
 /* Begin PBXTargetDependency section */
 		68DEC4911A178731009FCB2E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 68DEC47B1A178731009FCB2E /* AffdexMeOSX */;
+			target = 68DEC47B1A178731009FCB2E /* AffdexMe */;
 			targetProxy = 68DEC4901A178731009FCB2E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -385,7 +421,7 @@
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tee-boy.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.AffdexMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -404,7 +440,7 @@
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tee-boy.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.AffdexMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -459,7 +495,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		68DEC4991A178731009FCB2E /* Build configuration list for PBXNativeTarget "AffdexMeOSX" */ = {
+		68DEC4991A178731009FCB2E /* Build configuration list for PBXNativeTarget "AffdexMe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				68DEC49A1A178731009FCB2E /* Debug */,
@@ -468,7 +504,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		68DEC49C1A178731009FCB2E /* Build configuration list for PBXNativeTarget "AffdexMeOSXTests" */ = {
+		68DEC49C1A178731009FCB2E /* Build configuration list for PBXNativeTarget "AffdexMeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				68DEC49D1A178731009FCB2E /* Debug */,

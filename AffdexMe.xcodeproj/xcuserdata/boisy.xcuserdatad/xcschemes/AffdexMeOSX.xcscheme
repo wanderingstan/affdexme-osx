@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "68DEC47B1A178731009FCB2E"
-               BuildableName = "AffdexMeOSX.app"
-               BlueprintName = "AffdexMeOSX"
+               BuildableName = "AffdexMe.app"
+               BlueprintName = "AffdexMe"
                ReferencedContainer = "container:AffdexMe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "68DEC47B1A178731009FCB2E"
-            BuildableName = "AffdexMeOSX.app"
-            BlueprintName = "AffdexMeOSX"
+            BuildableName = "AffdexMe.app"
+            BlueprintName = "AffdexMe"
             ReferencedContainer = "container:AffdexMe.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "68DEC47B1A178731009FCB2E"
-            BuildableName = "AffdexMeOSX.app"
-            BlueprintName = "AffdexMeOSX"
+            BuildableName = "AffdexMe.app"
+            BlueprintName = "AffdexMe"
             ReferencedContainer = "container:AffdexMe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "68DEC47B1A178731009FCB2E"
-            BuildableName = "AffdexMeOSX.app"
-            BlueprintName = "AffdexMeOSX"
+            BuildableName = "AffdexMe.app"
+            BlueprintName = "AffdexMe"
             ReferencedContainer = "container:AffdexMe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

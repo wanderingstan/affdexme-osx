@@ -7,12 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ViewController.h"
+#import "AffdexMeViewController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (weak) IBOutlet NSWindow *hudWindow;
-@property (weak) IBOutlet ViewController *vc;
+@property (weak) IBOutlet AffdexMeViewController *vc;
 
 @end
 
