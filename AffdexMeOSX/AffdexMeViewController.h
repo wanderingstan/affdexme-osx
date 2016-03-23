@@ -12,7 +12,7 @@
 #import "ExpressionViewController.h"
 #import <Affdex/Affdex.h>
 
-@interface AffdexMeViewController : NSViewController <AFDXDetectorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface AffdexMeViewController : NSViewController <AFDXDetectorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, NSSharingServicePickerDelegate>
 
 @property (strong) IBOutlet NSImageView *imageView;
 @property (weak) IBOutlet NSImageView *processedImageView;
@@ -31,6 +31,7 @@
 @property (weak) IBOutlet NSView *classifiersView;
 
 @property (assign) BOOL selectedClassifiersDirty;
+@property (assign) IBOutlet NSButton *shareButton;
 
 @property (strong) PreferencesWindowController *preferencesWindowController;
 

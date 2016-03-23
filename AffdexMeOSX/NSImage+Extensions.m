@@ -34,16 +34,16 @@
 
 + (NSImage *)imageFromView:(NSView *)view withSize:(CGSize)size;
 {
-    NSImage *snapshotImage = nil;
+    NSSize mySize = view.bounds.size;
+    NSSize imgSize = NSMakeSize( mySize.width, mySize.height );
     
-#if 0
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-    [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
-    snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-#endif
+    NSBitmapImageRep *bir = [view bitmapImageRepForCachingDisplayInRect:[view bounds]];
+    [bir setSize:imgSize];
+    [view cacheDisplayInRect:[view bounds] toBitmapImageRep:bir];
     
-    return snapshotImage;
+    NSImage* image = [[NSImage alloc]initWithSize:imgSize];
+    [image addRepresentation:bir];
+    return image;
 }
 
 + (NSImage *)imageFromView:(NSView *)view

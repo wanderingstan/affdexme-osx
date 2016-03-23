@@ -184,4 +184,44 @@
     }
 }
 
+- (void)resetDefaultsButtonClicked;
+{
+    NSArray *defaults = @[@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear"];
+    
+    [self.arrayController setSelectionIndexes:[NSIndexSet new]];
+    [[NSUserDefaults standardUserDefaults] setObject:@[] forKey:SelectedClassifiersKey];
+    
+    NSUInteger numberOfItems = [[self.collectionView content] count];
+    for (NSUInteger itemIndex = 0; itemIndex < numberOfItems; itemIndex++)
+    {
+        NSCollectionViewItem *item = [self.collectionView itemAtIndex:itemIndex];
+        ClassifierModel *m = [item representedObject];
+        m.enabled = FALSE;
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:defaults forKey:SelectedClassifiersKey];
+
+    NSMutableIndexSet *set = [NSMutableIndexSet new];
+
+    for (NSString *d in defaults)
+    {
+        ClassifierModel *m = [ClassifierModel modelWithName:d];
+        m.enabled = TRUE;
+        
+        NSUInteger count = [[self.arrayController arrangedObjects] count];
+
+        for (int i = 0; i < count; i++)
+        {
+            ClassifierModel *m = [[self.arrayController arrangedObjects] objectAtIndex:i];
+            
+            if ([m.name isEqualToString:d])
+            {
+                [set addIndex:i];
+            }
+        }
+    }
+
+    [self.arrayController setSelectionIndexes:set];
+}
+
 @end
