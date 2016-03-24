@@ -157,6 +157,28 @@
                         <binding destination="46" name="value" keyPath="values.maxProcessRate" id="c29-CT-R3i"/>
                     </connections>
                 </slider>
+                <button id="2Bq-9d-QoM">
+                    <rect key="frame" x="189" y="98" width="154" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Show Dominant Emoji" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="BnX-Rh-wQA">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="46" name="value" keyPath="values.drawDominantEmoji" id="jxo-xe-b4r"/>
+                    </connections>
+                </button>
+                <button id="5wT-36-Efz">
+                    <rect key="frame" x="189" y="78" width="155" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Show Gender/Glasses" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="MYj-zd-HHb">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="46" name="value" keyPath="values.drawAppearanceIcons" id="1Ky-1C-ye3"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="899" y="453"/>
         </customView>

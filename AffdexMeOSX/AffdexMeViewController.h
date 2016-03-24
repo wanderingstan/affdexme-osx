@@ -12,6 +12,13 @@
 #import "ExpressionViewController.h"
 #import <Affdex/Affdex.h>
 
+static NSString *FacePointsKey = @"drawFacePoints";
+static NSString *FaceBoxKey = @"drawFaceBox";
+static NSString *DrawDominantEmojiKey = @"drawDominantEmoji";
+static NSString *DrawAppearanceIconsKey = @"drawAppearanceIcons";
+static NSString *PointSizeKey = @"pointSize";
+static NSString *ProcessRateKey = @"maxProcessRate";
+
 @interface AffdexMeViewController : NSViewController <AFDXDetectorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, NSSharingServicePickerDelegate>
 
 @property (strong) IBOutlet NSImageView *imageView;
@@ -24,7 +31,7 @@
 @property (strong) AFDXDetector *detector;
 @property (assign) BOOL drawFacePoints;
 @property (assign) BOOL drawAppearanceIcons;
-@property (assign) BOOL drawEmojis;
+@property (assign) BOOL drawDominantEmoji;
 @property (assign) BOOL drawFaceBox;
 @property (assign) CGFloat pointSize;
 @property (strong) NSMutableDictionary *faceMeasurements;

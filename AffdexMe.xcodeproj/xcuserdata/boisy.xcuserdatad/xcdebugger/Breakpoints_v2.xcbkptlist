@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AffdexMeOSX/AffdexMeViewController.m"
-            timestampString = "480390326.603401"
+            timestampString = "480473829.075248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "-unprocessedImageReady:image:atTime:"
             landmarkType = "5">
          </BreakpointContent>

@@ -14,6 +14,36 @@
 
 @end
 
+@implementation CustomLevelIndicator
+
+- (void)drawRect:(NSRect)theRect
+{
+    NSRect fillingRect = theRect;
+    fillingRect.size.width = theRect.size.width * fabs(self.percent) / 100.0;
+    NSColor *indicatorColor;
+    
+    if (self.percent >= 0)
+    {
+        indicatorColor = [NSColor greenColor];
+    }
+    else
+    {
+        indicatorColor = [NSColor redColor];
+    }
+    
+    [indicatorColor set];
+    
+    NSRectFill(fillingRect);
+}
+
+- (void)setPercentage:(CGFloat)inPercent
+{
+    self.percent = inPercent;
+    [self setNeedsDisplay:YES];
+}
+
+@end
+
 @implementation ExpressionViewController
 
 @dynamic metric;
@@ -97,29 +127,17 @@
             bounds.size.width *= (value / 100.0);
         }
         
-        CALayer *viewLayer = [self.indicatorView layer];
+        [self.indicatorView setPercentage:value];
+        
+        self.scoreLabel.stringValue = [NSString stringWithFormat:@"%.0f%%", value];
 
-        if (value < 0.0)
+        if (fabs(value) > 1.0)
         {
-            [viewLayer setBackgroundColor:[[NSColor redColor] CGColor]];
+            self.expressionLabel.textColor = [NSColor blackColor];
         }
         else
         {
-            [viewLayer setBackgroundColor:[[NSColor greenColor] CGColor]];
-        }
-
-        if (animated)
-        {
-//            [NSView beginAnimations:nil context:NULL];
-        }
-
-        [self.indicatorView.layer setBounds:bounds];
-        self.scoreLabel.stringValue = [NSString stringWithFormat:@"%.0f%%", value];
-
-        if (animated)
-        {
-//            [NSView setAnimationDuration:0.25];
-//            [NSView commitAnimations];
+            self.expressionLabel.textColor = [NSColor whiteColor];
         }
     }
 }
