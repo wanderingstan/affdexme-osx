@@ -66,7 +66,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button id="Wyb-Rk-yhX">
-                    <rect key="frame" x="18" y="77" width="131" height="18"/>
+                    <rect key="frame" x="18" y="77" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Draw Face Points" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Jur-is-ucR">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -74,17 +74,6 @@
                     </buttonCell>
                     <connections>
                         <binding destination="46" name="value" keyPath="values.drawFacePoints" id="42o-BW-yyd"/>
-                    </connections>
-                </button>
-                <button id="jMf-en-rjt">
-                    <rect key="frame" x="18" y="57" width="116" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Draw Face Box" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="csf-43-1ye">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="46" name="value" keyPath="values.drawFaceBox" id="nrP-mu-DPf"/>
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="FBU-SL-2kT">
@@ -125,7 +114,7 @@
                     </connections>
                 </slider>
                 <button id="2Bq-9d-QoM">
-                    <rect key="frame" x="18" y="38" width="154" height="18"/>
+                    <rect key="frame" x="18" y="38" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show Dominant Emoji" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="BnX-Rh-wQA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -136,7 +125,7 @@
                     </connections>
                 </button>
                 <button id="5wT-36-Efz">
-                    <rect key="frame" x="18" y="18" width="155" height="18"/>
+                    <rect key="frame" x="18" y="18" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show Gender/Glasses" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="MYj-zd-HHb">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -179,6 +168,17 @@
                         <binding destination="46" name="value" keyPath="values.maxProcessRate" id="c29-CT-R3i"/>
                     </connections>
                 </slider>
+                <button id="jMf-en-rjt">
+                    <rect key="frame" x="18" y="57" width="164" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Draw Face Box" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="csf-43-1ye">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="46" name="value" keyPath="values.drawFaceBox" id="nrP-mu-DPf"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="899" y="442.5"/>
         </customView>
