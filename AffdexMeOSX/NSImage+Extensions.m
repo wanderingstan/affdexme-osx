@@ -51,28 +51,4 @@
     return [NSImage imageFromView:view withSize:view.bounds.size];
 }
 
-- (NSImage *)drawImages:(NSArray *)inputImages inRects:(NSArray *)frames;
-{
-    NSImage *newImage = nil;
-    
-#if 0
-    
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
-    [self drawInRect:CGRectMake(0.0, 0.0, self.size.width, self.size.height)];
-    NSUInteger inputImagesCount = [inputImages count];
-    NSUInteger framesCount = [frames count];
-    if (inputImagesCount == framesCount) {
-        for (int i = 0; i < inputImagesCount; i++) {
-            NSImage *inputImage = [inputImages objectAtIndex:i];
-            CGRect frame = [[frames objectAtIndex:i] CGRectValue];
-            [inputImage drawInRect:frame];
-        }
-    }
-    newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-#endif
-    
-    return newImage;
-}
-
 @end

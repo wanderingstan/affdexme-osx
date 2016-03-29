@@ -28,6 +28,8 @@
 	<string>Copyright © 2016 Affectiva. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<key>ATSApplicationFontsPath</key>
+	<string>media/fonts</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
