@@ -66,6 +66,7 @@
 		680079341C9325CF009D9AD4 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		680079351C9325CF009D9AD4 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		680079381C932826009D9AD4 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
+		684C31C01CAC66B500718B91 /* AffdexMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AffdexMe.entitlements; sourceTree = "<group>"; };
 		686B4BC81C9CFE7B007E69C1 /* NSImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+Extensions.h"; path = "AffdexMeOSX/NSImage+Extensions.h"; sourceTree = "<group>"; };
 		686B4BC91C9CFE7B007E69C1 /* NSImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+Extensions.m"; path = "AffdexMeOSX/NSImage+Extensions.m"; sourceTree = "<group>"; };
 		68773BF31A17936A0087D532 /* ExpressionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionViewController.h; sourceTree = "<group>"; };
@@ -112,6 +113,7 @@
 		68DEC4731A178731009FCB2E = {
 			isa = PBXGroup;
 			children = (
+				684C31C01CAC66B500718B91 /* AffdexMe.entitlements */,
 				688DFABC1CA037510045A9F0 /* classifiers.png */,
 				688DFABD1CA037510045A9F0 /* settings.png */,
 				686B4BC81C9CFE7B007E69C1 /* NSImage+Extensions.h */,
@@ -234,6 +236,12 @@
 				TargetAttributes = {
 					68DEC47B1A178731009FCB2E = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = AG6NAZTNM9;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					68DEC48E1A178731009FCB2E = {
 						CreatedOnToolsVersion = 6.1;
@@ -411,7 +419,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_ENTITLEMENTS = AffdexMe.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -421,8 +429,9 @@
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.AffdexMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.AffdexMeOSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b2b73afd-f54e-4932-94d0-067a0e79faa3";
 			};
 			name = Debug;
 		};
@@ -430,7 +439,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_ENTITLEMENTS = AffdexMe.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -440,8 +449,9 @@
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.AffdexMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.AffdexMeOSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b2b73afd-f54e-4932-94d0-067a0e79faa3";
 			};
 			name = Release;
 		};
