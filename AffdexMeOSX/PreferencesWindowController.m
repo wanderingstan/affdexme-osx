@@ -8,6 +8,7 @@
 
 #import "PreferencesWindowController.h"
 #import "ClassifierModel.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface PreferencesWindowController ()
 
@@ -93,6 +94,19 @@
     [self resizeView:self.containerView inWindow:self.window toAccomodate:self.classifiersView];
     
     [[NSUserDefaults standardUserDefaults] setObject:@"Classifiers" forKey:kLastPreferencesToolbarItemSelected];
+}
+
+- (NSArray *)contentArray;
+{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    
+    NSMutableArray *deviceNames = [NSMutableArray array];
+    for (AVCaptureDevice *device in devices)
+    {
+        [deviceNames addObject:device.uniqueID];
+    }
+    
+    return deviceNames;
 }
 
 @end

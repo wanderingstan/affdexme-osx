@@ -62,11 +62,11 @@
             </connections>
         </arrayController>
         <customView id="11" userLabel="Settings View">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="113"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="157"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button id="Wyb-Rk-yhX">
-                    <rect key="frame" x="18" y="77" width="164" height="18"/>
+                    <rect key="frame" x="18" y="121" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Draw Face Points" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Jur-is-ucR">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -77,7 +77,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="FBU-SL-2kT">
-                    <rect key="frame" x="209" y="73" width="66" height="17"/>
+                    <rect key="frame" x="209" y="117" width="66" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Point Size" id="qur-c3-G6X">
                         <font key="font" metaFont="system"/>
@@ -86,7 +86,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="stT-yI-TlW">
-                    <rect key="frame" x="401" y="71" width="59" height="22"/>
+                    <rect key="frame" x="401" y="115" width="59" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1il-oz-yiD">
                         <font key="font" metaFont="system"/>
@@ -102,7 +102,7 @@
                     </connections>
                 </textField>
                 <slider verticalHuggingPriority="750" id="5fU-5x-wq6">
-                    <rect key="frame" x="304" y="66" width="91" height="25"/>
+                    <rect key="frame" x="304" y="110" width="91" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="10" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="E89-Wu-dg1"/>
                     <connections>
@@ -114,7 +114,7 @@
                     </connections>
                 </slider>
                 <button id="2Bq-9d-QoM">
-                    <rect key="frame" x="18" y="38" width="164" height="18"/>
+                    <rect key="frame" x="18" y="82" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show Dominant Emoji" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="BnX-Rh-wQA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -125,7 +125,7 @@
                     </connections>
                 </button>
                 <button id="5wT-36-Efz">
-                    <rect key="frame" x="18" y="18" width="164" height="18"/>
+                    <rect key="frame" x="18" y="62" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show Gender/Glasses" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="MYj-zd-HHb">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -136,7 +136,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="8xP-yL-7II">
-                    <rect key="frame" x="209" y="25" width="86" height="17"/>
+                    <rect key="frame" x="209" y="69" width="86" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Process Rate" id="sSm-gG-aVc">
                         <font key="font" metaFont="system"/>
@@ -145,7 +145,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="85j-S7-gos">
-                    <rect key="frame" x="401" y="23" width="59" height="22"/>
+                    <rect key="frame" x="401" y="67" width="59" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="FGo-qS-LWA">
                         <font key="font" metaFont="system"/>
@@ -161,7 +161,7 @@
                     </connections>
                 </textField>
                 <slider verticalHuggingPriority="750" id="KEH-fE-Tro">
-                    <rect key="frame" x="304" y="18" width="91" height="25"/>
+                    <rect key="frame" x="304" y="62" width="91" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="2" maxValue="24" doubleValue="2" tickMarkPosition="above" numberOfTickMarks="12" allowsTickMarkValuesOnly="YES" sliderType="linear" id="XGX-9I-S6j"/>
                     <connections>
@@ -169,7 +169,7 @@
                     </connections>
                 </slider>
                 <button id="jMf-en-rjt">
-                    <rect key="frame" x="18" y="57" width="164" height="18"/>
+                    <rect key="frame" x="18" y="101" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Draw Face Box" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="csf-43-1ye">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -179,8 +179,36 @@
                         <binding destination="46" name="value" keyPath="values.drawFaceBox" id="nrP-mu-DPf"/>
                     </connections>
                 </button>
+                <popUpButton verticalHuggingPriority="750" id="7S5-wB-0Iu">
+                    <rect key="frame" x="81" y="14" width="195" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="muE-yJ-F2o" id="U7j-du-0CQ">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="muc-d9-SdA">
+                            <items>
+                                <menuItem title="Item 1" state="on" id="muE-yJ-F2o"/>
+                                <menuItem title="Item 2" id="8f6-sy-SkY"/>
+                                <menuItem title="Item 3" id="bzz-sK-UCC"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="-2" name="content" keyPath="self.contentArray" id="OQV-dI-RYD"/>
+                        <binding destination="46" name="selectedObject" keyPath="values.selectedInputDevice" previousBinding="OQV-dI-RYD" id="Cdi-IU-U70"/>
+                    </connections>
+                </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Nuc-0y-FaE">
+                    <rect key="frame" x="18" y="20" width="64" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Camera:" id="SXn-c4-QbG">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
-            <point key="canvasLocation" x="899" y="442.5"/>
+            <point key="canvasLocation" x="899" y="464.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="46"/>
         <customView id="XT1-GH-gbj" userLabel="Classifiers View">

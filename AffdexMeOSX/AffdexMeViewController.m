@@ -10,10 +10,11 @@
 #error Please set the macro YOUR_AFFDEX_LICENSE_STRING_GOES_HERE to the contents of your Affectiva SDK license file.
 #endif
 
-// If this is being compiled for the iOS simulator, a demo mode is used since the camera isn't supported.
 #import "AffdexMeViewController.h"
 #import "ClassifierModel.h"
 #import "NSImage+Extensions.h"
+
+//#define VIDEO_TEST
 
 @interface AffdexMeViewController ()
 
@@ -55,6 +56,13 @@
 
 #pragma mark -
 #pragma mark AFDXDetectorDelegate Methods
+
+#ifdef VIDEO_TEST
+- (void)detectorDidFinishProcessing:(AFDXDetector *)detector;
+{
+    [self stopDetector];
+}
+#endif
 
 - (void)processedImageReady:(AFDXDetector *)detector
                       image:(NSImage *)image
@@ -289,6 +297,13 @@
 
     });
     
+#ifdef VIDEO_TEST
+    static NSTimeInterval last = 0;
+    const CGFloat timeConstant = 0.0000001;
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(time - last) * timeConstant]];
+    last = time;
+#endif
+    
     // compute frames per second and show
     NSDate *now = [NSDate date];
     
@@ -476,6 +491,14 @@
 {
     [super viewDidAppear];
     [self becomeFirstResponder];
+#ifdef VIDEO_TEST
+    self.mediaFilename = [[NSBundle mainBundle] pathForResource:@"face1" ofType:@"mov"];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:self.mediaFilename] == YES)
+    {
+        [self startDetector];
+    }
+#endif
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
@@ -543,7 +566,21 @@
     NSUInteger maximumFaces = 10;
 
     // create our detector with our desired facial expresions, using the front facing camera
-    self.detector = [[AFDXDetector alloc] initWithDelegate:self usingCamera:self.cameraToUse maximumFaces:maximumFaces];
+    
+    NSString *uniqueDeviceId = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedInputDevice"];
+    AVCaptureDevice *device = [AVCaptureDevice deviceWithUniqueID:uniqueDeviceId];
+    if (nil == device)
+    {
+        device = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+    }
+    
+#ifdef VIDEO_TEST
+    // create our detector with our desired facial expresions, using the front facing camera
+    self.detector = [[AFDXDetector alloc] initWithDelegate:self usingFile:self.mediaFilename maximumFaces:maximumFaces];
+#else
+    // create our detector with our desired facial expresions, using the front facing camera
+    self.detector = [[AFDXDetector alloc] initWithDelegate:self usingCaptureDevice:device maximumFaces:maximumFaces];
+#endif
     
     // add ourself as an observer of various settings
     [[NSUserDefaults standardUserDefaults] addObserver:self
