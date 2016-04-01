@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:MeasureUpOSX.xcodeproj">
+      location = "self:/Users/boisy/Scratch/affdexme-osx-exp/AffdexMe.xcodeproj">
    </FileRef>
 </Workspace>
