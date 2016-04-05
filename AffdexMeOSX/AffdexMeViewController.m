@@ -147,6 +147,8 @@
     __block AffdexMeViewController *weakSelf = self;
     __block NSImage *newImage = image;
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.fps.hidden = !weakSelf.drawFrameRate;
+        
         for (AFDXFace *face in self.faces) {
             NSRect faceBounds = face.faceBounds;
             //faceBounds.origin.y = self.view.bounds.size.height - faceBounds.origin.y;
@@ -194,7 +196,7 @@
                                 size.height = size.width * aspectRatio;
                                 
                                 CGRect rect = CGRectMake(faceBounds.origin.x + faceBounds.size.width,
-                                                         image.size.height - (faceBounds.origin.y) - (size.height / 2),
+                                                         image.size.height - (faceBounds.origin.y) - (size.height),
                                                          size.width,
                                                          size.height);
                                 [imagesArray addObject:emojiImage];
@@ -216,7 +218,7 @@
                     size.height = size.width * aspectRatio;
                     
                     CGRect rect = CGRectMake(faceBounds.origin.x + faceBounds.size.width,
-                                             image.size.height - (faceBounds.origin.y) - (faceBounds.size.height) - (size.height / 2),
+                                             image.size.height - (faceBounds.origin.y) - (faceBounds.size.height),
                                              size.width,
                                              size.height);
                     [imagesArray addObject:genderImage];
@@ -389,6 +391,7 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{PointSizeKey : [NSNumber numberWithFloat:2.0]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawDominantEmojiKey : [NSNumber numberWithBool:YES]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawAppearanceIconsKey : [NSNumber numberWithBool:YES]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawFrameRateKey : [NSNumber numberWithBool:NO]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{ProcessRateKey : [NSNumber numberWithFloat:10.0]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{SelectedClassifiersKey : [NSMutableArray arrayWithObjects:@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear", nil]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{MaxClassifiersShownKey : [NSNumber numberWithInteger:6]}];
@@ -449,6 +452,10 @@
 
 - (void)viewWillDisappear;
 {
+    // remove ourself as an observer
+    [[NSUserDefaults standardUserDefaults] removeObserver:self
+                                            forKeyPath:SelectedCameraKey];
+    
     [self stopDetector];
     
     [self resignFirstResponder];
@@ -477,14 +484,11 @@
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:m.enabled] forKey:m.name];
     }
 
-    NSError *error = [self startDetector];
-    if (nil != error)
-    {
-        NSAlert *alert = [NSAlert alertWithError:error];
-        [alert runModal];
-        
-        [NSApp terminate:self];
-    }
+    // add ourself as an observer of various settings
+    [[NSUserDefaults standardUserDefaults] addObserver:self
+                                            forKeyPath:SelectedCameraKey
+                                               options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                               context:(__bridge void *)SelectedCameraKey];
 }
 
 - (void)viewDidAppear;
@@ -503,6 +507,21 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
+    if (context == (__bridge void *)SelectedCameraKey)
+    {
+        [self stopDetector];
+        NSError *error = [self startDetector];
+        if (nil != error)
+        {
+            NSAlert *alert = [NSAlert alertWithError:error];
+            [alert runModal];
+            
+            [NSApp terminate:self];
+        }
+        
+        return;
+    }
+
     id v = [change objectForKey:NSKeyValueChangeNewKey];
     
     if ([v isKindOfClass:[NSNull class]])
@@ -538,6 +557,13 @@
         self.drawAppearanceIcons = value;
     }
     else
+    if (context == (__bridge void *)DrawFrameRateKey)
+    {
+        BOOL value = [v boolValue];
+        
+        self.drawFrameRate = value;
+    }
+    else
     if (context == (__bridge void *)PointSizeKey)
     {
         CGFloat value = [v floatValue];
@@ -567,8 +593,18 @@
 
     // create our detector with our desired facial expresions, using the front facing camera
     
-    NSString *uniqueDeviceId = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedInputDevice"];
-    AVCaptureDevice *device = [AVCaptureDevice deviceWithUniqueID:uniqueDeviceId];
+    NSString *localizedName = [[NSUserDefaults standardUserDefaults] objectForKey:SelectedCameraKey];
+    
+    AVCaptureDevice *device = nil;
+    
+    for (device in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo])
+    {
+        if ([[device localizedName] isEqualToString:localizedName])
+        {
+            break;
+        }
+    }
+    
     if (nil == device)
     {
         device = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
@@ -612,6 +648,11 @@
                                             forKeyPath:DrawAppearanceIconsKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                                context:(__bridge void *)DrawAppearanceIconsKey];
+    
+    [[NSUserDefaults standardUserDefaults] addObserver:self
+                                            forKeyPath:DrawFrameRateKey
+                                               options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                               context:(__bridge void *)DrawFrameRateKey];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:SelectedClassifiersKey
@@ -659,15 +700,19 @@
 {
     NSError *result = nil;
     
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawAppearanceIconsKey];
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawDominantEmojiKey];
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:SelectedClassifiersKey];
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:FacePointsKey];
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:FaceBoxKey];
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:PointSizeKey];
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:ProcessRateKey];
-    
-    result = [self.detector stop];
+    if (self.detector != nil)
+    {
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawFrameRateKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawAppearanceIconsKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawDominantEmojiKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:SelectedClassifiersKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:FacePointsKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:FaceBoxKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:PointSizeKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:ProcessRateKey];
+        
+        result = [self.detector stop];
+    }
     
     return result;
 }

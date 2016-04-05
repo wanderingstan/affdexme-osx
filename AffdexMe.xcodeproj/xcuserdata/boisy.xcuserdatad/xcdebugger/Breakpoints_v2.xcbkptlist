@@ -70,16 +70,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AffdexMeOSX/AffdexMeViewController.m"
-            timestampString = "481227398.398813"
+            timestampString = "481560800.20428"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "573"
-            endingLineNumber = "573"
-            landmarkName = "-startDetector"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "-unprocessedImageReady:image:atTime:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

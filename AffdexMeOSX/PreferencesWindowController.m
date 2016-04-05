@@ -103,7 +103,8 @@
     NSMutableArray *deviceNames = [NSMutableArray array];
     for (AVCaptureDevice *device in devices)
     {
-        [deviceNames addObject:device.uniqueID];
+        NSDictionary *d = @{@"name" : device.localizedName, @"id" : device.uniqueID};
+        [deviceNames addObject:d];
     }
     
     return deviceNames;
