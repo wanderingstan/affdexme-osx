@@ -69,6 +69,7 @@
                       faces:(NSDictionary *)faces
                      atTime:(NSTimeInterval)time;
 {
+    
     self.faces = [faces allValues];
     
     NSDate *now = [NSDate date];
@@ -101,7 +102,7 @@
 
         // get dominant emoji
         [face.userInfo setObject:[NSNumber numberWithInt:face.emojis.dominantEmoji] forKey:@"dominantEmoji"];
-
+        
         // check if selectedClassifiers is dirty -- if so, update classifier models associated with expression view controllers
         if (self.selectedClassifiersDirty == YES)
         {

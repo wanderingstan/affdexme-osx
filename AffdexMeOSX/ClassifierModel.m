@@ -357,7 +357,7 @@ static CGFloat emojiFontSize = 80.0;
         flushed.emojiCode = [NSNumber numberWithInt:AFDX_EMOJI_FLUSHED];
     }
 
-    if (flushed == nil)
+    if (disappointed == nil)
     {
         disappointed = [[ClassifierModel alloc] init];
         disappointed.name = @"disapointed";
