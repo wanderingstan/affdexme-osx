@@ -107,7 +107,7 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="AffdexMe" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="AffdexMe" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="AffdexMe" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" frameAutosaveName="AffdexMe" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="480" height="360"/>

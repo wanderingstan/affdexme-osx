@@ -16,7 +16,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Preferences" animationBehavior="default" id="1">
+        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Preferences" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -200,27 +200,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" id="7S5-wB-0Iu">
-                    <rect key="frame" x="81" y="12" width="195" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="U7j-du-0CQ">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="muc-d9-SdA">
-                            <items>
-                                <menuItem title="Item 1" id="muE-yJ-F2o"/>
-                                <menuItem title="Item 2" id="8f6-sy-SkY"/>
-                                <menuItem title="Item 3" id="bzz-sK-UCC"/>
-                            </items>
-                        </menu>
-                        <connections>
-                            <binding destination="gt6-LK-FRz" name="selectedObject" keyPath="selection.name" id="ddu-8a-3Oq"/>
-                        </connections>
-                    </popUpButtonCell>
-                    <connections>
-                        <binding destination="-2" name="contentValues" keyPath="self.deviceArray" id="ST0-mX-A2Y"/>
-                    </connections>
-                </popUpButton>
                 <slider verticalHuggingPriority="750" id="KEH-fE-Tro">
                     <rect key="frame" x="304" y="62" width="91" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -229,6 +208,25 @@
                         <binding destination="46" name="value" keyPath="values.maxProcessRate" id="c29-CT-R3i"/>
                     </connections>
                 </slider>
+                <popUpButton verticalHuggingPriority="750" id="21e-8S-7lo">
+                    <rect key="frame" x="86" y="12" width="225" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="GOx-FL-XXI" id="b2b-1C-W6G">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="va9-Xh-QGe">
+                            <items>
+                                <menuItem title="Item 1" state="on" id="GOx-FL-XXI"/>
+                                <menuItem title="Item 2" id="fq5-JJ-gRc"/>
+                                <menuItem title="Item 3" id="Q4S-Sf-ErC"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="-2" name="contentValues" keyPath="self.deviceArray" id="hs8-Vq-M6u"/>
+                        <binding destination="46" name="selectedValue" keyPath="values.selectedCamera" previousBinding="hs8-Vq-M6u" id="HID-W8-Smb"/>
+                    </connections>
+                </popUpButton>
             </subviews>
             <point key="canvasLocation" x="899" y="464.5"/>
         </customView>

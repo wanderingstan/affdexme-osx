@@ -38,7 +38,7 @@
                 // is about to select maxClassifiers+1
                 return;
             }
-            
+
             NSMutableArray *selectedClassifiers = [[[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey] mutableCopy];
 
             m.enabled = !m.enabled;
@@ -67,9 +67,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.view.layer = [CALayer new];
-    self.view.wantsLayer = YES;
 }
 
 - (void)viewDidAppear
@@ -80,8 +77,11 @@
 
 - (void)updateBackgroundColorForSelectionState:(BOOL)flag
 {
-    self.view.layer = [CALayer new];
-    self.view.wantsLayer = YES;
+    if (self.view.layer == nil)
+    {
+        self.view.layer = [CALayer new];
+        self.view.wantsLayer = YES;
+    }
 
     if (flag)
     {
@@ -171,7 +171,7 @@
                                             forKeyPath:SelectedClassifiersKey
                                                 options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
                                                 context:(void *)SelectedClassifiersKey];
-    
+
     for (NSString *classifierName in [[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey])
     {
         NSUInteger numberOfItems = [[self.collectionView content] count];

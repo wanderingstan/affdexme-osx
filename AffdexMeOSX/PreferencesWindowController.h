@@ -27,5 +27,6 @@ static NSString *MaxClassifiersShownKey = @"maxClassifiersShown";
 @property (strong) NSIndexSet *selectedIndexes;
 @property (strong) IBOutlet NSTextField *selectionMessageTextField;
 @property (strong) IBOutlet ClassifierPickerViewController *classifierPickerViewController;
+@property (strong) NSString *selectedCameraDevice;
 
 @end

@@ -105,6 +105,8 @@
     {
         [deviceNames addObject:device.localizedName];
     }
+    
+    NSLog(@"Device Names: %@", deviceNames);
 
     return deviceNames;
 }
