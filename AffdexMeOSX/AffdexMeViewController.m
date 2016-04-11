@@ -6,6 +6,9 @@
 //
 //  See the file license.txt for copying permission.
 
+#define YOUR_AFFDEX_LICENSE_STRING_GOES_HERE @"{\"token\": \"b898714e3fcc4d2ea6009e8b809932510b5a47b0b54fcaad6a8fd465e32452d8\", \"licensor\": \"Affectiva Inc.\", \"expires\": \"2026-01-28\", \"developerId\": \"iosdev@affectiva.com\", \"software\": \"Affdex SDK\"}"
+
+
 #ifndef YOUR_AFFDEX_LICENSE_STRING_GOES_HERE
 #error Please set the macro YOUR_AFFDEX_LICENSE_STRING_GOES_HERE to the contents of your Affectiva SDK license file.
 #endif
@@ -18,8 +21,8 @@
 
 @interface AffdexMeViewController ()
 
-@property (strong) NSDate *dateOfLastFrame;
-@property (strong) NSDate *dateOfLastProcessedFrame;
+@property (assign) NSTimeInterval timestampOfLastFrame;
+@property (assign) NSTimeInterval timestampOfLastProcessedFrame;
 @property (strong) NSDictionary *entries;
 @property (strong) NSEnumerator *entryEnumerator;
 @property (strong) NSDictionary *jsonEntry;
@@ -72,20 +75,15 @@
     
     self.faces = [faces allValues];
     
-    NSDate *now = [NSDate date];
+    NSTimeInterval interval = time - self.timestampOfLastProcessedFrame;
     
-    if (nil != self.dateOfLastProcessedFrame)
+    if (interval > 0)
     {
-        NSTimeInterval interval = [now timeIntervalSinceDate:self.dateOfLastProcessedFrame];
-        
-        if (interval > 0)
-        {
-            float fps = 1.0 / interval;
-            self.fpsProcessed.stringValue = [NSString stringWithFormat:@"FPS(P): %.1f", fps];
-        }
+        float fps = 1.0 / interval;
+        self.fpsProcessed.stringValue = [NSString stringWithFormat:@"FPS(P): %.1f", fps];
     }
     
-    self.dateOfLastProcessedFrame = now;
+    self.timestampOfLastProcessedFrame = time;
     
     // setup arrays of points and rects
     self.facePointsToDraw = [NSMutableArray new];
@@ -298,6 +296,19 @@
             [weakSelf.imageView setImage:newImage];
         }
 
+        // compute frames per second and show
+        NSTimeInterval interval = time - weakSelf.timestampOfLastFrame;
+        
+        if (interval > 0)
+        {
+            float fps = 1.0 / interval;
+            if (time )
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.fps.stringValue = [NSString stringWithFormat:@"FPS(C): %.1f", fps];
+                });
+        }
+
+        weakSelf.timestampOfLastFrame = time;
     });
     
 #ifdef VIDEO_TEST
@@ -307,23 +318,6 @@
     last = time;
 #endif
     
-    // compute frames per second and show
-    NSDate *now = [NSDate date];
-    
-    if (nil != weakSelf.dateOfLastFrame)
-    {
-        NSTimeInterval interval = [now timeIntervalSinceDate:weakSelf.dateOfLastFrame];
-        
-        if (interval > 0)
-        {
-            float fps = 1.0 / interval;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.fps.stringValue = [NSString stringWithFormat:@"FPS(C): %.1f", fps];
-            });
-        }
-    }
-    
-    weakSelf.dateOfLastFrame = now;
 }
 
 - (void)detector:(AFDXDetector *)detector hasResults:(NSMutableDictionary *)faces forImage:(NSImage *)image atTime:(NSTimeInterval)time;
@@ -387,6 +381,11 @@
 
 + (void)initialize;
 {
+    AVCaptureDevice *firstDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+    if (nil != firstDevice)
+    {
+        [[NSUserDefaults standardUserDefaults] registerDefaults:@{SelectedCameraKey : [firstDevice localizedName]}];
+    }
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{FacePointsKey : [NSNumber numberWithBool:YES]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{FaceBoxKey : [NSNumber numberWithBool:YES]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{PointSizeKey : [NSNumber numberWithFloat:2.0]}];
@@ -510,6 +509,7 @@
 {
     if (context == (__bridge void *)SelectedCameraKey)
     {
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [self stopDetector];
         NSError *error = [self startDetector];
         if (nil != error)
@@ -677,8 +677,8 @@
     }
     
     self.detector.maxProcessRate = maxProcessRate;
-    self.dateOfLastFrame = nil;
-    self.dateOfLastProcessedFrame = nil;
+    self.timestampOfLastFrame = 0;
+    self.timestampOfLastProcessedFrame = 0;
     self.detector.licenseString = YOUR_AFFDEX_LICENSE_STRING_GOES_HERE;
     
     // tell the detector which facial expressions we want to measure

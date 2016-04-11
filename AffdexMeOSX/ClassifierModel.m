@@ -22,6 +22,7 @@ static ClassifierModel *laughing, *smiley, *relaxed, *wink, *kiss, *tongueWink, 
 
 static CGFloat emojiFontSize = 80.0;
 
+#if 0
 - (id)initWithCoder:(NSCoder *)aDecoder;
 {
     if (self = [super init])
@@ -44,6 +45,7 @@ static CGFloat emojiFontSize = 80.0;
     [aCoder encodeObject:self.image forKey:@"image"];
     [aCoder encodeObject:self.emojiCode forKey:@"emojiCode"];
 }
+#endif
 
 + (void)initialize;
 {
@@ -332,7 +334,7 @@ static CGFloat emojiFontSize = 80.0;
         tongueWink = [[ClassifierModel alloc] init];
         tongueWink.name = @"tongueWink";
         tongueWink.title = @"Tongue Wink";
-        tongueWink.image = [NSImage imageFromText:@"😗" size:emojiFontSize];
+        tongueWink.image = [NSImage imageFromText:@"😜" size:emojiFontSize];
         tongueWink.scoreProperty = @"emojis.stuckOutTongueWinkingEye";
         tongueWink.emojiCode = [NSNumber numberWithInt:AFDX_EMOJI_STUCK_OUT_TONGUE_WINKING_EYE];
     }
@@ -426,25 +428,19 @@ static CGFloat emojiFontSize = 80.0;
     return result;
 }
 
-+ (NSMutableArray *)emotions;
++ (NSArray *)emotions;
 {
-    NSMutableArray *result = [NSMutableArray arrayWithObjects:anger, contempt, disgust, engagement, fear, joy, sadness, surprise, valence, nil];
-
-    return result;
+    return [NSArray arrayWithObjects:anger, contempt, disgust, engagement, fear, joy, sadness, surprise, valence, nil];
 }
 
-+ (NSMutableArray *)expressions;
++ (NSArray *)expressions;
 {
-    NSMutableArray *result = [NSMutableArray arrayWithObjects:attention, browFurrow, browRaise, eyeClosure, innerBrowRaise, frown, lipPress, lipPucker, lipSuck, mouthOpen, noseWrinkle, smile, smirk, upperLipRaise, nil];
-    
-    return result;
+    return [NSArray arrayWithObjects:attention, browFurrow, browRaise, eyeClosure, innerBrowRaise, frown, lipPress, lipPucker, lipSuck, mouthOpen, noseWrinkle, smile, smirk, upperLipRaise, nil];
 }
 
-+ (NSMutableArray *)emojis;
++ (NSArray *)emojis;
 {
-    NSMutableArray *result = [NSMutableArray arrayWithObjects:laughing, smiley, relaxed, wink, kiss, tongueWink, tongueOut, flushed, disappointed, rage, scream, emojiSmirk, nil];
-    
-    return result;
+    return [NSArray arrayWithObjects:laughing, smiley, relaxed, wink, kiss, tongueWink, tongueOut, flushed, disappointed, rage, scream, emojiSmirk, nil];
 }
 
 @end

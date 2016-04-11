@@ -16,6 +16,5 @@
 @property (strong) NSMutableArray *selectedClassifiers;
 @property (weak) IBOutlet NSTextField *instructionLabel;
 @property (weak) IBOutlet NSArrayController *arrayController;
-@property (strong) NSMutableArray *classifierArray;
 
 @end

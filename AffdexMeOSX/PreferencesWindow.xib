@@ -51,14 +51,15 @@
                     <toolbarItem reference="9"/>
                 </defaultToolbarItems>
             </toolbar>
+            <point key="canvasLocation" x="191" y="222"/>
         </window>
-        <arrayController objectClassName="ClassifierModel" avoidsEmptySelection="NO" id="gt6-LK-FRz">
+        <arrayController objectClassName="ClassifierModel" avoidsEmptySelection="NO" id="gt6-LK-FRz" userLabel="Classifier Array Controller">
             <declaredKeys>
                 <string>name</string>
                 <string>image</string>
             </declaredKeys>
             <connections>
-                <binding destination="r1C-4L-j4L" name="contentArray" keyPath="self.classifierArray" id="p2g-Dq-bgL"/>
+                <binding destination="r1C-4L-j4L" name="contentArray" keyPath="self.classifierArray" id="uM8-yr-4wm"/>
             </connections>
         </arrayController>
         <customView id="11" userLabel="Settings View">
@@ -202,12 +203,12 @@
                 <popUpButton verticalHuggingPriority="750" id="7S5-wB-0Iu">
                     <rect key="frame" x="81" y="12" width="195" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="muE-yJ-F2o" id="U7j-du-0CQ">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="U7j-du-0CQ">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="muc-d9-SdA">
                             <items>
-                                <menuItem title="Item 1" state="on" id="muE-yJ-F2o"/>
+                                <menuItem title="Item 1" id="muE-yJ-F2o"/>
                                 <menuItem title="Item 2" id="8f6-sy-SkY"/>
                                 <menuItem title="Item 3" id="bzz-sK-UCC"/>
                             </items>
@@ -217,9 +218,7 @@
                         </connections>
                     </popUpButtonCell>
                     <connections>
-                        <binding destination="-2" name="content" keyPath="self.contentArray" id="lJc-h1-NAd"/>
-                        <binding destination="-2" name="contentValues" keyPath="self.contentArray.name" previousBinding="lJc-h1-NAd" id="JeJ-fE-VAt"/>
-                        <binding destination="46" name="selectedValue" keyPath="values.selectedCamera" previousBinding="JeJ-fE-VAt" id="VZa-dI-sxq"/>
+                        <binding destination="-2" name="contentValues" keyPath="self.deviceArray" id="ST0-mX-A2Y"/>
                     </connections>
                 </popUpButton>
                 <slider verticalHuggingPriority="750" id="KEH-fE-Tro">
@@ -235,42 +234,27 @@
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="46"/>
         <customView id="XT1-GH-gbj" userLabel="Classifiers View">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="449"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="574"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ZVz-h1-csF">
-                    <rect key="frame" x="18" y="398" width="444" height="31"/>
+                    <rect key="frame" x="18" y="523" width="444" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select up to 6 classifiers." id="uu9-WK-c9K">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Select up to 6 classifiers." id="uu9-WK-c9K">
                         <font key="font" metaFont="system" size="18"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" id="rXk-2f-xLT">
-                    <rect key="frame" x="375" y="13" width="91" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="push" title="Clear All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5uM-hz-eLd">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="r1C-4L-j4L" name="target" keyPath="self" id="i23-hx-22l">
-                            <dictionary key="options">
-                                <string key="NSSelectorName">clearAllButtonClicked</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </button>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="kdC-rX-SJN">
-                    <rect key="frame" x="20" y="61" width="440" height="329"/>
+                    <rect key="frame" x="20" y="61" width="440" height="462"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" id="4JO-CW-eY6">
-                        <rect key="frame" x="1" y="1" width="438" height="327"/>
+                        <rect key="frame" x="1" y="1" width="438" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView selectable="YES" allowsMultipleSelection="YES" id="Hmk-ef-0BP" customClass="MyCollectionView">
-                                <rect key="frame" x="0.0" y="0.0" width="438" height="327"/>
+                                <rect key="frame" x="0.0" y="0.0" width="438" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
@@ -305,27 +289,42 @@
                         </binding>
                     </connections>
                 </button>
+                <button verticalHuggingPriority="750" id="rXk-2f-xLT">
+                    <rect key="frame" x="375" y="13" width="91" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Clear All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5uM-hz-eLd">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="r1C-4L-j4L" name="target" keyPath="self" id="i23-hx-22l">
+                            <dictionary key="options">
+                                <string key="NSSelectorName">clearAllButtonClicked</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="329" y="707.5"/>
+            <point key="canvasLocation" x="329" y="770"/>
         </customView>
         <view id="qh7-Bd-gT4">
-            <rect key="frame" x="0.0" y="0.0" width="141" height="119"/>
+            <rect key="frame" x="0.0" y="0.0" width="141" height="153"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ugN-O6-98p">
-                    <rect key="frame" x="-2" y="5" width="145" height="25"/>
+                    <rect key="frame" x="0.0" y="132" width="145" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="Eko-qW-l7G">
-                        <font key="font" metaFont="systemHeavy" size="16"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" drawsBackground="YES" id="Eko-qW-l7G">
+                        <font key="font" metaFont="system" size="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </textFieldCell>
                     <connections>
                         <binding destination="Kvx-dj-T1N" name="value" keyPath="representedObject.title" id="LuO-ll-OMC"/>
                     </connections>
                 </textField>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Vwo-7d-sK3">
-                    <rect key="frame" x="27" y="29" width="86" height="86"/>
+                    <rect key="frame" x="10" y="5" width="120" height="120"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="0zg-4J-P14"/>
                     <connections>
@@ -333,7 +332,7 @@
                     </connections>
                 </imageView>
             </subviews>
-            <point key="canvasLocation" x="92.5" y="-142.5"/>
+            <point key="canvasLocation" x="92.5" y="-125.5"/>
         </view>
         <collectionViewItem id="Kvx-dj-T1N" customClass="ClassifierViewItem">
             <connections>

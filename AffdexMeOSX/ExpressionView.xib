@@ -14,15 +14,15 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="140" height="23"/>
+            <rect key="frame" x="0.0" y="0.0" width="180" height="23"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7W0-F5-hY9" customClass="CustomLevelIndicator">
-                    <rect key="frame" x="0.0" y="7" width="140" height="16"/>
+                    <rect key="frame" x="0.0" y="7" width="180" height="16"/>
                     <levelIndicatorCell key="cell" alignment="left" doubleValue="2" maxValue="100" warningValue="2" criticalValue="2" levelIndicatorStyle="continuousCapacity" id="Q2q-cV-vv3"/>
                 </levelIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ASt-zj-chc">
-                    <rect key="frame" x="0.0" y="2" width="144" height="23"/>
+                    <rect key="frame" x="0.0" y="2" width="184" height="23"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="1Z5-08-x5u">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

@@ -96,17 +96,16 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"Classifiers" forKey:kLastPreferencesToolbarItemSelected];
 }
 
-- (NSArray *)contentArray;
+- (NSArray *)deviceArray;
 {
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     
     NSMutableArray *deviceNames = [NSMutableArray array];
     for (AVCaptureDevice *device in devices)
     {
-        NSDictionary *d = @{@"name" : device.localizedName, @"id" : device.uniqueID};
-        [deviceNames addObject:d];
+        [deviceNames addObject:device.localizedName];
     }
-    
+
     return deviceNames;
 }
 

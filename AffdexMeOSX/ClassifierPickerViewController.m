@@ -68,6 +68,7 @@
 {
     [super viewDidLoad];
     
+    self.view.layer = [CALayer new];
     self.view.wantsLayer = YES;
 }
 
@@ -79,6 +80,9 @@
 
 - (void)updateBackgroundColorForSelectionState:(BOOL)flag
 {
+    self.view.layer = [CALayer new];
+    self.view.wantsLayer = YES;
+
     if (flag)
     {
         self.view.layer.backgroundColor = [[NSColor greenColor] CGColor];
@@ -136,13 +140,27 @@
     }
 }
 
+- (void)viewWillDisappear;
+{
+    [super viewWillDisappear];
+    [self.arrayController removeObserver:self
+                              forKeyPath:@"selectionIndexes"];
+    
+    [[NSUserDefaults standardUserDefaults] removeObserver:self
+                                               forKeyPath:SelectedClassifiersKey];
+}
+
+- (NSArray *)classifierArray;
+{
+    NSArray *emotions = [ClassifierModel emotions];
+    NSArray *expressions = [ClassifierModel expressions];
+    return [emotions arrayByAddingObjectsFromArray:expressions];
+}
+
 - (void)viewWillAppear;
 {
-    NSMutableArray *array = [NSMutableArray array];
-    [array addObjectsFromArray:[ClassifierModel emotions]];
-    [array addObjectsFromArray:[ClassifierModel expressions]];
-    [self setClassifierArray:array];
-    
+    [super viewWillAppear];
+
     [self.arrayController addObserver:self
                            forKeyPath:@"selectionIndexes"
                               options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
@@ -161,7 +179,8 @@
         {
             NSCollectionViewItem *item = [self.collectionView itemAtIndex:itemIndex];
             ClassifierModel *m = [item representedObject];
-            if ([m.name isEqualToString:classifierName] == YES)
+            if ([[m valueForKey:@"name"] isEqualToString:classifierName] == YES)
+//            if ([m.name isEqualToString:classifierName] == YES)
             {
                 m.enabled = TRUE;
                 item.selected = TRUE;
@@ -190,7 +209,7 @@
     
     [self.arrayController setSelectionIndexes:[NSIndexSet new]];
     [[NSUserDefaults standardUserDefaults] setObject:@[] forKey:SelectedClassifiersKey];
-    
+
     NSUInteger numberOfItems = [[self.collectionView content] count];
     for (NSUInteger itemIndex = 0; itemIndex < numberOfItems; itemIndex++)
     {
