@@ -613,6 +613,7 @@
     if (nil == device)
     {
         device = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+        [[NSUserDefaults standardUserDefaults] setObject:device.localizedName forKey:SelectedCameraKey];
     }
     
 #ifdef VIDEO_TEST
@@ -677,7 +678,7 @@
     NSInteger maxProcessRate = [[[NSUserDefaults standardUserDefaults] objectForKey:@"maxProcessRate"] integerValue];
     if (0 == maxProcessRate)
     {
-        maxProcessRate = 10;
+        maxProcessRate = 15;
     }
     
     self.detector.maxProcessRate = maxProcessRate;
