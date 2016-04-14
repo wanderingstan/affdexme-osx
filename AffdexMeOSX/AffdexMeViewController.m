@@ -145,7 +145,9 @@
 {
     __block AffdexMeViewController *weakSelf = self;
     __block NSImage *newImage = image;
+#ifdef DISPATCH_UNPROCESSED_FRAMES_ON_BLOCK
     dispatch_async(dispatch_get_main_queue(), ^{
+#endif
         self.fps.hidden = !weakSelf.drawFrameRate;
         
         for (AFDXFace *face in self.faces) {
@@ -309,7 +311,9 @@
         }
 
         weakSelf.timestampOfLastFrame = time;
+#ifdef DISPATCH_UNPROCESSED_FRAMES_ON_BLOCK
     });
+#endif
     
 #ifdef VIDEO_TEST
     static NSTimeInterval last = 0;
