@@ -18,6 +18,17 @@
 
 @implementation MyCollectionView
 
+// Ignore key events for this view
+- (void)keyDown:(NSEvent *)theEvent;
+{
+    return;
+}
+
+- (void)keyUp:(NSEvent *)theEvent;
+{
+    return;
+}
+
 - (void)mouseDown:(NSEvent *)originalEvent;
 {
     NSUInteger maxClassifiers = [[[NSUserDefaults standardUserDefaults] objectForKey:MaxClassifiersShownKey] integerValue];

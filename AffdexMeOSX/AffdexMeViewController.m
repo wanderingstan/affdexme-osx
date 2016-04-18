@@ -72,7 +72,6 @@
                       faces:(NSDictionary *)faces
                      atTime:(NSTimeInterval)time;
 {
-    
     self.faces = [faces allValues];
     
     NSTimeInterval interval = time - self.timestampOfLastProcessedFrame;
@@ -143,6 +142,12 @@
 
 - (void)unprocessedImageReady:(AFDXDetector *)detector image:(NSImage *)image atTime:(NSTimeInterval)time;
 {
+    static BOOL frameCount = 0;
+    
+    if (frameCount++ % 2 != 0) {
+        return;
+    }
+    
     __block AffdexMeViewController *weakSelf = self;
     __block NSImage *newImage = image;
 #ifdef DISPATCH_UNPROCESSED_FRAMES_ON_BLOCK
