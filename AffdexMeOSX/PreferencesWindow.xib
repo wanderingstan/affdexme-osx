@@ -63,11 +63,11 @@
             </connections>
         </arrayController>
         <customView id="11" userLabel="Settings View">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="157"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="162"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button id="Wyb-Rk-yhX">
-                    <rect key="frame" x="18" y="121" width="164" height="18"/>
+                    <rect key="frame" x="18" y="126" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Draw Face Points" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Jur-is-ucR">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -78,7 +78,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="FBU-SL-2kT">
-                    <rect key="frame" x="209" y="117" width="66" height="17"/>
+                    <rect key="frame" x="209" y="122" width="66" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Point Size" id="qur-c3-G6X">
                         <font key="font" metaFont="system"/>
@@ -87,7 +87,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="stT-yI-TlW">
-                    <rect key="frame" x="401" y="115" width="59" height="22"/>
+                    <rect key="frame" x="401" y="120" width="59" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1il-oz-yiD">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="Duw-HY-vzD">
@@ -107,7 +107,7 @@
                     </connections>
                 </textField>
                 <slider verticalHuggingPriority="750" id="5fU-5x-wq6">
-                    <rect key="frame" x="304" y="110" width="91" height="25"/>
+                    <rect key="frame" x="304" y="115" width="91" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="10" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="E89-Wu-dg1"/>
                     <connections>
@@ -119,7 +119,7 @@
                     </connections>
                 </slider>
                 <button id="2Bq-9d-QoM">
-                    <rect key="frame" x="18" y="82" width="164" height="18"/>
+                    <rect key="frame" x="18" y="87" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show Dominant Emoji" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="BnX-Rh-wQA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -130,7 +130,7 @@
                     </connections>
                 </button>
                 <button id="5wT-36-Efz">
-                    <rect key="frame" x="18" y="62" width="164" height="18"/>
+                    <rect key="frame" x="18" y="67" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show Gender/Glasses" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="MYj-zd-HHb">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -141,7 +141,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="8xP-yL-7II">
-                    <rect key="frame" x="209" y="69" width="86" height="17"/>
+                    <rect key="frame" x="209" y="74" width="86" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Process Rate" id="sSm-gG-aVc">
                         <font key="font" metaFont="system"/>
@@ -150,12 +150,12 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="85j-S7-gos">
-                    <rect key="frame" x="401" y="67" width="59" height="22"/>
+                    <rect key="frame" x="401" y="72" width="59" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="FGo-qS-LWA">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="vi4-hS-sSs">
-                            <real key="minimum" value="2"/>
-                            <real key="maximum" value="24"/>
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="30"/>
                         </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -170,7 +170,7 @@
                     </connections>
                 </textField>
                 <button id="jMf-en-rjt">
-                    <rect key="frame" x="18" y="101" width="164" height="18"/>
+                    <rect key="frame" x="18" y="106" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Draw Face Box" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="csf-43-1ye">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -181,9 +181,9 @@
                     </connections>
                 </button>
                 <button id="07s-4O-SlY">
-                    <rect key="frame" x="18" y="42" width="164" height="18"/>
+                    <rect key="frame" x="18" y="47" width="164" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Show Frame Rate" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="sVP-Hg-JF6">
+                    <buttonCell key="cell" type="check" title="Show Frame Info" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="sVP-Hg-JF6">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -191,8 +191,16 @@
                         <binding destination="46" name="value" keyPath="values.drawFrameRate" id="WSg-r4-lg3"/>
                     </connections>
                 </button>
+                <slider verticalHuggingPriority="750" id="KEH-fE-Tro">
+                    <rect key="frame" x="304" y="67" width="91" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <sliderCell key="cell" state="on" alignment="left" minValue="2" maxValue="26" doubleValue="2" tickMarkPosition="above" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="XGX-9I-S6j"/>
+                    <connections>
+                        <binding destination="46" name="value" keyPath="values.maxProcessRate" id="c29-CT-R3i"/>
+                    </connections>
+                </slider>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Nuc-0y-FaE">
-                    <rect key="frame" x="18" y="18" width="64" height="17"/>
+                    <rect key="frame" x="18" y="23" width="64" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Camera:" id="SXn-c4-QbG">
                         <font key="font" metaFont="system"/>
@@ -200,16 +208,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <slider verticalHuggingPriority="750" id="KEH-fE-Tro">
-                    <rect key="frame" x="304" y="62" width="91" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" state="on" alignment="left" minValue="2" maxValue="24" doubleValue="2" tickMarkPosition="above" numberOfTickMarks="12" allowsTickMarkValuesOnly="YES" sliderType="linear" id="XGX-9I-S6j"/>
-                    <connections>
-                        <binding destination="46" name="value" keyPath="values.maxProcessRate" id="c29-CT-R3i"/>
-                    </connections>
-                </slider>
                 <popUpButton verticalHuggingPriority="750" id="21e-8S-7lo">
-                    <rect key="frame" x="86" y="12" width="225" height="26"/>
+                    <rect key="frame" x="86" y="17" width="225" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="GOx-FL-XXI" id="b2b-1C-W6G">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -228,7 +228,7 @@
                     </connections>
                 </popUpButton>
             </subviews>
-            <point key="canvasLocation" x="899" y="464.5"/>
+            <point key="canvasLocation" x="899" y="467"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="46"/>
         <customView id="XT1-GH-gbj" userLabel="Classifiers View">

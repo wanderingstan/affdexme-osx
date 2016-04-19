@@ -19,9 +19,23 @@
 
 //#define VIDEO_TEST
 
+@interface AffdexImageView : NSImageView
+
+@end
+
+@implementation AffdexImageView
+
+- (void)keyUp:(NSEvent *)theEvent;
+{
+    return;
+}
+
+@end
+
+
 @interface AffdexMeViewController ()
 
-@property (assign) NSTimeInterval timestampOfLastFrame;
+@property (assign) NSTimeInterval timestampOfLastUnprocessedFrame;
 @property (assign) NSTimeInterval timestampOfLastProcessedFrame;
 @property (strong) NSDictionary *entries;
 @property (strong) NSEnumerator *entryEnumerator;
@@ -53,6 +67,10 @@
 @property (assign) BOOL multifaceMode;
 @property (strong) ExpressionViewController *dominantEmotionOrExpression;
 
+
+@property (assign) CGFloat fpsUnprocessed;
+@property (assign) CGFloat fpsProcessed;
+
 @end
 
 @implementation AffdexMeViewController
@@ -74,16 +92,30 @@
 {
     self.faces = [faces allValues];
     
-    NSTimeInterval interval = time - self.timestampOfLastProcessedFrame;
     
-    if (interval > 0)
+    // compute frames per second and show
+    static NSUInteger smoothCount = 0;
+    static const NSUInteger smoothInterval = 10;
+    static NSTimeInterval interval = 0;
+    
+    if (smoothCount++ % smoothInterval == 0)
     {
-        float fps = 1.0 / interval;
-        self.fpsProcessed.stringValue = [NSString stringWithFormat:@"FPS(P): %.1f", fps];
+        interval = (time - self.timestampOfLastProcessedFrame);
+        smoothCount = 1;
+    }
+    else
+    {
+        interval += (time - self.timestampOfLastProcessedFrame);
+    }
+    
+    if (interval > 0 && smoothCount > 0)
+    {
+        self.fpsProcessed = 1.0 / (interval / smoothCount);
     }
     
     self.timestampOfLastProcessedFrame = time;
-    
+
+
     // setup arrays of points and rects
     self.facePointsToDraw = [NSMutableArray new];
     self.faceRectsToDraw = [NSMutableArray new];
@@ -130,9 +162,7 @@
                 CGFloat score = [[face valueForKeyPath:scoreProperty] floatValue];
                 if (!isnan(score))
                 {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        v.metric = score;
-                    });
+                    v.metric = score;
                 }
             }
         }
@@ -142,183 +172,186 @@
 
 - (void)unprocessedImageReady:(AFDXDetector *)detector image:(NSImage *)image atTime:(NSTimeInterval)time;
 {
-    static BOOL frameCount = 0;
+    NSImage *newImage = image;
+    self.fpsProcessedTextField.hidden = !self.drawFrameRate;
+    self.fpsUnprocessedTextField.hidden = !self.drawFrameRate;
+    self.resolution.hidden = !self.drawFrameRate;
     
-    if (frameCount++ % 2 != 0) {
+    if (self.drawFramesToScreen == NO)
+    {
         return;
     }
     
-    __block AffdexMeViewController *weakSelf = self;
-    __block NSImage *newImage = image;
-#ifdef DISPATCH_UNPROCESSED_FRAMES_ON_BLOCK
-    dispatch_async(dispatch_get_main_queue(), ^{
-#endif
-        self.fps.hidden = !weakSelf.drawFrameRate;
+    for (AFDXFace *face in self.faces) {
+        NSRect faceBounds = face.faceBounds;
+        //faceBounds.origin.y = self.view.bounds.size.height - faceBounds.origin.y;
         
-        for (AFDXFace *face in self.faces) {
-            NSRect faceBounds = face.faceBounds;
-            //faceBounds.origin.y = self.view.bounds.size.height - faceBounds.origin.y;
-            
-            NSImage *genderImage = nil;
-            switch (face.appearance.gender) {
-                case AFDX_GENDER_MALE:
-                    genderImage = self.maleImage;
-                    if (face.appearance.glasses == AFDX_GLASSES_YES) {
-                        genderImage = self.maleImageWithGlasses;
-                    }
-                    break;
-                case AFDX_GENDER_FEMALE:
-                    genderImage = self.femaleImage;
-                    if (face.appearance.glasses == AFDX_GLASSES_YES) {
-                        genderImage = self.femaleImageWithGlasses;
-                    }
-                    break;
-                case AFDX_GENDER_UNKNOWN:
-                    genderImage = self.unknownImage;
-                    if (face.appearance.glasses == AFDX_GLASSES_YES) {
-                        genderImage = self.unknownImageWithGlasses;
-                    }
-                    break;
-            }
-
-            // create array of images and rects to do all drawing at once
-            NSMutableArray *imagesArray = [NSMutableArray array];
-            NSMutableArray *rectsArray = [NSMutableArray array];
-            
-            // add dominant emoji
-            if (weakSelf.drawDominantEmoji) {
-                Emoji dominantEmoji = [[face.userInfo objectForKey:@"dominantEmoji"] intValue];
-                if (dominantEmoji != AFDX_EMOJI_NONE) {
-                    for (ClassifierModel *model in self.emojis) {
-                        NSNumber *code = model.emojiCode;
-                        if (dominantEmoji == [code intValue]) {
-                            // match!
-                            NSImage *emojiImage = model.image;
-                            if (nil != emojiImage) {
-                                // resize bounds to be relative in size to bounding box
-                                CGSize size = emojiImage.size;
-                                CGFloat aspectRatio = size.height / size.width;
-                                size.width = faceBounds.size.width * .33;
-                                size.height = size.width * aspectRatio;
-                                
-                                CGRect rect = CGRectMake(faceBounds.origin.x + faceBounds.size.width,
-                                                         image.size.height - (faceBounds.origin.y) - (size.height),
-                                                         size.width,
-                                                         size.height);
-                                [imagesArray addObject:emojiImage];
-                                [rectsArray addObject:[NSValue valueWithRect:rect]];
-                                break;
-                            }
-                        }
-                    }
+        NSImage *genderImage = nil;
+        switch (face.appearance.gender) {
+            case AFDX_GENDER_MALE:
+                genderImage = self.maleImage;
+                if (face.appearance.glasses == AFDX_GLASSES_YES) {
+                    genderImage = self.maleImageWithGlasses;
                 }
-            }
-
-            if (weakSelf.drawAppearanceIcons) {
-                // add gender image
-                if (genderImage != nil) {
-                    // resize bounds to be relative in size to bounding box
-                    CGSize size = genderImage.size;
-                    CGFloat aspectRatio = size.height / size.width;
-                    size.width = faceBounds.size.width * .33;
-                    size.height = size.width * aspectRatio;
-                    
-                    CGRect rect = CGRectMake(faceBounds.origin.x + faceBounds.size.width,
-                                             image.size.height - (faceBounds.origin.y) - (faceBounds.size.height),
-                                             size.width,
-                                             size.height);
-                    [imagesArray addObject:genderImage];
-                    [rectsArray addObject:[NSValue valueWithRect:rect]];
+                break;
+            case AFDX_GENDER_FEMALE:
+                genderImage = self.femaleImage;
+                if (face.appearance.glasses == AFDX_GLASSES_YES) {
+                    genderImage = self.femaleImageWithGlasses;
                 }
-
-                // add dominant emotion/expression
-                if (self.multifaceMode == TRUE) {
-                    CGFloat dominantScore = -9999;
-                    NSString *dominantName = @"NONAME";
-                 
-                    for (NSDictionary *d in self.emotions) {
-                        NSString *name = [d objectForKey:@"name"];
-                        CGFloat score = [[face valueForKeyPath:[d objectForKey:@"score"]] floatValue];
-                        // don't allow valence as per Steve H's suggestion
-                        if ([name isEqualToString:@"Valence"]) {
-                            continue;
-                        }
-                        if (score > dominantScore) {
-                            dominantScore = score;
-                            dominantName = name;
-                        }
-                    }
+                break;
+            case AFDX_GENDER_UNKNOWN:
+                genderImage = self.unknownImage;
+                if (face.appearance.glasses == AFDX_GLASSES_YES) {
+                    genderImage = self.unknownImageWithGlasses;
                 }
-            }
-            
-            // do drawing here
-            NSColor *faceBoundsColor = nil;
-            
-            if (face.emotions.valence >= 20)
-            {
-                faceBoundsColor = [NSColor greenColor];
-            }
-            else if (face.emotions.valence <= -20)
-            {
-                faceBoundsColor = [NSColor redColor];
-            }
-            else
-            {
-                faceBoundsColor = [NSColor whiteColor];
-            }
-            
-            // Position expression views
-            NSMutableArray *viewControllers = [face.userInfo objectForKey:@"viewControllers"];
-            NSViewController *vc = [viewControllers objectAtIndex:0];
-            CGFloat expressionFrameHeight = vc.view.frame.size.height;
-            CGFloat expressionFrameIncrement = faceBounds.size.height / ([[[NSUserDefaults standardUserDefaults] objectForKey:MaxClassifiersShownKey] integerValue]);
-            CGFloat nextY = image.size.height - faceBounds.origin.y - expressionFrameHeight;
-            for (NSViewController *vc in viewControllers)
-            {
-                NSRect frame = vc.view.frame;
-                frame.origin.x = faceBounds.origin.x - frame.size.width - 10.0;
-                frame.origin.y = nextY;
-                vc.view.frame = frame;
-                NSImage *image = [NSImage imageFromView:vc.view];
-                [imagesArray addObject:image];
-                [rectsArray addObject:[NSValue valueWithRect:frame]];
-                nextY -= expressionFrameIncrement;
-            }
-            
-            newImage = [AFDXDetector imageByDrawingPoints:weakSelf.drawFacePoints ? weakSelf.facePointsToDraw : nil
-                                        andRectangles:weakSelf.drawFaceBox ? weakSelf.faceRectsToDraw : nil
-                                            andImages:imagesArray
-                                           withRadius:self.pointSize
-                                      usingPointColor:[NSColor whiteColor]
-                                  usingRectangleColor:faceBoundsColor
-                                      usingImageRects:rectsArray
-                                              onImage:newImage];
+                break;
         }
 
-        // flip image if the front camera is being used so that the perspective is mirrored.
-        if (self.cameraToUse == AFDX_CAMERA_FRONT) {
-            NSImage *flippedImage = newImage;
-            [weakSelf.imageView setImage:flippedImage];
-        } else {
-            [weakSelf.imageView setImage:newImage];
+        // create array of images and rects to do all drawing at once
+        NSMutableArray *imagesArray = [NSMutableArray array];
+        NSMutableArray *rectsArray = [NSMutableArray array];
+        
+        // add dominant emoji
+        if (self.drawDominantEmoji) {
+            Emoji dominantEmoji = [[face.userInfo objectForKey:@"dominantEmoji"] intValue];
+            if (dominantEmoji != AFDX_EMOJI_NONE) {
+                for (ClassifierModel *model in self.emojis) {
+                    NSNumber *code = model.emojiCode;
+                    if (dominantEmoji == [code intValue]) {
+                        // match!
+                        NSImage *emojiImage = model.image;
+                        if (nil != emojiImage) {
+                            // resize bounds to be relative in size to bounding box
+                            CGSize size = emojiImage.size;
+                            CGFloat aspectRatio = size.height / size.width;
+                            size.width = faceBounds.size.width * .33;
+                            size.height = size.width * aspectRatio;
+                            
+                            CGRect rect = CGRectMake(faceBounds.origin.x + faceBounds.size.width,
+                                                     image.size.height - (faceBounds.origin.y) - (size.height),
+                                                     size.width,
+                                                     size.height);
+                            [imagesArray addObject:emojiImage];
+                            [rectsArray addObject:[NSValue valueWithRect:rect]];
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
-        // compute frames per second and show
-        NSTimeInterval interval = time - weakSelf.timestampOfLastFrame;
+        if (self.drawAppearanceIcons) {
+            // add gender image
+            if (genderImage != nil) {
+                // resize bounds to be relative in size to bounding box
+                CGSize size = genderImage.size;
+                CGFloat aspectRatio = size.height / size.width;
+                size.width = faceBounds.size.width * .33;
+                size.height = size.width * aspectRatio;
+                
+                CGRect rect = CGRectMake(faceBounds.origin.x + faceBounds.size.width,
+                                         image.size.height - (faceBounds.origin.y) - (faceBounds.size.height),
+                                         size.width,
+                                         size.height);
+                [imagesArray addObject:genderImage];
+                [rectsArray addObject:[NSValue valueWithRect:rect]];
+            }
+
+            // add dominant emotion/expression
+            if (self.multifaceMode == TRUE) {
+                CGFloat dominantScore = -9999;
+                NSString *dominantName = @"NONAME";
+             
+                for (NSDictionary *d in self.emotions) {
+                    NSString *name = [d objectForKey:@"name"];
+                    CGFloat score = [[face valueForKeyPath:[d objectForKey:@"score"]] floatValue];
+                    // don't allow valence as per Steve H's suggestion
+                    if ([name isEqualToString:@"Valence"]) {
+                        continue;
+                    }
+                    if (score > dominantScore) {
+                        dominantScore = score;
+                        dominantName = name;
+                    }
+                }
+            }
+        }
         
-        if (interval > 0)
+        // do drawing here
+        NSColor *faceBoundsColor = nil;
+        
+        if (face.emotions.valence >= 20)
         {
-            float fps = 1.0 / interval;
-            if (time )
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.fps.stringValue = [NSString stringWithFormat:@"FPS(C): %.1f", fps];
-                });
+            faceBoundsColor = [NSColor greenColor];
         }
+        else if (face.emotions.valence <= -20)
+        {
+            faceBoundsColor = [NSColor redColor];
+        }
+        else
+        {
+            faceBoundsColor = [NSColor whiteColor];
+        }
+        
+        // Position expression views
+        NSMutableArray *viewControllers = [face.userInfo objectForKey:@"viewControllers"];
+        NSViewController *vc = [viewControllers objectAtIndex:0];
+        CGFloat expressionFrameHeight = vc.view.frame.size.height;
+        CGFloat expressionFrameIncrement = faceBounds.size.height / ([[[NSUserDefaults standardUserDefaults] objectForKey:MaxClassifiersShownKey] integerValue]);
+        CGFloat nextY = image.size.height - faceBounds.origin.y - expressionFrameHeight;
+        for (NSViewController *vc in viewControllers)
+        {
+            NSRect frame = vc.view.frame;
+            frame.origin.x = faceBounds.origin.x - frame.size.width - 10.0;
+            frame.origin.y = nextY;
+            vc.view.frame = frame;
+            NSImage *image = [NSImage imageFromView:vc.view];
+            [imagesArray addObject:image];
+            [rectsArray addObject:[NSValue valueWithRect:frame]];
+            nextY -= expressionFrameIncrement;
+        }
+        
+        newImage = [AFDXDetector imageByDrawingPoints:self.drawFacePoints ? self.facePointsToDraw : nil
+                                    andRectangles:self.drawFaceBox ? self.faceRectsToDraw : nil
+                                        andImages:imagesArray
+                                       withRadius:self.pointSize
+                                  usingPointColor:[NSColor whiteColor]
+                              usingRectangleColor:faceBoundsColor
+                                  usingImageRects:rectsArray
+                                          onImage:newImage];
+    }
 
-        weakSelf.timestampOfLastFrame = time;
-#ifdef DISPATCH_UNPROCESSED_FRAMES_ON_BLOCK
-    });
-#endif
+    // flip image if the front camera is being used so that the perspective is mirrored.
+    if (self.cameraToUse == AFDX_CAMERA_FRONT) {
+        NSImage *flippedImage = newImage;
+        [self.imageView setImage:flippedImage];
+    } else {
+        [self.imageView setImage:newImage];
+    }
+
+    
+    // compute frames per second and show
+    static NSUInteger smoothCount = 0;
+    static const NSUInteger smoothInterval = 60;
+    static NSTimeInterval interval = 0;
+    
+    if (smoothCount++ % smoothInterval == 0)
+    {
+        interval = (time - self.timestampOfLastUnprocessedFrame);
+        smoothCount = 1;
+    }
+    else
+    {
+        interval += (time - self.timestampOfLastUnprocessedFrame);
+    }
+    
+    if (interval > 0 && smoothCount > 0)
+    {
+        self.fpsUnprocessed = 1.0 / (interval / smoothCount);
+    }
+
+    self.timestampOfLastUnprocessedFrame = time;
     
 #ifdef VIDEO_TEST
     static NSTimeInterval last = 0;
@@ -326,11 +359,23 @@
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(time - last) * timeConstant]];
     last = time;
 #endif
-    
 }
 
 - (void)detector:(AFDXDetector *)detector hasResults:(NSMutableDictionary *)faces forImage:(NSImage *)image atTime:(NSTimeInterval)time;
 {
+    
+    self.fpsProcessedTextField.stringValue = [NSString stringWithFormat:@"FPS(P): %.1f", self.fpsProcessed];
+    self.fpsUnprocessedTextField.stringValue = [NSString stringWithFormat:@"FPS(U): %.1f", self.fpsUnprocessed];
+    self.resolution.stringValue = [NSString stringWithFormat:@"%.0f x %.0f", image.size.width, image.size.height];
+
+#if 0
+    static BOOL frameCount = 0;
+    if (frameCount++ % 1 != 0)
+    {
+        return;
+    }
+#endif
+    
     if (nil == faces)
     {
         [self unprocessedImageReady:detector image:image atTime:time];
@@ -343,45 +388,41 @@
 
 - (void)detector:(AFDXDetector *)detector didStartDetectingFace:(AFDXFace *)face;
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableArray *viewControllers = [NSMutableArray array];
+    NSMutableArray *viewControllers = [NSMutableArray array];
 
-        NSUInteger count = [[[NSUserDefaults standardUserDefaults] objectForKey:MaxClassifiersShownKey] integerValue];
-        for (int i = 0; i < count; i++)
-        {
-            ExpressionViewController *vc = [[ExpressionViewController alloc] initWithClassifier:nil];
-            [viewControllers addObject:vc];
+    NSUInteger count = [[[NSUserDefaults standardUserDefaults] objectForKey:MaxClassifiersShownKey] integerValue];
+    for (int i = 0; i < count; i++)
+    {
+        ExpressionViewController *vc = [[ExpressionViewController alloc] initWithClassifier:nil];
+        [viewControllers addObject:vc];
 //            [self.view addSubview:vc.view];
-        }
-        
-        NSArray *selectedClassifiers = [[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey];
-        count = [selectedClassifiers count];
-        for (int i = 0; i < count; i++)
-        {
-            NSString *classifierName = [selectedClassifiers objectAtIndex:i];
-            ClassifierModel *model = [ClassifierModel modelWithName:classifierName];
-            ExpressionViewController *vc = [viewControllers objectAtIndex:i];
-            [vc setClassifier:model];
-        }
+    }
+    
+    NSArray *selectedClassifiers = [[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey];
+    count = [selectedClassifiers count];
+    for (int i = 0; i < count; i++)
+    {
+        NSString *classifierName = [selectedClassifiers objectAtIndex:i];
+        ClassifierModel *model = [ClassifierModel modelWithName:classifierName];
+        ExpressionViewController *vc = [viewControllers objectAtIndex:i];
+        [vc setClassifier:model];
+    }
 
-        face.userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:viewControllers, @"viewControllers",
-                                [NSNumber numberWithInt:AFDX_EMOJI_NONE], @"dominantEmoji",
-                                nil];
-    });
+    face.userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:viewControllers, @"viewControllers",
+                            [NSNumber numberWithInt:AFDX_EMOJI_NONE], @"dominantEmoji",
+                            nil];
 }
 
 - (void)detector:(AFDXDetector *)detector didStopDetectingFace:(AFDXFace *)face;
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableArray *viewControllers = [face.userInfo objectForKey:@"viewControllers"];
-        for (ExpressionViewController *vc in viewControllers)
-        {
-            vc.metric = 0.0;
-            [vc.view removeFromSuperview];
-        }
-        
-        face.userInfo = nil;
-    });
+    NSMutableArray *viewControllers = [face.userInfo objectForKey:@"viewControllers"];
+    for (ExpressionViewController *vc in viewControllers)
+    {
+        vc.metric = 0.0;
+        [vc.view removeFromSuperview];
+    }
+    
+    face.userInfo = nil;
 }
 
 
@@ -401,6 +442,7 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawDominantEmojiKey : [NSNumber numberWithBool:YES]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawAppearanceIconsKey : [NSNumber numberWithBool:YES]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawFrameRateKey : [NSNumber numberWithBool:NO]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawFramesToScreenKey : [NSNumber numberWithBool:YES]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{ProcessRateKey : [NSNumber numberWithFloat:10.0]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{SelectedClassifiersKey : [NSMutableArray arrayWithObjects:@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear", nil]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{MaxClassifiersShownKey : [NSNumber numberWithInteger:6]}];
@@ -476,6 +518,10 @@
 {
     [super viewWillAppear];
     
+    self.fpsProcessedTextField.stringValue = @"";
+    self.fpsUnprocessedTextField.stringValue = @"";
+    self.resolution.stringValue = @"";
+
     [self.imageView setImage:nil];
     
     NSMutableArray *selectedClassifers = [[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey];
@@ -574,6 +620,13 @@
         self.drawFrameRate = value;
     }
     else
+    if (context == (__bridge void *)DrawFramesToScreenKey)
+    {
+        BOOL value = [v boolValue];
+        
+        self.drawFramesToScreen = value;
+    }
+    else
     if (context == (__bridge void *)PointSizeKey)
     {
         CGFloat value = [v floatValue];
@@ -586,6 +639,10 @@
         CGFloat value = [v floatValue];
         
         self.detector.maxProcessRate = value;
+        if (value == 0.0)
+        {
+            self.fpsProcessed = 0.0;
+        }
     }
     else
     {
@@ -666,6 +723,11 @@
                                                context:(__bridge void *)DrawFrameRateKey];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
+                                            forKeyPath:DrawFramesToScreenKey
+                                               options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                               context:(__bridge void *)DrawFramesToScreenKey];
+    
+    [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:SelectedClassifiersKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                                context:(void *)SelectedClassifiersKey];
@@ -681,13 +743,9 @@
     }
     
     NSInteger maxProcessRate = [[[NSUserDefaults standardUserDefaults] objectForKey:@"maxProcessRate"] integerValue];
-    if (0 == maxProcessRate)
-    {
-        maxProcessRate = 15;
-    }
     
     self.detector.maxProcessRate = maxProcessRate;
-    self.timestampOfLastFrame = 0;
+    self.timestampOfLastUnprocessedFrame = 0;
     self.timestampOfLastProcessedFrame = 0;
     self.detector.licenseString = YOUR_AFFDEX_LICENSE_STRING_GOES_HERE;
     
@@ -713,6 +771,7 @@
     
     if (self.detector != nil)
     {
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawFramesToScreenKey];
         [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawFrameRateKey];
         [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawAppearanceIconsKey];
         [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawDominantEmojiKey];
