@@ -12,15 +12,15 @@
 #import "ExpressionViewController.h"
 #import <Affdex/Affdex.h>
 
-static NSString *SelectedCameraKey = @"selectedCamera";
-static NSString *FacePointsKey = @"drawFacePoints";
-static NSString *FaceBoxKey = @"drawFaceBox";
-static NSString *DrawDominantEmojiKey = @"drawDominantEmoji";
-static NSString *DrawAppearanceIconsKey = @"drawAppearanceIcons";
-static NSString *DrawFrameRateKey = @"drawFrameRate";
-static NSString *DrawFramesToScreenKey = @"drawFramesToScreen";
-static NSString *PointSizeKey = @"pointSize";
-static NSString *ProcessRateKey = @"maxProcessRate";
+static NSString *kSelectedCameraKey = @"selectedCamera";
+static NSString *kFacePointsKey = @"drawFacePoints";
+static NSString *kFaceBoxKey = @"drawFaceBox";
+static NSString *kDrawDominantEmojiKey = @"drawDominantEmoji";
+static NSString *kDrawAppearanceIconsKey = @"drawAppearanceIcons";
+static NSString *kDrawFrameRateKey = @"drawFrameRate";
+static NSString *kDrawFramesToScreenKey = @"drawFramesToScreen";
+static NSString *kPointSizeKey = @"pointSize";
+static NSString *kProcessRateKey = @"maxProcessRate";
 
 @interface AffdexMeViewController : NSViewController <AFDXDetectorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, NSSharingServicePickerDelegate>
 

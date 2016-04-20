@@ -135,7 +135,7 @@
         // check if selectedClassifiers is dirty -- if so, update classifier models associated with expression view controllers
         if (self.selectedClassifiersDirty == YES)
         {
-            NSArray *selectedClassifiers = [[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey];
+            NSArray *selectedClassifiers = [[NSUserDefaults standardUserDefaults] objectForKey:kSelectedClassifiersKey];
             NSUInteger selectedClassifiersCount = [selectedClassifiers count];
             for (int i = 0; i < [viewControllers count]; i++)
             {
@@ -298,12 +298,12 @@
         NSMutableArray *viewControllers = [face.userInfo objectForKey:@"viewControllers"];
         NSViewController *vc = [viewControllers objectAtIndex:0];
         CGFloat expressionFrameHeight = vc.view.frame.size.height;
-        CGFloat expressionFrameIncrement = faceBounds.size.height / ([[[NSUserDefaults standardUserDefaults] objectForKey:MaxClassifiersShownKey] integerValue]);
+        CGFloat expressionFrameIncrement = faceBounds.size.height / ([[[NSUserDefaults standardUserDefaults] objectForKey:kMaxClassifiersShownKey] integerValue]);
         CGFloat nextY = image.size.height - faceBounds.origin.y - expressionFrameHeight;
         for (NSViewController *vc in viewControllers)
         {
             NSRect frame = vc.view.frame;
-            frame.origin.x = faceBounds.origin.x - frame.size.width - 10.0;
+            frame.origin.x = faceBounds.origin.x - frame.size.width;
             frame.origin.y = nextY;
             vc.view.frame = frame;
             NSImage *image = [NSImage imageFromView:vc.view];
@@ -390,7 +390,7 @@
 {
     NSMutableArray *viewControllers = [NSMutableArray array];
 
-    NSUInteger count = [[[NSUserDefaults standardUserDefaults] objectForKey:MaxClassifiersShownKey] integerValue];
+    NSUInteger count = [[[NSUserDefaults standardUserDefaults] objectForKey:kMaxClassifiersShownKey] integerValue];
     for (int i = 0; i < count; i++)
     {
         ExpressionViewController *vc = [[ExpressionViewController alloc] initWithClassifier:nil];
@@ -398,7 +398,7 @@
 //            [self.view addSubview:vc.view];
     }
     
-    NSArray *selectedClassifiers = [[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey];
+    NSArray *selectedClassifiers = [[NSUserDefaults standardUserDefaults] objectForKey:kSelectedClassifiersKey];
     count = [selectedClassifiers count];
     for (int i = 0; i < count; i++)
     {
@@ -434,18 +434,18 @@
     AVCaptureDevice *firstDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
     if (nil != firstDevice)
     {
-        [[NSUserDefaults standardUserDefaults] registerDefaults:@{SelectedCameraKey : [firstDevice localizedName]}];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:@{kSelectedCameraKey : [firstDevice localizedName]}];
     }
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{FacePointsKey : [NSNumber numberWithBool:YES]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{FaceBoxKey : [NSNumber numberWithBool:YES]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{PointSizeKey : [NSNumber numberWithFloat:2.0]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawDominantEmojiKey : [NSNumber numberWithBool:YES]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawAppearanceIconsKey : [NSNumber numberWithBool:YES]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawFrameRateKey : [NSNumber numberWithBool:NO]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{DrawFramesToScreenKey : [NSNumber numberWithBool:YES]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{ProcessRateKey : [NSNumber numberWithFloat:10.0]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{SelectedClassifiersKey : [NSMutableArray arrayWithObjects:@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear", nil]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{MaxClassifiersShownKey : [NSNumber numberWithInteger:6]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kFacePointsKey : [NSNumber numberWithBool:YES]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kFaceBoxKey : [NSNumber numberWithBool:YES]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kPointSizeKey : [NSNumber numberWithFloat:2.0]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kDrawDominantEmojiKey : [NSNumber numberWithBool:YES]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kDrawAppearanceIconsKey : [NSNumber numberWithBool:YES]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kDrawFrameRateKey : [NSNumber numberWithBool:NO]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kDrawFramesToScreenKey : [NSNumber numberWithBool:YES]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kProcessRateKey : [NSNumber numberWithFloat:10.0]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kSelectedClassifiersKey : [NSMutableArray arrayWithObjects:@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear", nil]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kMaxClassifiersShownKey : [NSNumber numberWithInteger:6]}];
 }
 
 -(BOOL)canBecomeFirstResponder;
@@ -505,7 +505,7 @@
 {
     // remove ourself as an observer
     [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                            forKeyPath:SelectedCameraKey];
+                                            forKeyPath:kSelectedCameraKey];
     
     [self stopDetector];
     
@@ -524,7 +524,7 @@
 
     [self.imageView setImage:nil];
     
-    NSMutableArray *selectedClassifers = [[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey];
+    NSMutableArray *selectedClassifers = [[NSUserDefaults standardUserDefaults] objectForKey:kSelectedClassifiersKey];
     NSUInteger count = [selectedClassifers count];
     
     for (NSUInteger i = 0; i < count; i++)
@@ -541,9 +541,9 @@
 
     // add ourself as an observer of various settings
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:SelectedCameraKey
+                                            forKeyPath:kSelectedCameraKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                               context:(__bridge void *)SelectedCameraKey];
+                                               context:(__bridge void *)kSelectedCameraKey];
 }
 
 - (void)viewDidAppear;
@@ -562,7 +562,7 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    if (context == (__bridge void *)SelectedCameraKey)
+    if (context == (__bridge void *)kSelectedCameraKey)
     {
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self stopDetector];
@@ -585,56 +585,56 @@
         return;
     }
     
-    if (context == (__bridge void *)FacePointsKey)
+    if (context == (__bridge void *)kFacePointsKey)
     {
         BOOL value = [v boolValue];
         
         self.drawFacePoints = value;
     }
     else
-    if (context == (__bridge void *)FaceBoxKey)
+    if (context == (__bridge void *)kFaceBoxKey)
     {
         BOOL value = [v boolValue];
         
         self.drawFaceBox = value;
     }
     else
-    if (context == (__bridge void *)DrawDominantEmojiKey)
+    if (context == (__bridge void *)kDrawDominantEmojiKey)
     {
         BOOL value = [v boolValue];
             
         self.drawDominantEmoji = value;
     }
     else
-    if (context == (__bridge void *)DrawAppearanceIconsKey)
+    if (context == (__bridge void *)kDrawAppearanceIconsKey)
     {
         BOOL value = [v boolValue];
         
         self.drawAppearanceIcons = value;
     }
     else
-    if (context == (__bridge void *)DrawFrameRateKey)
+    if (context == (__bridge void *)kDrawFrameRateKey)
     {
         BOOL value = [v boolValue];
         
         self.drawFrameRate = value;
     }
     else
-    if (context == (__bridge void *)DrawFramesToScreenKey)
+    if (context == (__bridge void *)kDrawFramesToScreenKey)
     {
         BOOL value = [v boolValue];
         
         self.drawFramesToScreen = value;
     }
     else
-    if (context == (__bridge void *)PointSizeKey)
+    if (context == (__bridge void *)kPointSizeKey)
     {
         CGFloat value = [v floatValue];
         
         self.pointSize = value;
     }
     else
-    if (context == (__bridge void *)ProcessRateKey)
+    if (context == (__bridge void *)kProcessRateKey)
     {
         CGFloat value = [v floatValue];
         
@@ -660,7 +660,7 @@
 
     // create our detector with our desired facial expresions, using the front facing camera
     
-    NSString *localizedName = [[NSUserDefaults standardUserDefaults] objectForKey:SelectedCameraKey];
+    NSString *localizedName = [[NSUserDefaults standardUserDefaults] objectForKey:kSelectedCameraKey];
     
     AVCaptureDevice *device = nil;
     
@@ -675,7 +675,7 @@
     if (nil == device)
     {
         device = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
-        [[NSUserDefaults standardUserDefaults] setObject:device.localizedName forKey:SelectedCameraKey];
+        [[NSUserDefaults standardUserDefaults] setObject:device.localizedName forKey:kSelectedCameraKey];
     }
     
 #ifdef VIDEO_TEST
@@ -688,51 +688,51 @@
     
     // add ourself as an observer of various settings
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:FacePointsKey
+                                            forKeyPath:kFacePointsKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                               context:(__bridge void *)FacePointsKey];
+                                               context:(__bridge void *)kFacePointsKey];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:FaceBoxKey
+                                            forKeyPath:kFaceBoxKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                               context:(__bridge void *)FaceBoxKey];
+                                               context:(__bridge void *)kFaceBoxKey];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:PointSizeKey
+                                            forKeyPath:kPointSizeKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                               context:(__bridge void *)PointSizeKey];
+                                               context:(__bridge void *)kPointSizeKey];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:ProcessRateKey
+                                            forKeyPath:kProcessRateKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                               context:(__bridge void *)ProcessRateKey];
+                                               context:(__bridge void *)kProcessRateKey];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:DrawDominantEmojiKey
+                                            forKeyPath:kDrawDominantEmojiKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                               context:(__bridge void *)DrawDominantEmojiKey];
+                                               context:(__bridge void *)kDrawDominantEmojiKey];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:DrawAppearanceIconsKey
+                                            forKeyPath:kDrawAppearanceIconsKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                               context:(__bridge void *)DrawAppearanceIconsKey];
+                                               context:(__bridge void *)kDrawAppearanceIconsKey];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:DrawFrameRateKey
+                                            forKeyPath:kDrawFrameRateKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                               context:(__bridge void *)DrawFrameRateKey];
+                                               context:(__bridge void *)kDrawFrameRateKey];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:DrawFramesToScreenKey
+                                            forKeyPath:kDrawFramesToScreenKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                               context:(__bridge void *)DrawFramesToScreenKey];
+                                               context:(__bridge void *)kDrawFramesToScreenKey];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:SelectedClassifiersKey
+                                            forKeyPath:kSelectedClassifiersKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                               context:(void *)SelectedClassifiersKey];
+                                               context:(void *)kSelectedClassifiersKey];
     
-    for (NSString *name in [[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey])
+    for (NSString *name in [[NSUserDefaults standardUserDefaults] objectForKey:kSelectedClassifiersKey])
     {
         ClassifierModel *m = [ClassifierModel modelWithName:name];
         
@@ -771,15 +771,15 @@
     
     if (self.detector != nil)
     {
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawFramesToScreenKey];
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawFrameRateKey];
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawAppearanceIconsKey];
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:DrawDominantEmojiKey];
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:SelectedClassifiersKey];
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:FacePointsKey];
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:FaceBoxKey];
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:PointSizeKey];
-        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:ProcessRateKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kDrawFramesToScreenKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kDrawFrameRateKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kDrawAppearanceIconsKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kDrawDominantEmojiKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kSelectedClassifiersKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kFacePointsKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kFaceBoxKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kPointSizeKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kProcessRateKey];
         
         result = [self.detector stop];
     }

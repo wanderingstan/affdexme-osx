@@ -31,7 +31,7 @@
 
 - (void)mouseDown:(NSEvent *)originalEvent;
 {
-    NSUInteger maxClassifiers = [[[NSUserDefaults standardUserDefaults] objectForKey:MaxClassifiersShownKey] integerValue];
+    NSUInteger maxClassifiers = [[[NSUserDefaults standardUserDefaults] objectForKey:kMaxClassifiersShownKey] integerValue];
     BOOL maximumItemsSelected = [[self selectionIndexes] count] == maxClassifiers;
 
     NSPoint mouseDownPoint = [self convertPoint:[originalEvent locationInWindow] fromView:nil];
@@ -50,7 +50,7 @@
                 return;
             }
 
-            NSMutableArray *selectedClassifiers = [[[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey] mutableCopy];
+            NSMutableArray *selectedClassifiers = [[[NSUserDefaults standardUserDefaults] objectForKey:kSelectedClassifiersKey] mutableCopy];
 
             m.enabled = !m.enabled;
             [anItem setSelected:m.enabled];
@@ -63,7 +63,7 @@
                 [selectedClassifiers addObject:m.name];
             }
             
-            [[NSUserDefaults standardUserDefaults] setObject:selectedClassifiers forKey:SelectedClassifiersKey];
+            [[NSUserDefaults standardUserDefaults] setObject:selectedClassifiers forKey:kSelectedClassifiersKey];
             break;
         }
     }
@@ -82,12 +82,19 @@
 
 - (void)viewDidAppear
 {
-    // seems the inital selection state is not done by Apple in a KVO compliant manner, update background color manually
-    [self updateBackgroundColorForSelectionState:self.isSelected];
+    // seems the inital selection state is not done by Apple in a KVO compliant manner, update manually
+    [self updateSelectionState:self.isSelected];
+    
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowBlurRadius = 2; //set how many pixels the shadow has
+    shadow.shadowOffset = NSMakeSize(0, 0); //the distance from the text the shadow is dropped
+    shadow.shadowColor = [NSColor blackColor];
+    self.textField.shadow = shadow;
 }
 
-- (void)updateBackgroundColorForSelectionState:(BOOL)flag
+- (void)updateSelectionState:(BOOL)flag
 {
+    // assign a layer at this time
     if (self.view.layer == nil)
     {
         self.view.layer = [CALayer new];
@@ -96,18 +103,36 @@
 
     if (flag)
     {
-        self.view.layer.backgroundColor = [[NSColor greenColor] CGColor];
+        self.textField.textColor = [NSColor greenColor];
+        self.textField.font = [NSFont fontWithName:@"Arial Bold" size:18];
+        NSRect frame = self.textField.frame;
+        frame.origin.x = 0;
+        frame.origin.y = 0;
+        self.textField.frame = frame;
+        [self.imageView.layer setOpacity:1.0];;
+        [self.imageView.layer setBorderColor:[[NSColor greenColor] CGColor]];
+        [self.imageView.layer setBorderWidth:3.0];
+//        self.view.layer.backgroundColor = [[NSColor greenColor] CGColor];
     }
     else
     {
-        self.view.layer.backgroundColor = [[NSColor clearColor] CGColor];
+        self.textField.textColor = [NSColor whiteColor];
+        self.textField.font = [NSFont fontWithName:@"Arial Bold" size:16];
+        NSRect frame = self.textField.frame;
+        frame.origin.x = 0;
+        frame.origin.y = 0;
+        self.textField.frame = frame;
+        [self.imageView.layer setOpacity:0.8];;
+        [self.imageView.layer setBorderColor:[[NSColor blackColor] CGColor]];
+        [self.imageView.layer setBorderWidth:0.0];
+//        self.view.layer.backgroundColor = [[NSColor clearColor] CGColor];
     }
 }
 
 - (void)setSelected:(BOOL)flag
 {
     [super setSelected:flag];
-    [self updateBackgroundColorForSelectionState:flag];
+    [self updateSelectionState:flag];
 }
 
 - (NSColor *)textColor
@@ -119,14 +144,7 @@
 
 @implementation ClassifierPickerViewController
 
-#define SELECTED_COLOR [NSColor greenColor]
-#define SELECTED_TEXT_COLOR [NSColor blackColor]
-#define UNSELECTED_COLOR [NSColor whiteColor]
-#define UNSELECTED_TEXT_COLOR [NSColor blackColor]
-#define ERROR_COLOR [NSColor redColor]
-#define ERROR_TEXT_COLOR [NSColor whiteColor]
-
--(void)observeValueForKeyPath:(NSString *)keyPath
+- (void)observeValueForKeyPath:(NSString *)keyPath
                      ofObject:(id)object
                        change:(NSDictionary *)change
                       context:(void *)context
@@ -134,7 +152,7 @@
     if ([keyPath isEqualTo:@"selectionIndexes"])
     {
         NSUInteger count = [[self.arrayController selectedObjects] count];
-        NSUInteger maxClassifiers = [[[NSUserDefaults standardUserDefaults] objectForKey:MaxClassifiersShownKey] integerValue];
+        NSUInteger maxClassifiers = [[[NSUserDefaults standardUserDefaults] objectForKey:kMaxClassifiersShownKey] integerValue];
         
         if (count > 0)
         {
@@ -146,7 +164,7 @@
             self.instructionLabel.stringValue = [NSString stringWithFormat:@"Select up to %ld classifiers.", maxClassifiers];
         }
     }
-    else if (keyPath == SelectedClassifiersKey)
+    else if (keyPath == kSelectedClassifiersKey)
     {
     }
 }
@@ -158,7 +176,7 @@
                               forKeyPath:@"selectionIndexes"];
     
     [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                               forKeyPath:SelectedClassifiersKey];
+                                               forKeyPath:kSelectedClassifiersKey];
 }
 
 - (NSArray *)classifierArray;
@@ -179,11 +197,11 @@
 
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:SelectedClassifiersKey
+                                            forKeyPath:kSelectedClassifiersKey
                                                 options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
-                                                context:(void *)SelectedClassifiersKey];
+                                                context:(void *)kSelectedClassifiersKey];
 
-    for (NSString *classifierName in [[NSUserDefaults standardUserDefaults] objectForKey:SelectedClassifiersKey])
+    for (NSString *classifierName in [[NSUserDefaults standardUserDefaults] objectForKey:kSelectedClassifiersKey])
     {
         NSUInteger numberOfItems = [[self.collectionView content] count];
         for (NSUInteger itemIndex = 0; itemIndex < numberOfItems; itemIndex++)
@@ -203,7 +221,7 @@
 - (void)clearAllButtonClicked;
 {
     [self.arrayController setSelectionIndexes:[NSIndexSet new]];
-    [[NSUserDefaults standardUserDefaults] setObject:@[] forKey:SelectedClassifiersKey];
+    [[NSUserDefaults standardUserDefaults] setObject:@[] forKey:kSelectedClassifiersKey];
 
     NSUInteger numberOfItems = [[self.collectionView content] count];
     for (NSUInteger itemIndex = 0; itemIndex < numberOfItems; itemIndex++)
@@ -219,7 +237,7 @@
     NSArray *defaults = @[@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear"];
     
     [self.arrayController setSelectionIndexes:[NSIndexSet new]];
-    [[NSUserDefaults standardUserDefaults] setObject:@[] forKey:SelectedClassifiersKey];
+    [[NSUserDefaults standardUserDefaults] setObject:@[] forKey:kSelectedClassifiersKey];
 
     NSUInteger numberOfItems = [[self.collectionView content] count];
     for (NSUInteger itemIndex = 0; itemIndex < numberOfItems; itemIndex++)
@@ -229,7 +247,7 @@
         m.enabled = FALSE;
     }
     
-    [[NSUserDefaults standardUserDefaults] setObject:defaults forKey:SelectedClassifiersKey];
+    [[NSUserDefaults standardUserDefaults] setObject:defaults forKey:kSelectedClassifiersKey];
 
     NSMutableIndexSet *set = [NSMutableIndexSet new];
 

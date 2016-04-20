@@ -8,7 +8,7 @@
 
 #import <AppKit/AppKit.h>
 
-@interface ClassifierModel : NSObject <NSCoding>
+@interface ClassifierModel : NSObject
 
 @property (strong) NSString *name;
 @property (strong) NSString *title;

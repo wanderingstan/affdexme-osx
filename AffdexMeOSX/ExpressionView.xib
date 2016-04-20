@@ -22,11 +22,11 @@
                     <levelIndicatorCell key="cell" alignment="left" doubleValue="2" maxValue="100" warningValue="2" criticalValue="2" levelIndicatorStyle="continuousCapacity" id="Q2q-cV-vv3"/>
                 </levelIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ASt-zj-chc">
-                    <rect key="frame" x="0.0" y="2" width="184" height="23"/>
+                    <rect key="frame" x="-2" y="2" width="188" height="23"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="1Z5-08-x5u">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>

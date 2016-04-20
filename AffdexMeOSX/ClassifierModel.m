@@ -22,31 +22,6 @@ static ClassifierModel *laughing, *smiley, *relaxed, *wink, *kiss, *tongueWink, 
 
 static CGFloat emojiFontSize = 80.0;
 
-#if 0
-- (id)initWithCoder:(NSCoder *)aDecoder;
-{
-    if (self = [super init])
-    {
-        self.name = [aDecoder decodeObjectForKey:@"name"];
-        self.title = [aDecoder decodeObjectForKey:@"title"];
-        self.scoreProperty = [aDecoder decodeObjectForKey:@"scoreProperty"];
-        self.image = [aDecoder decodeObjectForKey:@"image"];
-        self.emojiCode = [aDecoder decodeObjectForKey:@"emojiCode"];
-    }
-    
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder;
-{
-    [aCoder encodeObject:self.name forKey:@"name"];
-    [aCoder encodeObject:self.title forKey:@"title"];
-    [aCoder encodeObject:self.scoreProperty forKey:@"scoreProperty"];
-    [aCoder encodeObject:self.image forKey:@"image"];
-    [aCoder encodeObject:self.emojiCode forKey:@"emojiCode"];
-}
-#endif
-
 + (void)initialize;
 {
     if (anger == nil)

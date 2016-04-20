@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "ClassifierPickerViewController.h"
 
-static NSString *SelectedClassifiersKey = @"selectedClassifierList";
-static NSString *MaxClassifiersShownKey = @"maxClassifiersShown";
+static NSString *kSelectedClassifiersKey = @"selectedClassifierList";
+static NSString *kMaxClassifiersShownKey = @"maxClassifiersShown";
 
 @interface ClassifierViewItem : NSCollectionViewItem
 
