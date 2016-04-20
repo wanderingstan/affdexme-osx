@@ -103,16 +103,15 @@
 
     if (flag)
     {
-        self.textField.textColor = [NSColor greenColor];
+        self.textField.textColor = [NSColor colorWithRed:0.0 green:0.7 blue:0.0 alpha:1.0];
         self.textField.font = [NSFont fontWithName:@"Arial Bold" size:18];
         NSRect frame = self.textField.frame;
         frame.origin.x = 0;
         frame.origin.y = 0;
         self.textField.frame = frame;
         [self.imageView.layer setOpacity:1.0];;
-        [self.imageView.layer setBorderColor:[[NSColor greenColor] CGColor]];
+        [self.imageView.layer setBorderColor:[[NSColor colorWithRed:0.0 green:0.7 blue:0.0 alpha:1.0] CGColor]];
         [self.imageView.layer setBorderWidth:3.0];
-//        self.view.layer.backgroundColor = [[NSColor greenColor] CGColor];
     }
     else
     {
@@ -125,7 +124,6 @@
         [self.imageView.layer setOpacity:0.8];;
         [self.imageView.layer setBorderColor:[[NSColor blackColor] CGColor]];
         [self.imageView.layer setBorderWidth:0.0];
-//        self.view.layer.backgroundColor = [[NSColor clearColor] CGColor];
     }
 }
 

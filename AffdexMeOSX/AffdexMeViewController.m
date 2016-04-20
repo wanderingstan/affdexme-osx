@@ -137,6 +137,8 @@
         {
             NSArray *selectedClassifiers = [[NSUserDefaults standardUserDefaults] objectForKey:kSelectedClassifiersKey];
             NSUInteger selectedClassifiersCount = [selectedClassifiers count];
+            CGFloat maxWidth = 0;
+            
             for (int i = 0; i < [viewControllers count]; i++)
             {
                 ExpressionViewController *vc = [viewControllers objectAtIndex:i];
@@ -145,10 +147,32 @@
                     NSString *classifierName = [selectedClassifiers objectAtIndex:i];
                     ClassifierModel *model = [ClassifierModel modelWithName:classifierName];
                     [vc setClassifier:model];
+                    
+                    NSRect f = vc.view.frame;
+                    
+                    if ([vc.expressionLabel.stringValue length] > 0)
+                    {
+                        CGSize size = [vc.expressionLabel.stringValue sizeWithAttributes:@{NSFontAttributeName:vc.expressionLabel.font}];
+                        maxWidth = fmax(maxWidth, size.width);
+                    }
                 }
                 else
                 {
                     [vc setClassifier:nil];
+                }
+            }
+            
+            // add padding to maxWidth
+            maxWidth += maxWidth * .10;
+            
+            for (int i = 0; i < [viewControllers count]; i++)
+            {
+                ExpressionViewController *vc = [viewControllers objectAtIndex:i];
+                if (i < selectedClassifiersCount)
+                {
+                    NSRect frame = vc.view.frame;
+                    frame.size.width = maxWidth;
+                    vc.view.frame = frame;
                 }
             }
         }
@@ -283,7 +307,7 @@
         
         if (face.emotions.valence >= 20)
         {
-            faceBoundsColor = [NSColor greenColor];
+            faceBoundsColor = [NSColor colorWithRed:0.0 green:0.2 blue:0.0 alpha:1.0];
         }
         else if (face.emotions.valence <= -20)
         {
@@ -391,13 +415,14 @@
     NSMutableArray *viewControllers = [NSMutableArray array];
 
     NSUInteger count = [[[NSUserDefaults standardUserDefaults] objectForKey:kMaxClassifiersShownKey] integerValue];
+    NSRect frame = NSZeroRect;
     for (int i = 0; i < count; i++)
     {
         ExpressionViewController *vc = [[ExpressionViewController alloc] initWithClassifier:nil];
         [viewControllers addObject:vc];
-//            [self.view addSubview:vc.view];
     }
-    
+
+#if 0
     NSArray *selectedClassifiers = [[NSUserDefaults standardUserDefaults] objectForKey:kSelectedClassifiersKey];
     count = [selectedClassifiers count];
     for (int i = 0; i < count; i++)
@@ -407,10 +432,13 @@
         ExpressionViewController *vc = [viewControllers objectAtIndex:i];
         [vc setClassifier:model];
     }
-
+#endif
+    
     face.userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:viewControllers, @"viewControllers",
                             [NSNumber numberWithInt:AFDX_EMOJI_NONE], @"dominantEmoji",
                             nil];
+    
+    self.selectedClassifiersDirty = YES;
 }
 
 - (void)detector:(AFDXDetector *)detector didStopDetectingFace:(AFDXFace *)face;
@@ -783,6 +811,7 @@
         
         result = [self.detector stop];
     }
+    self.detector = nil;
     
     return result;
 }

@@ -24,7 +24,7 @@
     
     if (self.percent >= 0)
     {
-        indicatorColor = [NSColor greenColor];
+        indicatorColor = [NSColor colorWithRed:0.0 green:0.7 blue:0.0 alpha:1.0];
     }
     else
     {
