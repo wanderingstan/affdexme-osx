@@ -16,7 +16,7 @@
 static ClassifierModel *anger, *contempt, *disgust, *engagement, *fear, *joy, *sadness, *surprise, *valence;
 
 // Expressions
-static ClassifierModel *attention, *browRaise, *browFurrow, *eyeClosure, *innerBrowRaise, *frown, *lipPress, *lipPucker, *lipSuck, *mouthOpen, *noseWrinkle, *smile, *smirk, *upperLipRaise;
+static ClassifierModel *attention, *browRaise, *browFurrow, *chinRaise, *eyeClosure, *innerBrowRaise, *frown, *lipPress, *lipPucker, *lipSuck, *mouthOpen, *noseWrinkle, *smile, *smirk, *upperLipRaise;
 
 static ClassifierModel *laughing, *smiley, *relaxed, *wink, *kiss, *tongueWink, *tongueOut, *flushed, *disappointed, *rage, *scream, *emojiSmirk;
 
@@ -144,6 +144,16 @@ static CGFloat emojiFontSize = 80.0;
         browRaise.scoreProperty = @"expressions.browRaise";
     }
 
+    if (chinRaise == nil)
+    {
+        chinRaise = [[ClassifierModel alloc] init];
+        chinRaise.name = @"chinRaise";
+        chinRaise.title = @"Chin Raise";
+        NSString *path = [[NSBundle mainBundle] pathForResource:chinRaise.title ofType:@"jpg" inDirectory:@"media/images"];
+        chinRaise.image = [[NSImage alloc] initWithContentsOfFile:path];
+        chinRaise.scoreProperty = @"expressions.chinRaise";
+    }
+    
     if (eyeClosure == nil)
     {
         eyeClosure = [[ClassifierModel alloc] init];
@@ -410,7 +420,7 @@ static CGFloat emojiFontSize = 80.0;
 
 + (NSArray *)expressions;
 {
-    return [NSArray arrayWithObjects:attention, browFurrow, browRaise, eyeClosure, innerBrowRaise, frown, lipPress, lipPucker, lipSuck, mouthOpen, noseWrinkle, smile, smirk, upperLipRaise, nil];
+    return [NSArray arrayWithObjects:attention, browFurrow, browRaise, chinRaise, eyeClosure, innerBrowRaise, frown, lipPress, lipPucker, lipSuck, mouthOpen, noseWrinkle, smile, smirk, upperLipRaise, nil];
 }
 
 + (NSArray *)emojis;

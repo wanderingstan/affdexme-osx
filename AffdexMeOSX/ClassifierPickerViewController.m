@@ -86,7 +86,7 @@
     [self updateSelectionState:self.isSelected];
     
     NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowBlurRadius = 2; //set how many pixels the shadow has
+    shadow.shadowBlurRadius = 1; //set how many pixels the shadow has
     shadow.shadowOffset = NSMakeSize(0, 0); //the distance from the text the shadow is dropped
     shadow.shadowColor = [NSColor blackColor];
     self.textField.shadow = shadow;
@@ -103,7 +103,7 @@
 
     if (flag)
     {
-        self.textField.textColor = [NSColor colorWithRed:0.0 green:0.7 blue:0.0 alpha:1.0];
+        self.textField.textColor = [NSColor greenColor];
         self.textField.font = [NSFont fontWithName:@"Arial Bold" size:18];
         NSRect frame = self.textField.frame;
         frame.origin.x = 0;

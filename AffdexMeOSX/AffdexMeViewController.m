@@ -415,25 +415,12 @@
     NSMutableArray *viewControllers = [NSMutableArray array];
 
     NSUInteger count = [[[NSUserDefaults standardUserDefaults] objectForKey:kMaxClassifiersShownKey] integerValue];
-    NSRect frame = NSZeroRect;
     for (int i = 0; i < count; i++)
     {
         ExpressionViewController *vc = [[ExpressionViewController alloc] initWithClassifier:nil];
         [viewControllers addObject:vc];
     }
 
-#if 0
-    NSArray *selectedClassifiers = [[NSUserDefaults standardUserDefaults] objectForKey:kSelectedClassifiersKey];
-    count = [selectedClassifiers count];
-    for (int i = 0; i < count; i++)
-    {
-        NSString *classifierName = [selectedClassifiers objectAtIndex:i];
-        ClassifierModel *model = [ClassifierModel modelWithName:classifierName];
-        ExpressionViewController *vc = [viewControllers objectAtIndex:i];
-        [vc setClassifier:model];
-    }
-#endif
-    
     face.userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:viewControllers, @"viewControllers",
                             [NSNumber numberWithInt:AFDX_EMOJI_NONE], @"dominantEmoji",
                             nil];
