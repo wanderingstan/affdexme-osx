@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -121,10 +122,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="z0h-np-8Cl"/>
                     </imageView>
-                    <button verticalHuggingPriority="750" id="sEj-Ss-Apx">
-                        <rect key="frame" x="418" y="20" width="42" height="28"/>
+                    <button verticalHuggingPriority="750" springLoaded="YES" id="sEj-Ss-Apx">
+                        <rect key="frame" x="402" y="17" width="58" height="55"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSShareTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ibX-fk-9nY">
+                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="camera-lens-icon" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="ibX-fk-9nY">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -132,33 +133,45 @@
                             <action selector="shareButtonAction:" target="hw1-5l-3Je" id="Uuz-wM-Hfj"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="9k3-7K-CbM">
-                        <rect key="frame" x="18" y="50" width="188" height="22"/>
+                    <box autoresizesSubviews="NO" borderType="line" titlePosition="noTitle" id="inD-GU-obV">
+                        <rect key="frame" x="17" y="13" width="158" height="114"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="ouD-6A-jz6">
-                            <font key="font" metaFont="system" size="18"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="c5N-ii-ZNI">
-                        <rect key="frame" x="18" y="20" width="188" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="6rE-yS-Fb3">
-                            <font key="font" metaFont="system" size="18"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="KD9-fh-LWq">
-                        <rect key="frame" x="18" y="80" width="188" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="wvt-56-4RG">
-                            <font key="font" metaFont="system" size="18"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
+                        <view key="contentView" id="jcZ-Nu-N5d">
+                            <rect key="frame" x="1" y="1" width="156" height="112"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="KD9-fh-LWq">
+                                    <rect key="frame" x="18" y="80" width="124" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="wvt-56-4RG">
+                                        <font key="font" metaFont="system" size="18"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="9k3-7K-CbM">
+                                    <rect key="frame" x="18" y="50" width="124" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="ouD-6A-jz6">
+                                        <font key="font" metaFont="system" size="18"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="c5N-ii-ZNI">
+                                    <rect key="frame" x="18" y="20" width="124" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="6rE-yS-Fb3">
+                                        <font key="font" metaFont="system" size="18"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.73035793439716312" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
                 </subviews>
             </view>
             <connections>
@@ -174,12 +187,13 @@
                 <outlet property="processedImageView" destination="sfx-3a-2fc" id="4w8-63-04q"/>
                 <outlet property="resolution" destination="KD9-fh-LWq" id="bxR-5C-gPL"/>
                 <outlet property="shareButton" destination="sEj-Ss-Apx" id="aLd-CT-lPm"/>
+                <outlet property="statsView" destination="inD-GU-obV" id="dbo-bt-aUb"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="MnD-4L-JWZ"/>
             </connections>
         </customObject>
         <userDefaultsController representsSharedInstance="YES" id="joP-QY-KZx"/>
     </objects>
     <resources>
-        <image name="NSShareTemplate" width="11" height="16"/>
+        <image name="camera-lens-icon" width="48" height="48"/>
     </resources>
 </document>

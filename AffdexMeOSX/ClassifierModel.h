@@ -14,6 +14,7 @@
 @property (strong) NSString *title;
 @property (strong) NSString *scoreProperty;
 @property (strong) NSImage *image;
+@property (strong) NSURL *movieURL;
 @property (strong) NSNumber *emojiCode;
 @property (assign) BOOL enabled;
 

@@ -61,6 +61,7 @@
 @property (strong) NSImage *unknownImageWithGlasses;
 @property (assign) CGRect genderRect;
 @property (assign) AFDXCameraType cameraToUse;
+@property (strong) AVAudioPlayer *audioPlayer;
 
 @property (strong) NSArray *faces;
 
@@ -197,9 +198,7 @@
 - (void)unprocessedImageReady:(AFDXDetector *)detector image:(NSImage *)image atTime:(NSTimeInterval)time;
 {
     NSImage *newImage = image;
-    self.fpsProcessedTextField.hidden = !self.drawFrameRate;
-    self.fpsUnprocessedTextField.hidden = !self.drawFrameRate;
-    self.resolution.hidden = !self.drawFrameRate;
+    self.statsView.hidden = !self.drawFrameRate;
     
     if (self.drawFramesToScreen == NO)
     {
@@ -512,8 +511,8 @@
     }
 #endif
 
-    [self.shareButton setImage:[NSImage imageNamed:NSImageNameShareTemplate]];
     [self.shareButton sendActionOn:NSLeftMouseDownMask];
+    [self.shareButton.cell setHighlightsBy:NSContentsCellMask];
 }
 
 - (void)viewWillDisappear;
@@ -822,8 +821,40 @@
 
 - (IBAction)shareButtonAction:(id)sender;
 {
+    // hide share button
     [self.shareButton setHidden:TRUE];
+
+    // capture image
     NSImage *image = [NSImage imageFromView:self.view];
+
+    // play sound
+    if (self.audioPlayer == nil)
+    {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"camera-shutter" ofType:@"mp3" inDirectory:@"media"];
+        NSURL *url = [NSURL fileURLWithPath:path];
+        
+        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        [self.audioPlayer prepareToPlay];
+    }
+    [self.audioPlayer play];
+
+    // lazily initialize the view's layer
+    if (self.view.layer == nil)
+    {
+        self.view.layer = [CALayer layer];
+        self.view.wantsLayer = YES;
+    }
+
+    // Flash ON
+    CABasicAnimation *theAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    theAnimation.duration = 0.1;
+    theAnimation.repeatCount = 1;
+    theAnimation.autoreverses = YES;
+    theAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+    theAnimation.toValue = [NSNumber numberWithFloat:0.0];
+    [self.view.layer addAnimation:theAnimation forKey:@"animateOpacity"];
+    
+    // restore share button and show share service picker
     [self.shareButton setHidden:FALSE];
     NSSharingServicePicker *sharingServicePicker = [[NSSharingServicePicker alloc] initWithItems:@[image]];
     sharingServicePicker.delegate = self;

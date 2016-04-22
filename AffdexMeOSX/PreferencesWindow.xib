@@ -251,7 +251,7 @@
                         <rect key="frame" x="1" y="1" width="485" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView selectable="YES" allowsMultipleSelection="YES" id="Hmk-ef-0BP" customClass="MyCollectionView">
+                            <collectionView selectable="YES" allowsMultipleSelection="YES" id="Hmk-ef-0BP" customClass="ClassifierCollectionView">
                                 <rect key="frame" x="0.0" y="0.0" width="485" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -317,11 +317,11 @@
                         <binding destination="Kvx-dj-T1N" name="value" keyPath="representedObject.image" id="M1p-Ei-UKC"/>
                     </connections>
                 </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ugN-O6-98p">
-                    <rect key="frame" x="-2" y="4" width="156" height="29"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ugN-O6-98p" customClass="CustomTextField">
+                    <rect key="frame" x="-4" y="5" width="160" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="Eko-qW-l7G">
-                        <font key="font" metaFont="systemBold" size="18"/>
+                        <font key="font" metaFont="systemBold" size="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12641289893617016" colorSpace="calibratedRGB"/>
                     </textFieldCell>
@@ -332,7 +332,7 @@
             </subviews>
             <point key="canvasLocation" x="209" y="-126"/>
         </view>
-        <collectionViewItem id="Kvx-dj-T1N" customClass="ClassifierViewItem">
+        <collectionViewItem id="Kvx-dj-T1N" customClass="ClassifierCollectionViewItem">
             <connections>
                 <outlet property="imageView" destination="Vwo-7d-sK3" id="wKa-b5-V0j"/>
                 <outlet property="textField" destination="ugN-O6-98p" id="cr1-3j-oGd"/>

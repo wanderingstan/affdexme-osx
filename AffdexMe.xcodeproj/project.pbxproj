@@ -11,6 +11,7 @@
 		680079361C9325CF009D9AD4 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680079331C9325CF009D9AD4 /* PreferencesWindow.xib */; };
 		680079371C9325CF009D9AD4 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 680079351C9325CF009D9AD4 /* PreferencesWindowController.m */; };
 		680079391C932826009D9AD4 /* media in Resources */ = {isa = PBXBuildFile; fileRef = 680079381C932826009D9AD4 /* media */; };
+		680401A01CC8F35F001AF417 /* camera-lens-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6804019F1CC8F35F001AF417 /* camera-lens-icon.png */; };
 		6818F63A1C9B08A60013FAD1 /* ClassifierPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA0DE61C98486900DFB13A /* ClassifierPickerViewController.m */; };
 		686B4BCA1C9CFE7B007E69C1 /* NSImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 686B4BC91C9CFE7B007E69C1 /* NSImage+Extensions.m */; };
 		68773BF61A1794610087D532 /* ExpressionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68773BF41A17936A0087D532 /* ExpressionViewController.m */; };
@@ -57,6 +58,7 @@
 		680079341C9325CF009D9AD4 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		680079351C9325CF009D9AD4 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		680079381C932826009D9AD4 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
+		6804019F1CC8F35F001AF417 /* camera-lens-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-lens-icon.png"; path = "media/camera-lens-icon.png"; sourceTree = "<group>"; };
 		684C31C01CAC66B500718B91 /* AffdexMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AffdexMe.entitlements; sourceTree = "<group>"; };
 		686B4BC81C9CFE7B007E69C1 /* NSImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+Extensions.h"; path = "AffdexMeOSX/NSImage+Extensions.h"; sourceTree = "<group>"; };
 		686B4BC91C9CFE7B007E69C1 /* NSImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+Extensions.m"; path = "AffdexMeOSX/NSImage+Extensions.m"; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 		68DEC4731A178731009FCB2E = {
 			isa = PBXGroup;
 			children = (
+				6804019F1CC8F35F001AF417 /* camera-lens-icon.png */,
 				684C31C01CAC66B500718B91 /* AffdexMe.entitlements */,
 				688DFABC1CA037510045A9F0 /* classifiers.png */,
 				688DFABD1CA037510045A9F0 /* settings.png */,
@@ -269,6 +272,7 @@
 				68DEC48A1A178731009FCB2E /* MainMenu.xib in Resources */,
 				68773BF81A1794970087D532 /* ExpressionView.xib in Resources */,
 				680079361C9325CF009D9AD4 /* PreferencesWindow.xib in Resources */,
+				680401A01CC8F35F001AF417 /* camera-lens-icon.png in Resources */,
 				688DFABE1CA037510045A9F0 /* classifiers.png in Resources */,
 				680079391C932826009D9AD4 /* media in Resources */,
 			);

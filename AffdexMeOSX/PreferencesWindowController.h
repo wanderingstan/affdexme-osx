@@ -12,10 +12,6 @@
 static NSString *kSelectedClassifiersKey = @"selectedClassifierList";
 static NSString *kMaxClassifiersShownKey = @"maxClassifiersShown";
 
-@interface ClassifierViewItem : NSCollectionViewItem
-
-@end
-
 @interface PreferencesWindowController : NSWindowController
 
 @property (assign) IBOutlet NSView *settingsView;

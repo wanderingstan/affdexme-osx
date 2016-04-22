@@ -28,6 +28,7 @@ static NSString *kProcessRateKey = @"maxProcessRate";
 @property (weak) IBOutlet NSImageView *processedImageView;
 @property (strong) AVCaptureSession *session;
 @property dispatch_queue_t process_queue;
+@property (weak) IBOutlet NSView *statsView;
 @property (weak) IBOutlet NSTextField *fpsUnprocessedTextField;
 @property (weak) IBOutlet NSTextField *resolution;
 @property (weak) IBOutlet NSTextField *fpsProcessedTextField;

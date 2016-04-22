@@ -12,11 +12,74 @@
 #import "AffdexMeViewController.h"
 #import "ClassifierModel.h"
 
-@interface MyCollectionView : NSCollectionView
+@interface CustomTextField : NSTextField
+@end
+
+@implementation CustomTextField
+
+static NSMutableDictionary *regularAttributes = nil;
+static NSMutableDictionary *indesignBackgroundAttributes = nil;
+static NSMutableDictionary *indesignForegroundAttributes = nil;
+
+- (void)drawRect:(NSRect)frame;
+{
+    NSString *string = self.stringValue;
+    
+    if (regularAttributes == nil) {
+        regularAttributes = [NSMutableDictionary
+                              dictionaryWithObjectsAndKeys:
+                             [NSFont fontWithName:@"Arial Black" size:15.0], NSFontAttributeName,
+                              [NSColor whiteColor],NSForegroundColorAttributeName,
+                              [NSNumber numberWithFloat:-5.0],NSStrokeWidthAttributeName,
+                              [NSColor blackColor],NSStrokeColorAttributeName, nil];
+    }
+    
+    if (indesignBackgroundAttributes == nil) {
+        indesignBackgroundAttributes = [NSMutableDictionary
+                                         dictionaryWithObjectsAndKeys:
+                                        [NSFont fontWithName:@"Arial Black" size:15.0], NSFontAttributeName,
+                                         [NSNumber numberWithFloat:-15.0],NSStrokeWidthAttributeName,
+                                         [NSColor blackColor],NSStrokeColorAttributeName, nil];
+    }
+    
+    if (indesignForegroundAttributes == nil) {
+        indesignForegroundAttributes = [NSMutableDictionary
+                                         dictionaryWithObjectsAndKeys:
+                                        [NSFont fontWithName:@"Arial Black" size:15.0], NSFontAttributeName,
+                                         [NSColor whiteColor],NSForegroundColorAttributeName, nil];
+    }
+    
+    [[NSColor clearColor] set];
+    [NSBezierPath fillRect:frame];
+    
+    // draw top string
+    NSSize size = [string sizeWithAttributes:indesignBackgroundAttributes];
+    NSPoint p = NSMakePoint((frame.origin.x + frame.size.width - size.width) / 2, 0);
+    
+    [string drawAtPoint:p withAttributes:regularAttributes];
+    
+    // draw bottom string in two passes
+    [string drawAtPoint:p withAttributes:indesignBackgroundAttributes];
+    [string drawAtPoint:p withAttributes:indesignForegroundAttributes];
+}
 
 @end
 
-@implementation MyCollectionView
+@interface ClassifierCollectionViewItem : NSCollectionViewItem
+
+@property (strong) NSTrackingArea *trackingArea;
+@property (strong) AVPlayer *player;
+@property (strong) AVPlayerLayer *playerLayer;
+
+- (void)playMovie;
+
+@end
+
+@interface ClassifierCollectionView : NSCollectionView
+
+@end
+
+@implementation ClassifierCollectionView
 
 // Ignore key events for this view
 - (void)keyDown:(NSEvent *)theEvent;
@@ -41,7 +104,8 @@
         NSRect aFrame = [self frameForItemAtIndex:ctr];
         if ([self mouse:mouseDownPoint inRect:aFrame])
         {
-            NSCollectionViewItem *anItem = [self itemAtIndex:ctr];
+            ClassifierCollectionViewItem *anItem = (ClassifierCollectionViewItem *)[self itemAtIndex:ctr];
+            [anItem playMovie];
             ClassifierModel *m = [anItem representedObject];
             if (m.enabled == FALSE && maximumItemsSelected)
             {
@@ -64,6 +128,7 @@
             }
             
             [[NSUserDefaults standardUserDefaults] setObject:selectedClassifiers forKey:kSelectedClassifiersKey];
+            
             break;
         }
     }
@@ -73,23 +138,59 @@
 
 @end
 
-@implementation ClassifierViewItem
+@implementation ClassifierCollectionViewItem
+
+- (void)playMovie;
+{
+    ClassifierModel *m = [self representedObject];
+    self.player = [[AVPlayer alloc] initWithURL:m.movieURL];
+    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
+    [self.playerLayer setFrame:self.view.bounds];
+    [self.imageView setWantsLayer:YES];
+    [self.imageView.layer addSublayer:self.playerLayer];
+    [self.player play];
+}
+
+- (void)mouseEntered:(NSEvent *)theEvent
+{
+//    [self.imageView.layer addSublayer:self.playerLayer];
+//    [self.player play];
+    
+    return;
+}
+
+- (void)mouseExited:(NSEvent *)theEvent
+{
+//    [self.player pause];
+//    [self.playerLayer removeFromSuperlayer];
+    ClassifierModel *m = [self representedObject];
+    NSLog(@"Exiting %@", m.name);
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 }
 
-- (void)viewDidAppear
+- (void)viewWillAppear
 {
     // seems the inital selection state is not done by Apple in a KVO compliant manner, update manually
     [self updateSelectionState:self.isSelected];
     
     NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowBlurRadius = 1; //set how many pixels the shadow has
+    shadow.shadowBlurRadius = 1.25; //set how many pixels the shadow has
     shadow.shadowOffset = NSMakeSize(0, 0); //the distance from the text the shadow is dropped
     shadow.shadowColor = [NSColor blackColor];
-    self.textField.shadow = shadow;
+//    self.textField.shadow = shadow;
+    
+    self.trackingArea = [[NSTrackingArea alloc] initWithRect:self.view.frame
+                                                options: (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow )
+                                                  owner:self userInfo:nil];
+//    NSLog(@"Tracking %@", NSStringFromRect(self.view.frame));
+    [self.view addTrackingArea:self.trackingArea];
+
+    
+    ClassifierModel *m = [self representedObject];
 }
 
 - (void)updateSelectionState:(BOOL)flag
@@ -103,25 +204,11 @@
 
     if (flag)
     {
-        self.textField.textColor = [NSColor greenColor];
-        self.textField.font = [NSFont fontWithName:@"Arial Bold" size:18];
-        NSRect frame = self.textField.frame;
-        frame.origin.x = 0;
-        frame.origin.y = 0;
-        self.textField.frame = frame;
-        [self.imageView.layer setOpacity:1.0];;
         [self.imageView.layer setBorderColor:[[NSColor colorWithRed:0.0 green:0.7 blue:0.0 alpha:1.0] CGColor]];
-        [self.imageView.layer setBorderWidth:3.0];
+        [self.imageView.layer setBorderWidth:5.0];
     }
     else
     {
-        self.textField.textColor = [NSColor whiteColor];
-        self.textField.font = [NSFont fontWithName:@"Arial Bold" size:16];
-        NSRect frame = self.textField.frame;
-        frame.origin.x = 0;
-        frame.origin.y = 0;
-        self.textField.frame = frame;
-        [self.imageView.layer setOpacity:0.8];;
         [self.imageView.layer setBorderColor:[[NSColor blackColor] CGColor]];
         [self.imageView.layer setBorderWidth:0.0];
     }
