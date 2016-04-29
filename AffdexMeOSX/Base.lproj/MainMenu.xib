@@ -100,7 +100,7 @@
                         <items>
                             <menuItem title="AffdexMe Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                 <connections>
-                                    <action selector="showHelp:" target="-1" id="y7X-2Q-9no"/>
+                                    <action selector="showHelp:" target="hw1-5l-3Je" id="lzh-1L-jEG"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -133,7 +133,7 @@
                             <action selector="shareButtonAction:" target="hw1-5l-3Je" id="Uuz-wM-Hfj"/>
                         </connections>
                     </button>
-                    <box autoresizesSubviews="NO" borderType="line" titlePosition="noTitle" id="inD-GU-obV">
+                    <box autoresizesSubviews="NO" transparent="YES" borderType="line" titlePosition="noTitle" id="inD-GU-obV">
                         <rect key="frame" x="17" y="13" width="158" height="114"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <view key="contentView" id="jcZ-Nu-N5d">

@@ -864,7 +864,7 @@
                                preferredEdge:NSMinYEdge];
 }
 
-- (void)showHelp:(id)sender;
+- (IBAction)showHelp:(id)sender;
 {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://github.com/Affectiva/affdexme-osx"]];
 }
