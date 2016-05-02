@@ -149,6 +149,7 @@
                     ClassifierModel *model = [ClassifierModel modelWithName:classifierName];
                     [vc setClassifier:model];
                     
+                    // This is here to force the loading of the view's XIB file
                     NSRect f = vc.view.frame;
                     
                     if ([vc.expressionLabel.stringValue length] > 0)
@@ -321,9 +322,11 @@
         NSMutableArray *viewControllers = [face.userInfo objectForKey:@"viewControllers"];
         NSViewController *vc = [viewControllers objectAtIndex:0];
         CGFloat expressionFrameHeight = vc.view.frame.size.height;
-        CGFloat expressionFrameIncrement = faceBounds.size.height / ([[[NSUserDefaults standardUserDefaults] objectForKey:kMaxClassifiersShownKey] integerValue]);
+        const CGFloat verticalPadding = 6.0;
+        CGFloat expressionFrameIncrement = faceBounds.size.height / ([[[NSUserDefaults standardUserDefaults] objectForKey:kMaxClassifiersShownKey] integerValue]) + verticalPadding;
         CGFloat nextY = image.size.height - faceBounds.origin.y - expressionFrameHeight;
-        for (NSViewController *vc in viewControllers)
+
+        for (ExpressionViewController *vc in viewControllers)
         {
             NSRect frame = vc.view.frame;
             frame.origin.x = faceBounds.origin.x - frame.size.width;

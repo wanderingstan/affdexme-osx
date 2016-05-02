@@ -344,6 +344,7 @@
                 <outlet property="arrayController" destination="gt6-LK-FRz" id="qun-T0-cRa"/>
                 <outlet property="collectionView" destination="Hmk-ef-0BP" id="Yhc-sR-aWg"/>
                 <outlet property="instructionLabel" destination="ZVz-h1-csF" id="k3O-Bu-H8i"/>
+                <outlet property="scrollView" destination="kdC-rX-SJN" id="bMP-6o-u6R"/>
                 <outlet property="view" destination="XT1-GH-gbj" id="9lc-6r-aBN"/>
             </connections>
         </customObject>
