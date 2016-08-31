@@ -488,7 +488,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/libAffdex-ftljojjqxhthvrdtpvkmchodxblm/Build/Products/Debug",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
@@ -510,7 +509,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/libAffdex-ftljojjqxhthvrdtpvkmchodxblm/Build/Products/Debug",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
