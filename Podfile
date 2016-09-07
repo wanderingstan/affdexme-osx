@@ -1,7 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
-source 'https://github.com/Affectiva/cocoapods-specs.git'
 use_frameworks!
 
 target 'AffdexMe' do
-    pod 'AffdexSDK-OSX', '3.1-488'
+    pod 'AffdexSDK-OSX'
 end
