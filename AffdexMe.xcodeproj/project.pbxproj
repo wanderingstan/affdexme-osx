@@ -19,13 +19,12 @@
 		688DFABE1CA037510045A9F0 /* classifiers.png in Resources */ = {isa = PBXBuildFile; fileRef = 688DFABC1CA037510045A9F0 /* classifiers.png */; };
 		688DFABF1CA037510045A9F0 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 688DFABD1CA037510045A9F0 /* settings.png */; };
 		68BA0DED1C987F3100DFB13A /* ClassifierModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA0DEC1C987F3100DFB13A /* ClassifierModel.m */; };
-		68D8C6A01BE1A80D005851C8 /* Affdex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D8C69E1BE1A807005851C8 /* Affdex.framework */; };
-		68D8C6A11BE1A80D005851C8 /* Affdex.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 68D8C69E1BE1A807005851C8 /* Affdex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		68DEC4831A178731009FCB2E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEC4821A178731009FCB2E /* AppDelegate.m */; };
 		68DEC4851A178731009FCB2E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEC4841A178731009FCB2E /* main.m */; };
 		68DEC4871A178731009FCB2E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DEC4861A178731009FCB2E /* Images.xcassets */; };
 		68DEC48A1A178731009FCB2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68DEC4881A178731009FCB2E /* MainMenu.xib */; };
 		68DEC4961A178731009FCB2E /* AffdexMeOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */; };
+		A3D08E77559302A1656F311A /* Pods_AffdexMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,13 +44,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				68D8C6A11BE1A80D005851C8 /* Affdex.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E0A5563682FAAAB1DE1C4F1 /* Pods-AffdexMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AffdexMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AffdexMe/Pods-AffdexMe.debug.xcconfig"; sourceTree = "<group>"; };
 		680079241C90C0C1009D9AD4 /* AffdexMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffdexMeViewController.h; sourceTree = "<group>"; };
 		680079251C90C0C1009D9AD4 /* AffdexMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffdexMeViewController.m; sourceTree = "<group>"; };
 		680079331C9325CF009D9AD4 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
@@ -71,7 +70,6 @@
 		68BA0DE61C98486900DFB13A /* ClassifierPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierPickerViewController.m; sourceTree = "<group>"; };
 		68BA0DEB1C987F3100DFB13A /* ClassifierModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierModel.h; sourceTree = "<group>"; };
 		68BA0DEC1C987F3100DFB13A /* ClassifierModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierModel.m; sourceTree = "<group>"; };
-		68D8C69E1BE1A807005851C8 /* Affdex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Affdex.framework; sourceTree = SOURCE_ROOT; };
 		68DEC47C1A178731009FCB2E /* AffdexMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AffdexMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DEC4801A178731009FCB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DEC4811A178731009FCB2E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -82,6 +80,8 @@
 		68DEC48F1A178731009FCB2E /* AffdexMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AffdexMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DEC4941A178731009FCB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AffdexMeOSXTests.m; sourceTree = "<group>"; };
+		6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AffdexMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		819FE234EFB7A6A78C5A92A9 /* Pods-AffdexMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AffdexMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AffdexMe/Pods-AffdexMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68D8C6A01BE1A80D005851C8 /* Affdex.framework in Frameworks */,
+				A3D08E77559302A1656F311A /* Pods_AffdexMe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +103,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AEADA72BC3E2D322F9AE233 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		68DEC4731A178731009FCB2E = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +124,8 @@
 				68DEC47E1A178731009FCB2E /* AffdexMeOSX */,
 				68DEC4921A178731009FCB2E /* AffdexMeOSXTests */,
 				68DEC47D1A178731009FCB2E /* Products */,
+				DE1E12C952C964F7C25C678F /* Pods */,
+				0AEADA72BC3E2D322F9AE233 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,7 +165,6 @@
 		68DEC47F1A178731009FCB2E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				68D8C69E1BE1A807005851C8 /* Affdex.framework */,
 				68DEC4801A178731009FCB2E /* Info.plist */,
 				68DEC4841A178731009FCB2E /* main.m */,
 			);
@@ -179,6 +188,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DE1E12C952C964F7C25C678F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0E0A5563682FAAAB1DE1C4F1 /* Pods-AffdexMe.debug.xcconfig */,
+				819FE234EFB7A6A78C5A92A9 /* Pods-AffdexMe.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -186,10 +204,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 68DEC4991A178731009FCB2E /* Build configuration list for PBXNativeTarget "AffdexMe" */;
 			buildPhases = (
+				F1E2808F12BD732932E905D4 /* [CP] Check Pods Manifest.lock */,
 				68DEC4781A178731009FCB2E /* Sources */,
 				68DEC4791A178731009FCB2E /* Frameworks */,
 				68DEC47A1A178731009FCB2E /* Resources */,
 				68DEC4A11A178786009FCB2E /* CopyFiles */,
+				1A7BDB3F6241E2BB1487D8F1 /* [CP] Embed Pods Frameworks */,
+				00F5ADC563D1F9158355D7AE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -286,6 +307,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00F5ADC563D1F9158355D7AE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AffdexMe/Pods-AffdexMe-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1A7BDB3F6241E2BB1487D8F1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AffdexMe/Pods-AffdexMe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1E2808F12BD732932E905D4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		68DEC4781A178731009FCB2E /* Sources */ = {
@@ -410,13 +479,13 @@
 		};
 		68DEC49A1A178731009FCB2E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E0A5563682FAAAB1DE1C4F1 /* Pods-AffdexMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/libAffdex-ftljojjqxhthvrdtpvkmchodxblm/Build/Products/Debug",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
@@ -431,13 +500,13 @@
 		};
 		68DEC49B1A178731009FCB2E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 819FE234EFB7A6A78C5A92A9 /* Pods-AffdexMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/libAffdex-ftljojjqxhthvrdtpvkmchodxblm/Build/Products/Debug",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;

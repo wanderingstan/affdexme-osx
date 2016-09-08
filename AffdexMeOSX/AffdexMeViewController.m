@@ -6,13 +6,6 @@
 //
 //  See the file license.txt for copying permission.
 
-#define YOUR_AFFDEX_LICENSE_STRING_GOES_HERE @"{\"token\": \"b898714e3fcc4d2ea6009e8b809932510b5a47b0b54fcaad6a8fd465e32452d8\", \"licensor\": \"Affectiva Inc.\", \"expires\": \"2026-01-28\", \"developerId\": \"iosdev@affectiva.com\", \"software\": \"Affdex SDK\"}"
-
-
-#ifndef YOUR_AFFDEX_LICENSE_STRING_GOES_HERE
-#error Please set the macro YOUR_AFFDEX_LICENSE_STRING_GOES_HERE to the contents of your Affectiva SDK license file.
-#endif
-
 #import "AffdexMeViewController.h"
 #import "ClassifierModel.h"
 #import "NSImage+Extensions.h"
@@ -764,7 +757,6 @@
     self.detector.maxProcessRate = maxProcessRate;
     self.timestampOfLastUnprocessedFrame = 0;
     self.timestampOfLastProcessedFrame = 0;
-    self.detector.licenseString = YOUR_AFFDEX_LICENSE_STRING_GOES_HERE;
     
     // tell the detector which facial expressions we want to measure
     [self.detector setDetectAllEmotions:YES];
