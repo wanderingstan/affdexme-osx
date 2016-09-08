@@ -70,7 +70,6 @@
 		68BA0DE61C98486900DFB13A /* ClassifierPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierPickerViewController.m; sourceTree = "<group>"; };
 		68BA0DEB1C987F3100DFB13A /* ClassifierModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierModel.h; sourceTree = "<group>"; };
 		68BA0DEC1C987F3100DFB13A /* ClassifierModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierModel.m; sourceTree = "<group>"; };
-		68D8C69E1BE1A807005851C8 /* Affdex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Affdex.framework; sourceTree = SOURCE_ROOT; };
 		68DEC47C1A178731009FCB2E /* AffdexMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AffdexMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DEC4801A178731009FCB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DEC4811A178731009FCB2E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -166,7 +165,6 @@
 		68DEC47F1A178731009FCB2E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				68D8C69E1BE1A807005851C8 /* Affdex.framework */,
 				68DEC4801A178731009FCB2E /* Info.plist */,
 				68DEC4841A178731009FCB2E /* main.m */,
 			);
