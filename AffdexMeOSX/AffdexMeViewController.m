@@ -762,6 +762,7 @@
     [self.detector setDetectAllEmotions:YES];
     [self.detector setDetectAllExpressions:YES];
     [self.detector setDetectEmojis:YES];
+    [self.detector enableAnalytics];
     self.detector.gender = TRUE;
     self.detector.glasses = TRUE;
     
