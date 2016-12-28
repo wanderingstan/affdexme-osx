@@ -22,10 +22,10 @@ static NSString *kDrawFramesToScreenKey = @"drawFramesToScreen";
 static NSString *kPointSizeKey = @"pointSize";
 static NSString *kProcessRateKey = @"maxProcessRate";
 
-@interface AffdexMeViewController : NSViewController <AFDXDetectorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, NSSharingServicePickerDelegate>
+@interface AffdexMeViewController : NSViewController <AFDXDetectorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, NSSharingServicePickerDelegate, NSWindowDelegate>
 
+@property (weak) IBOutlet NSView *mainView;
 @property (strong) IBOutlet NSImageView *imageView;
-@property (weak) IBOutlet NSImageView *processedImageView;
 @property (strong) IBOutlet NSView *logoView;
 @property (weak) IBOutlet NSImageView *hubbleLogo;
 @property (weak) IBOutlet NSBox *logoDivider;

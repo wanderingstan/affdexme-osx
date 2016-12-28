@@ -349,6 +349,8 @@
         [self.imageView setImage:newImage];
     }
 
+    // Update image view size to implement scale to fill, where the minimum axis scales to the window size.
+    [self updateImageFrameForSize:[newImage size]];
     
     // compute frames per second and show
     static NSUInteger smoothCount = 0;
@@ -458,7 +460,7 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kMaxClassifiersShownKey : [NSNumber numberWithInteger:6]}];
 }
 
--(BOOL)canBecomeFirstResponder;
+- (BOOL)canBecomeFirstResponder;
 {
     return YES;
 }
@@ -467,6 +469,79 @@
 {
     self.detector = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#if 0
+- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize;
+{
+    [self updateImageViewToSize:frameSize];
+    return frameSize;
+}
+#endif
+
+// Update the image frame to fit the enclosing view bounds using aspect fill, where the entire
+// window bounds are filled and the image can overflow in one direction to preserve aspect ratio.
+// The image is centered in the main view.
+- (void)updateImageFrameForSize:(NSSize)imageSize;
+{
+    NSRect viewBounds = [self.mainView bounds];
+    double windowWidth = viewBounds.size.width;
+    double windowHeight = viewBounds.size.height;
+
+    double imageWidth = imageSize.width;
+    double imageHeight = imageSize.height;
+    if ((imageWidth == 0.0) || (imageHeight == 0.0))
+    {
+        return;
+    }
+
+    NSRect newImageViewFrame;
+
+    double xScale = windowWidth / imageWidth;
+    double yScale = windowHeight / imageHeight;
+
+    if (xScale > yScale)
+    {
+        newImageViewFrame.size.width = imageWidth * xScale;
+        newImageViewFrame.size.height = imageHeight * xScale;
+    }
+    else
+    {
+        newImageViewFrame.size.width = imageWidth * yScale;
+        newImageViewFrame.size.height = imageHeight * yScale;
+    }
+
+#if 0
+    double minScale = (xScale < yScale) ? xScale : yScale;
+    double maxScale = (xScale > yScale) ? xScale : yScale;
+
+    newImageViewFrame.size.width = windowWidth * maxScale;
+    newImageViewFrame.size.height = windowHeight * maxScale;
+#endif
+
+    // Center the image view in the main window.
+    newImageViewFrame.origin.x = (windowWidth - newImageViewFrame.size.width) / 2.0;
+    newImageViewFrame.origin.y = (windowHeight - newImageViewFrame.size.height) / 2.0;
+
+    NSLog(@"Image dimensions: %f x %f\n", imageWidth, imageHeight);
+    NSLog(@"xScale, yScale: %f, %f\n", xScale, yScale);
+    NSLog(@"Window dimensions: %f x %f\n", windowWidth, windowHeight);
+    NSLog(@"Image View origin = %f, %f; dimensions: %f x %f\n", newImageViewFrame.origin.x, newImageViewFrame.origin.y, newImageViewFrame.size.width, newImageViewFrame.size.height);
+    self.imageView.frame = newImageViewFrame; // CGRectMake(0, 0, imageViewWidth, imageViewHeight);
+
+    // Position logo view and preserve its aspect ratio.
+#define kLogoViewScaleFactor 0.35
+#define kLogoViewAspectRatio 0.6
+#define kLogoViewInsetTop 12.0
+#define kLogoViewInsetRight 12.0
+    CGFloat newWidth = windowWidth * kLogoViewScaleFactor; // self.logoView.frame.size.width;
+    CGFloat newHeight = newWidth * kLogoViewAspectRatio;
+    CGFloat newOriginX = windowWidth - newWidth - kLogoViewInsetTop;
+    CGFloat newOriginY = windowHeight - newHeight - kLogoViewInsetRight;
+
+    NSRect newLogoViewFrame = CGRectMake(newOriginX, newOriginY, newWidth, newHeight);
+    self.logoView.frame = newLogoViewFrame;
+    NSLog(@"Logo View origin = %f, %f; dimensions: %f x %f\n", newLogoViewFrame.origin.x, newLogoViewFrame.origin.y, newLogoViewFrame.size.width, newLogoViewFrame.size.height);
 }
 
 - (void)viewDidLoad;
@@ -507,7 +582,9 @@
     }
 #endif
 
-    self.logoView.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.4);
+    self.mainView.layer.backgroundColor = CGColorCreateGenericRGB(246/255.0, 137/255.0, 51/255.0, 0.4);
+
+    self.logoView.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.7);
     self.logoView.layer.cornerRadius = 12.0;
 
 #if 0
@@ -707,7 +784,7 @@
     self.detector = [[AFDXDetector alloc] initWithDelegate:self usingFile:self.mediaFilename maximumFaces:maximumFaces];
 #else
     // create our detector with our desired facial expresions, using the front facing camera
-    self.detector = [[AFDXDetector alloc] initWithDelegate:self usingCaptureDevice:device maximumFaces:maximumFaces];
+    self.detector = [[AFDXDetector alloc] initWithDelegate:self usingCaptureDevice:device maximumFaces:maximumFaces faceMode:SMALL_FACES];
 #endif
     
     // add ourself as an observer of various settings

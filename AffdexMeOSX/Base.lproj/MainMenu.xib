@@ -114,14 +114,14 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1280" height="720"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <view key="contentView" id="EiT-Mj-1SZ">
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="1280" height="720"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="sfx-3a-2fc" customClass="AffdexImageView">
                         <rect key="frame" x="0.0" y="0.0" width="1280" height="720"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="z0h-np-8Cl"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="z0h-np-8Cl"/>
                     </imageView>
                     <button verticalHuggingPriority="750" springLoaded="YES" id="sEj-Ss-Apx">
                         <rect key="frame" x="1202" y="17" width="58" height="55"/>
@@ -180,26 +180,26 @@
                         </buttonCell>
                     </button>
                     <customView wantsLayer="YES" misplaced="YES" id="TEY-gY-DEq">
-                        <rect key="frame" x="854" y="486" width="406" height="214"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                        <rect key="frame" x="839" y="492" width="425" height="220"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="lUs-ft-yFE">
-                                <rect key="frame" x="0.0" y="104" width="406" height="100"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <rect key="frame" x="20" y="97" width="385" height="94"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="hubble_connected" id="jpm-fO-EIp"/>
                             </imageView>
                             <box misplaced="YES" boxType="custom" borderType="none" cornerRadius="4" title="Box" id="rKp-98-HFI">
-                                <rect key="frame" x="132" y="86" width="261" height="2"/>
+                                <rect key="frame" x="140" y="76" width="264" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" id="v6y-5q-NC3">
-                                    <rect key="frame" x="0.0" y="0.0" width="261" height="2"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="264" height="2"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <color key="borderColor" red="1" green="0.18765386589999999" blue="0.25808027039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="fillColor" white="0.60117187500000002" alpha="1" colorSpace="calibratedWhite"/>
                             </box>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="Vc7-NN-fBO">
-                                <rect key="frame" x="250" y="6" width="143" height="68"/>
+                                <rect key="frame" x="253" y="0.0" width="150" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="powered_by_light_bg" id="swZ-Xc-Rhb"/>
                             </imageView>
@@ -217,12 +217,11 @@
                 <outlet property="fpsProcessedTextField" destination="9k3-7K-CbM" id="uv3-Tf-FKQ"/>
                 <outlet property="fpsUnprocessedTextField" destination="c5N-ii-ZNI" id="BrO-dn-RPh"/>
                 <outlet property="hubbleLogo" destination="lUs-ft-yFE" id="WN8-ty-Ofn"/>
-                <outlet property="hubbleLogp" destination="jpm-fO-EIp" id="Fvh-Ce-sbp"/>
                 <outlet property="imageView" destination="sfx-3a-2fc" id="TdP-BW-nLH"/>
                 <outlet property="logoDivider" destination="rKp-98-HFI" id="Zu5-FE-tHc"/>
                 <outlet property="logoView" destination="TEY-gY-DEq" id="blP-39-gmu"/>
+                <outlet property="mainView" destination="EiT-Mj-1SZ" id="viq-W7-Qcp"/>
                 <outlet property="poweredByLogo" destination="Vc7-NN-fBO" id="GBT-9X-2Tp"/>
-                <outlet property="processedImageView" destination="sfx-3a-2fc" id="4w8-63-04q"/>
                 <outlet property="resolution" destination="KD9-fh-LWq" id="bxR-5C-gPL"/>
                 <outlet property="shareButton" destination="sEj-Ss-Apx" id="aLd-CT-lPm"/>
                 <outlet property="statsView" destination="inD-GU-obV" id="dbo-bt-aUb"/>
