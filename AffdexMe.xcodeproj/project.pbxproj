@@ -25,6 +25,8 @@
 		68DEC48A1A178731009FCB2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68DEC4881A178731009FCB2E /* MainMenu.xib */; };
 		68DEC4961A178731009FCB2E /* AffdexMeOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */; };
 		A3D08E77559302A1656F311A /* Pods_AffdexMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */; };
+		D916846D1E0EF88D007EA5D0 /* hubble_connected.png in Resources */ = {isa = PBXBuildFile; fileRef = D916846C1E0EF88D007EA5D0 /* hubble_connected.png */; };
+		D91684731E0F01AF007EA5D0 /* powered_by_light_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D91684721E0F01AF007EA5D0 /* powered_by_light_bg.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +84,8 @@
 		68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AffdexMeOSXTests.m; sourceTree = "<group>"; };
 		6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AffdexMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		819FE234EFB7A6A78C5A92A9 /* Pods-AffdexMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AffdexMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AffdexMe/Pods-AffdexMe.release.xcconfig"; sourceTree = "<group>"; };
+		D916846C1E0EF88D007EA5D0 /* hubble_connected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hubble_connected.png; path = hubble_homes/hubble_connected.png; sourceTree = "<group>"; };
+		D91684721E0F01AF007EA5D0 /* powered_by_light_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = powered_by_light_bg.png; path = hubble_homes/powered_by_light_bg.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,8 @@
 		68DEC4731A178731009FCB2E = {
 			isa = PBXGroup;
 			children = (
+				D916846C1E0EF88D007EA5D0 /* hubble_connected.png */,
+				D91684721E0F01AF007EA5D0 /* powered_by_light_bg.png */,
 				6804019F1CC8F35F001AF417 /* camera-lens-icon.png */,
 				684C31C01CAC66B500718B91 /* AffdexMe.entitlements */,
 				688DFABC1CA037510045A9F0 /* classifiers.png */,
@@ -291,11 +297,13 @@
 				68DEC4871A178731009FCB2E /* Images.xcassets in Resources */,
 				688DFABF1CA037510045A9F0 /* settings.png in Resources */,
 				68DEC48A1A178731009FCB2E /* MainMenu.xib in Resources */,
+				D91684731E0F01AF007EA5D0 /* powered_by_light_bg.png in Resources */,
 				68773BF81A1794970087D532 /* ExpressionView.xib in Resources */,
 				680079361C9325CF009D9AD4 /* PreferencesWindow.xib in Resources */,
 				680401A01CC8F35F001AF417 /* camera-lens-icon.png in Resources */,
 				688DFABE1CA037510045A9F0 /* classifiers.png in Resources */,
 				680079391C932826009D9AD4 /* media in Resources */,
+				D916846D1E0EF88D007EA5D0 /* hubble_connected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,6 +26,10 @@ static NSString *kProcessRateKey = @"maxProcessRate";
 
 @property (strong) IBOutlet NSImageView *imageView;
 @property (weak) IBOutlet NSImageView *processedImageView;
+@property (strong) IBOutlet NSView *logoView;
+@property (weak) IBOutlet NSImageView *hubbleLogo;
+@property (weak) IBOutlet NSBox *logoDivider;
+@property (weak) IBOutlet NSImageView *poweredByLogo;
 @property (strong) AVCaptureSession *session;
 @property dispatch_queue_t process_queue;
 @property (weak) IBOutlet NSView *statsView;

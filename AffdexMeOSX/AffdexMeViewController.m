@@ -507,6 +507,20 @@
     }
 #endif
 
+    self.logoView.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.4);
+    self.logoView.layer.cornerRadius = 12.0;
+
+#if 0
+    self.logoDivider.borderColor = [NSColor colorWithCalibratedRed:0.227f
+                                                           green:0.251f
+                                                            blue:0.337
+                                                           alpha:0.8];
+    self.logoDivider.fillColor = [NSColor colorWithCalibratedRed:0.227f
+                                                           green:0.251f
+                                                            blue:0.337
+                                                           alpha:0.8];
+#endif
+
     [self.shareButton sendActionOn:NSLeftMouseDownMask];
     [self.shareButton.cell setHighlightsBy:NSContentsCellMask];
 }
@@ -762,7 +776,7 @@
     [self.detector setDetectAllEmotions:YES];
     [self.detector setDetectAllExpressions:YES];
     [self.detector setDetectEmojis:YES];
-    [self.detector enableAnalytics];
+//    [self.detector enableAnalytics];
     self.detector.gender = TRUE;
     self.detector.glasses = TRUE;
     
