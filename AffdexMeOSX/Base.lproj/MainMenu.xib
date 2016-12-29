@@ -198,10 +198,10 @@
                                 <color key="borderColor" red="1" green="0.18765386589999999" blue="0.25808027039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="fillColor" white="0.60117187500000002" alpha="1" colorSpace="calibratedWhite"/>
                             </box>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="Vc7-NN-fBO">
-                                <rect key="frame" x="253" y="0.0" width="150" height="70"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="Vc7-NN-fBO" userLabel="Affectiva Logo">
+                                <rect key="frame" x="253" y="8" width="150" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="powered_by_light_bg" id="swZ-Xc-Rhb"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Affectiva_Logo_Clear_Background" id="swZ-Xc-Rhb"/>
                             </imageView>
                         </subviews>
                     </customView>
@@ -214,6 +214,7 @@
         </window>
         <customObject id="hw1-5l-3Je" customClass="AffdexMeViewController">
             <connections>
+                <outlet property="affectivaLogo" destination="Vc7-NN-fBO" id="862-Sj-kN1"/>
                 <outlet property="fpsProcessedTextField" destination="9k3-7K-CbM" id="uv3-Tf-FKQ"/>
                 <outlet property="fpsUnprocessedTextField" destination="c5N-ii-ZNI" id="BrO-dn-RPh"/>
                 <outlet property="hubbleLogo" destination="lUs-ft-yFE" id="WN8-ty-Ofn"/>
@@ -221,7 +222,6 @@
                 <outlet property="logoDivider" destination="rKp-98-HFI" id="Zu5-FE-tHc"/>
                 <outlet property="logoView" destination="TEY-gY-DEq" id="blP-39-gmu"/>
                 <outlet property="mainView" destination="EiT-Mj-1SZ" id="viq-W7-Qcp"/>
-                <outlet property="poweredByLogo" destination="Vc7-NN-fBO" id="GBT-9X-2Tp"/>
                 <outlet property="resolution" destination="KD9-fh-LWq" id="bxR-5C-gPL"/>
                 <outlet property="shareButton" destination="sEj-Ss-Apx" id="aLd-CT-lPm"/>
                 <outlet property="statsView" destination="inD-GU-obV" id="dbo-bt-aUb"/>
@@ -231,8 +231,8 @@
         <userDefaultsController representsSharedInstance="YES" id="joP-QY-KZx"/>
     </objects>
     <resources>
+        <image name="Affectiva_Logo_Clear_Background" width="153.1199951171875" height="70.800003051757812"/>
         <image name="camera-lens-icon" width="48" height="48"/>
         <image name="hubble_connected" width="555.3599853515625" height="146.39999389648438"/>
-        <image name="powered_by_light_bg" width="2003.52001953125" height="788.4000244140625"/>
     </resources>
 </document>

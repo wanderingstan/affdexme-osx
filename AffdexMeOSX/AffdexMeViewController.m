@@ -351,7 +351,10 @@
 
     // Update image view size to implement scale to fill, where the minimum axis scales to the window size.
     [self updateImageFrameForSize:[newImage size]];
-    
+
+    // Position the logo view and scale elements accordingly.
+    [self positionLogoView];
+
     // compute frames per second and show
     static NSUInteger smoothCount = 0;
     static const NSUInteger smoothInterval = 60;
@@ -456,6 +459,8 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kDrawFrameRateKey : [NSNumber numberWithBool:NO]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kDrawFramesToScreenKey : [NSNumber numberWithBool:YES]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kProcessRateKey : [NSNumber numberWithFloat:10.0]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoSizeKey : [NSNumber numberWithFloat:25.0]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoOpacityKey : [NSNumber numberWithFloat:0.7]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kSelectedClassifiersKey : [NSMutableArray arrayWithObjects:@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear", nil]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kMaxClassifiersShownKey : [NSNumber numberWithInteger:6]}];
 }
@@ -522,26 +527,88 @@
     // Center the image view in the main window.
     newImageViewFrame.origin.x = (windowWidth - newImageViewFrame.size.width) / 2.0;
     newImageViewFrame.origin.y = (windowHeight - newImageViewFrame.size.height) / 2.0;
+    self.imageView.frame = newImageViewFrame; // CGRectMake(0, 0, imageViewWidth, imageViewHeight);
 
+#if 0
     NSLog(@"Image dimensions: %f x %f\n", imageWidth, imageHeight);
     NSLog(@"xScale, yScale: %f, %f\n", xScale, yScale);
     NSLog(@"Window dimensions: %f x %f\n", windowWidth, windowHeight);
     NSLog(@"Image View origin = %f, %f; dimensions: %f x %f\n", newImageViewFrame.origin.x, newImageViewFrame.origin.y, newImageViewFrame.size.width, newImageViewFrame.size.height);
-    self.imageView.frame = newImageViewFrame; // CGRectMake(0, 0, imageViewWidth, imageViewHeight);
+#endif
+}
 
-    // Position logo view and preserve its aspect ratio.
-#define kLogoViewScaleFactor 0.35
-#define kLogoViewAspectRatio 0.6
-#define kLogoViewInsetTop 12.0
-#define kLogoViewInsetRight 12.0
-    CGFloat newWidth = windowWidth * kLogoViewScaleFactor; // self.logoView.frame.size.width;
-    CGFloat newHeight = newWidth * kLogoViewAspectRatio;
-    CGFloat newOriginX = windowWidth - newWidth - kLogoViewInsetTop;
-    CGFloat newOriginY = windowHeight - newHeight - kLogoViewInsetRight;
+// Position the logo view and scale it and all of its elements accordingly.
+- (void)positionLogoView;
+{
+    NSRect viewBounds = [self.mainView bounds];
+    double windowWidth = viewBounds.size.width;
+    double windowHeight = viewBounds.size.height;
 
-    NSRect newLogoViewFrame = CGRectMake(newOriginX, newOriginY, newWidth, newHeight);
+    // Position the logo view and preserve its aspect ratio.
+#define kLogoViewInsetHorizontalFactor 0.03
+#define kLogoViewInsetVerticalFactor 0.04
+    CGFloat logoViewScaleFactor = (self.logoSize / 100.0);
+    CGFloat logoViewInsetHorizontal = logoViewScaleFactor * windowWidth * kLogoViewInsetHorizontalFactor;
+    CGFloat logoViewInsetVertical = logoViewInsetHorizontal;
+    CGFloat newLogoViewWidth = (windowWidth - 2.0 * logoViewInsetHorizontal) * logoViewScaleFactor;
+    CGFloat newLogoViewWidthInset = newLogoViewWidth - 2.0 * logoViewInsetHorizontal;
+    CGFloat newLogoViewOriginX = windowWidth - newLogoViewWidth - logoViewInsetHorizontal;
+
+    // Position Affectiva logo
+#define kAffectivaLogoScaleFactor 0.4   // Scale of Affectiva logo relative to Hubble logo.
+    CGFloat newAffectivaLogoWidth = newLogoViewWidth * kAffectivaLogoScaleFactor;
+    CGFloat newAffectivaLogoHeight = newAffectivaLogoWidth / self.affectivaLogoAspectRatio;
+    CGFloat newAffectivaLogoOriginX = newLogoViewWidth - logoViewInsetHorizontal - newAffectivaLogoWidth;
+    CGFloat newAffectivaLogoOriginY = logoViewInsetVertical;
+
+    NSRect newAffectivaLogoFrame = CGRectMake(newAffectivaLogoOriginX, newAffectivaLogoOriginY, newAffectivaLogoWidth, newAffectivaLogoHeight);
+    self.affectivaLogo.imageScaling = NSImageScaleAxesIndependently;
+    self.affectivaLogo.frame = newAffectivaLogoFrame;
+//    self.affectivaLogo.layer.backgroundColor = CGColorCreateGenericRGB(0.0, 1.0, 0.0, 1.0);
+//    self.affectivaLogo.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, self.logoOpacity/100.0);
+
+    // Position divider
+#define kDividerScaleFactorHorizontal 0.69   // Scale of divider relative to the logo view.
+#define kDividerOffsetFactorVertical 0.02   // Top offset factor of divider relative to the logo view.
+    CGFloat newDividerVerticalSpacing = newLogoViewWidth * kDividerOffsetFactorVertical;
+    CGFloat newDividerWidth = newLogoViewWidthInset * kDividerScaleFactorHorizontal;
+    CGFloat newDividerHeight = 2.0;
+    CGFloat newDividerOriginX = newLogoViewWidth - logoViewInsetHorizontal - newDividerWidth;
+    CGFloat newDividerOriginY = newAffectivaLogoOriginY + newAffectivaLogoHeight + newDividerVerticalSpacing;
+
+    NSRect newDividerFrame = CGRectMake(newDividerOriginX, newDividerOriginY, newDividerWidth, newDividerHeight);
+    self.logoDivider.frame = newDividerFrame;
+    
+    // Position Hubble Homes logo
+    CGFloat newHubbleLogoWidth = newLogoViewWidthInset;
+    CGFloat newHubbleLogoHeight = newHubbleLogoWidth / self.hubbleLogoAspectRatio;
+    CGFloat newHubbleLogoOriginX = logoViewInsetHorizontal;
+    CGFloat newHubbleLogoOriginY = newDividerOriginY + newDividerHeight + newDividerVerticalSpacing;
+
+    NSRect newHubbleLogoFrame = CGRectMake(newHubbleLogoOriginX, newHubbleLogoOriginY, newHubbleLogoWidth, newHubbleLogoHeight);
+    self.hubbleLogo.imageScaling = NSImageScaleAxesIndependently;
+    self.hubbleLogo.frame = newHubbleLogoFrame;
+//    self.hubbleLogo.layer.backgroundColor = CGColorCreateGenericRGB(0.0, 0.0, 1.0, 1.0);
+//    self.hubbleLogo.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, self.logoOpacity/100.0);
+
+#if 1
+    NSLog(@"Hubble Logo View origin = %f, %f; dimensions: %f x %f\n", newHubbleLogoFrame.origin.x, newHubbleLogoFrame.origin.y, newHubbleLogoFrame.size.width, newHubbleLogoFrame.size.height);
+#endif
+
+    // Calculate the logo view height last so it just encloses all of the internal elements.
+    CGFloat newLogoViewHeight = newHubbleLogoOriginY + newHubbleLogoHeight + logoViewInsetVertical;
+    CGFloat newLogoViewOriginY = windowHeight - newLogoViewHeight - logoViewInsetVertical;
+
+    // Finally set the frame for the full view.
+    NSRect newLogoViewFrame = CGRectMake(newLogoViewOriginX, newLogoViewOriginY, newLogoViewWidth, newLogoViewHeight);
     self.logoView.frame = newLogoViewFrame;
+    self.logoView.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, self.logoOpacity/100.0);
+
+#if 0
     NSLog(@"Logo View origin = %f, %f; dimensions: %f x %f\n", newLogoViewFrame.origin.x, newLogoViewFrame.origin.y, newLogoViewFrame.size.width, newLogoViewFrame.size.height);
+#endif
+    
+
 }
 
 - (void)viewDidLoad;
@@ -567,6 +634,14 @@
 
     path = [[NSBundle mainBundle] pathForResource:@"unknown-glasses" ofType:@"png" inDirectory:@"media"];
     self.unknownImageWithGlasses = [[NSImage alloc] initWithContentsOfFile:path];
+
+    path = [[NSBundle mainBundle] pathForResource:@"hubble_connected" ofType:@"png" inDirectory:@"."];
+    NSSize hubbleLogoSize = [[[NSImage alloc] initWithContentsOfFile:path] size];
+    self.hubbleLogoAspectRatio = (hubbleLogoSize.height == 0) ? 1.0 : (hubbleLogoSize.width / hubbleLogoSize.height);
+
+    path = [[NSBundle mainBundle] pathForResource:@"Affectiva_Logo_Clear_Background" ofType:@"png" inDirectory:@"."];
+    NSSize affectivaLogoSize = [[[NSImage alloc] initWithContentsOfFile:path] size];
+    self.affectivaLogoAspectRatio = (affectivaLogoSize.height == 0) ? 1.0 : (affectivaLogoSize.width / affectivaLogoSize.height);
 
     self.emotions = [ClassifierModel emotions];
     self.expressions = [ClassifierModel expressions];
@@ -746,6 +821,20 @@
         }
     }
     else
+    if (context == (__bridge void *)kLogoSizeKey)
+    {
+        CGFloat value = [v floatValue];
+
+        self.logoSize = value;
+    }
+    else
+    if (context == (__bridge void *)kLogoOpacityKey)
+    {
+        CGFloat value = [v floatValue];
+
+        self.logoOpacity = value;
+    }
+    else
     {
         self.selectedClassifiersDirty = TRUE;
     }
@@ -808,6 +897,16 @@
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                                context:(__bridge void *)kProcessRateKey];
     
+    [[NSUserDefaults standardUserDefaults] addObserver:self
+                                            forKeyPath:kLogoSizeKey
+                                               options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                               context:(__bridge void *)kLogoSizeKey];
+
+    [[NSUserDefaults standardUserDefaults] addObserver:self
+                                            forKeyPath:kLogoOpacityKey
+                                               options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                               context:(__bridge void *)kLogoOpacityKey];
+
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:kDrawDominantEmojiKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
@@ -881,7 +980,9 @@
         [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kFaceBoxKey];
         [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kPointSizeKey];
         [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kProcessRateKey];
-        
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kLogoSizeKey];
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kLogoOpacityKey];
+
         result = [self.detector stop];
     }
     self.detector = nil;

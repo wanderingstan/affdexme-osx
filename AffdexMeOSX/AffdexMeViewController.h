@@ -21,6 +21,8 @@ static NSString *kDrawFrameRateKey = @"drawFrameRate";
 static NSString *kDrawFramesToScreenKey = @"drawFramesToScreen";
 static NSString *kPointSizeKey = @"pointSize";
 static NSString *kProcessRateKey = @"maxProcessRate";
+static NSString *kLogoSizeKey = @"logoSize";
+static NSString *kLogoOpacityKey = @"logoOpacity";
 
 @interface AffdexMeViewController : NSViewController <AFDXDetectorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, NSSharingServicePickerDelegate, NSWindowDelegate>
 
@@ -29,7 +31,7 @@ static NSString *kProcessRateKey = @"maxProcessRate";
 @property (strong) IBOutlet NSView *logoView;
 @property (weak) IBOutlet NSImageView *hubbleLogo;
 @property (weak) IBOutlet NSBox *logoDivider;
-@property (weak) IBOutlet NSImageView *poweredByLogo;
+@property (weak) IBOutlet NSImageView *affectivaLogo;
 @property (strong) AVCaptureSession *session;
 @property dispatch_queue_t process_queue;
 @property (weak) IBOutlet NSView *statsView;
@@ -45,8 +47,13 @@ static NSString *kProcessRateKey = @"maxProcessRate";
 @property (assign) BOOL drawDominantEmoji;
 @property (assign) BOOL drawFaceBox;
 @property (assign) CGFloat pointSize;
+@property (assign) CGFloat logoSize;
+@property (assign) CGFloat logoOpacity;
 @property (strong) NSMutableDictionary *faceMeasurements;
 @property (weak) IBOutlet NSView *classifiersView;
+
+@property (assign) CGFloat hubbleLogoAspectRatio;
+@property (assign) CGFloat affectivaLogoAspectRatio;
 
 @property (assign) BOOL selectedClassifiersDirty;
 @property (assign) IBOutlet NSButton *shareButton;
