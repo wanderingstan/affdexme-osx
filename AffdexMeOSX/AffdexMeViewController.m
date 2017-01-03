@@ -460,7 +460,7 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kDrawFramesToScreenKey : [NSNumber numberWithBool:YES]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kProcessRateKey : [NSNumber numberWithFloat:10.0]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoSizeKey : [NSNumber numberWithFloat:25.0]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoOpacityKey : [NSNumber numberWithFloat:0.7]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoOpacityKey : [NSNumber numberWithFloat:90.0]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kSelectedClassifiersKey : [NSMutableArray arrayWithObjects:@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear", nil]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kMaxClassifiersShownKey : [NSNumber numberWithInteger:6]}];
 }
