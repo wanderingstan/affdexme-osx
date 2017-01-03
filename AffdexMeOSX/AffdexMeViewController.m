@@ -591,7 +591,7 @@
 //    self.hubbleLogo.layer.backgroundColor = CGColorCreateGenericRGB(0.0, 0.0, 1.0, 1.0);
 //    self.hubbleLogo.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, self.logoOpacity/100.0);
 
-#if 1
+#if 0
     NSLog(@"Hubble Logo View origin = %f, %f; dimensions: %f x %f\n", newHubbleLogoFrame.origin.x, newHubbleLogoFrame.origin.y, newHubbleLogoFrame.size.width, newHubbleLogoFrame.size.height);
 #endif
 
