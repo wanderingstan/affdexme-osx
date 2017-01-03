@@ -26,6 +26,7 @@
 		68DEC4961A178731009FCB2E /* AffdexMeOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */; };
 		A3D08E77559302A1656F311A /* Pods_AffdexMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */; };
 		D916846D1E0EF88D007EA5D0 /* hubble_connected.png in Resources */ = {isa = PBXBuildFile; fileRef = D916846C1E0EF88D007EA5D0 /* hubble_connected.png */; };
+		D9191C061E1BFD5A00C2AEAF /* Poweredby_Affectiva_clearbgk_FNL.png in Resources */ = {isa = PBXBuildFile; fileRef = D9191C051E1BFD5A00C2AEAF /* Poweredby_Affectiva_clearbgk_FNL.png */; };
 		D960A5BF1E14956E00719E6C /* Affectiva_Logo_Clear_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = D960A5BE1E14956E00719E6C /* Affectiva_Logo_Clear_Background.png */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +86,7 @@
 		6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AffdexMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		819FE234EFB7A6A78C5A92A9 /* Pods-AffdexMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AffdexMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AffdexMe/Pods-AffdexMe.release.xcconfig"; sourceTree = "<group>"; };
 		D916846C1E0EF88D007EA5D0 /* hubble_connected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hubble_connected.png; path = hubble_homes/hubble_connected.png; sourceTree = "<group>"; };
+		D9191C051E1BFD5A00C2AEAF /* Poweredby_Affectiva_clearbgk_FNL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Poweredby_Affectiva_clearbgk_FNL.png; path = hubble_homes/Poweredby_Affectiva_clearbgk_FNL.png; sourceTree = "<group>"; };
 		D960A5BE1E14956E00719E6C /* Affectiva_Logo_Clear_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Affectiva_Logo_Clear_Background.png; path = hubble_homes/Affectiva_Logo_Clear_Background.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,6 +120,7 @@
 		68DEC4731A178731009FCB2E = {
 			isa = PBXGroup;
 			children = (
+				D9191C051E1BFD5A00C2AEAF /* Poweredby_Affectiva_clearbgk_FNL.png */,
 				D960A5BE1E14956E00719E6C /* Affectiva_Logo_Clear_Background.png */,
 				D916846C1E0EF88D007EA5D0 /* hubble_connected.png */,
 				6804019F1CC8F35F001AF417 /* camera-lens-icon.png */,
@@ -295,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68DEC4871A178731009FCB2E /* Images.xcassets in Resources */,
+				D9191C061E1BFD5A00C2AEAF /* Poweredby_Affectiva_clearbgk_FNL.png in Resources */,
 				688DFABF1CA037510045A9F0 /* settings.png in Resources */,
 				68DEC48A1A178731009FCB2E /* MainMenu.xib in Resources */,
 				68773BF81A1794970087D532 /* ExpressionView.xib in Resources */,

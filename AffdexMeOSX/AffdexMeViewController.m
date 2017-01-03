@@ -555,7 +555,7 @@
     CGFloat newLogoViewOriginX = windowWidth - newLogoViewWidth - logoViewInsetHorizontal;
 
     // Position Affectiva logo
-#define kAffectivaLogoScaleFactor 0.4   // Scale of Affectiva logo relative to Hubble logo.
+#define kAffectivaLogoScaleFactor 0.40   // Scale of Affectiva logo relative to Hubble logo.
     CGFloat newAffectivaLogoWidth = newLogoViewWidth * kAffectivaLogoScaleFactor;
     CGFloat newAffectivaLogoHeight = newAffectivaLogoWidth / self.affectivaLogoAspectRatio;
     CGFloat newAffectivaLogoOriginX = newLogoViewWidth - logoViewInsetHorizontal - newAffectivaLogoWidth;
@@ -568,17 +568,24 @@
 //    self.affectivaLogo.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, self.logoOpacity/100.0);
 
     // Position divider
-#define kDividerScaleFactorHorizontal 0.69   // Scale of divider relative to the logo view.
-#define kDividerOffsetFactorVertical 0.02   // Top offset factor of divider relative to the logo view.
+#define kDividerScaleFactorHorizontal 0.8 // 0.69   // Scale of divider relative to the logo view.
+#define kDividerOffsetFactorVertical 0.05    // Top offset factor of divider relative to the logo view.
     CGFloat newDividerVerticalSpacing = newLogoViewWidth * kDividerOffsetFactorVertical;
     CGFloat newDividerWidth = newLogoViewWidthInset * kDividerScaleFactorHorizontal;
     CGFloat newDividerHeight = 2.0;
-    CGFloat newDividerOriginX = newLogoViewWidth - logoViewInsetHorizontal - newDividerWidth;
+//    CGFloat newDividerOriginX = newLogoViewWidth - logoViewInsetHorizontal - newDividerWidth;
+    CGFloat newDividerOriginX = newLogoViewWidth - logoViewInsetHorizontal - (newLogoViewWidthInset - newDividerWidth) / 2.0 - newDividerWidth;
     CGFloat newDividerOriginY = newAffectivaLogoOriginY + newAffectivaLogoHeight + newDividerVerticalSpacing;
 
     NSRect newDividerFrame = CGRectMake(newDividerOriginX, newDividerOriginY, newDividerWidth, newDividerHeight);
     self.logoDivider.frame = newDividerFrame;
-    
+
+    // Update Affectiva logo frame to center under the divider.
+//    newAffectivaLogoOriginX = newLogoViewWidth - logoViewInsetHorizontal - (newDividerWidth - newAffectivaLogoWidth) / 2.0 - newAffectivaLogoWidth;
+        newAffectivaLogoOriginX = newLogoViewWidth - logoViewInsetHorizontal - (newLogoViewWidthInset - newAffectivaLogoWidth) / 2.0 - newAffectivaLogoWidth;
+    newAffectivaLogoFrame = CGRectMake(newAffectivaLogoOriginX, newAffectivaLogoOriginY, newAffectivaLogoWidth, newAffectivaLogoHeight);
+    self.affectivaLogo.frame = newAffectivaLogoFrame;
+
     // Position Hubble Homes logo
     CGFloat newHubbleLogoWidth = newLogoViewWidthInset;
     CGFloat newHubbleLogoHeight = newHubbleLogoWidth / self.hubbleLogoAspectRatio;
@@ -639,7 +646,7 @@
     NSSize hubbleLogoSize = [[[NSImage alloc] initWithContentsOfFile:path] size];
     self.hubbleLogoAspectRatio = (hubbleLogoSize.height == 0) ? 1.0 : (hubbleLogoSize.width / hubbleLogoSize.height);
 
-    path = [[NSBundle mainBundle] pathForResource:@"Affectiva_Logo_Clear_Background" ofType:@"png" inDirectory:@"."];
+    path = [[NSBundle mainBundle] pathForResource:@"Poweredby_Affectiva_clearbgk_FNL" ofType:@"png" inDirectory:@"."];
     NSSize affectivaLogoSize = [[[NSImage alloc] initWithContentsOfFile:path] size];
     self.affectivaLogoAspectRatio = (affectivaLogoSize.height == 0) ? 1.0 : (affectivaLogoSize.width / affectivaLogoSize.height);
 

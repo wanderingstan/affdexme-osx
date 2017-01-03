@@ -201,7 +201,7 @@
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="Vc7-NN-fBO" userLabel="Affectiva Logo">
                                 <rect key="frame" x="253" y="8" width="150" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Affectiva_Logo_Clear_Background" id="swZ-Xc-Rhb"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Poweredby_Affectiva_clearbgk_FNL" id="swZ-Xc-Rhb"/>
                             </imageView>
                         </subviews>
                     </customView>
@@ -231,7 +231,7 @@
         <userDefaultsController representsSharedInstance="YES" id="joP-QY-KZx"/>
     </objects>
     <resources>
-        <image name="Affectiva_Logo_Clear_Background" width="153.1199951171875" height="70.800003051757812"/>
+        <image name="Poweredby_Affectiva_clearbgk_FNL" width="149.75999450683594" height="83.879997253417969"/>
         <image name="camera-lens-icon" width="48" height="48"/>
         <image name="hubble_connected" width="555.3599853515625" height="146.39999389648438"/>
     </resources>
