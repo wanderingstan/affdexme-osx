@@ -120,7 +120,7 @@
                 <subviews>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="sfx-3a-2fc" customClass="AffdexImageView">
                         <rect key="frame" x="0.0" y="0.0" width="1280" height="720"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="z0h-np-8Cl"/>
                     </imageView>
                     <button verticalHuggingPriority="750" springLoaded="YES" id="sEj-Ss-Apx">
@@ -185,12 +185,12 @@
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="lUs-ft-yFE">
                                 <rect key="frame" x="20" y="97" width="385" height="94"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="hubble_connected" id="jpm-fO-EIp"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Partner_Logo" id="jpm-fO-EIp"/>
                             </imageView>
                             <box misplaced="YES" boxType="custom" borderType="none" cornerRadius="4" title="Box" id="rKp-98-HFI">
                                 <rect key="frame" x="140" y="76" width="264" height="2"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" id="v6y-5q-NC3">
                                     <rect key="frame" x="0.0" y="0.0" width="264" height="2"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -200,7 +200,7 @@
                             </box>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="Vc7-NN-fBO" userLabel="Affectiva Logo">
                                 <rect key="frame" x="253" y="8" width="150" height="62"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Poweredby_Affectiva_clearbgk_FNL" id="swZ-Xc-Rhb"/>
                             </imageView>
                         </subviews>
@@ -217,11 +217,11 @@
                 <outlet property="affectivaLogo" destination="Vc7-NN-fBO" id="862-Sj-kN1"/>
                 <outlet property="fpsProcessedTextField" destination="9k3-7K-CbM" id="uv3-Tf-FKQ"/>
                 <outlet property="fpsUnprocessedTextField" destination="c5N-ii-ZNI" id="BrO-dn-RPh"/>
-                <outlet property="hubbleLogo" destination="lUs-ft-yFE" id="WN8-ty-Ofn"/>
                 <outlet property="imageView" destination="sfx-3a-2fc" id="TdP-BW-nLH"/>
                 <outlet property="logoDivider" destination="rKp-98-HFI" id="Zu5-FE-tHc"/>
                 <outlet property="logoView" destination="TEY-gY-DEq" id="blP-39-gmu"/>
                 <outlet property="mainView" destination="EiT-Mj-1SZ" id="viq-W7-Qcp"/>
+                <outlet property="partnerLogo" destination="lUs-ft-yFE" id="XYE-bd-jX0"/>
                 <outlet property="resolution" destination="KD9-fh-LWq" id="bxR-5C-gPL"/>
                 <outlet property="shareButton" destination="sEj-Ss-Apx" id="aLd-CT-lPm"/>
                 <outlet property="statsView" destination="inD-GU-obV" id="dbo-bt-aUb"/>
@@ -231,8 +231,8 @@
         <userDefaultsController representsSharedInstance="YES" id="joP-QY-KZx"/>
     </objects>
     <resources>
+        <image name="Partner_Logo" width="555.3599853515625" height="146.39999389648438"/>
         <image name="Poweredby_Affectiva_clearbgk_FNL" width="149.75999450683594" height="83.879997253417969"/>
         <image name="camera-lens-icon" width="48" height="48"/>
-        <image name="hubble_connected" width="555.3599853515625" height="146.39999389648438"/>
     </resources>
 </document>

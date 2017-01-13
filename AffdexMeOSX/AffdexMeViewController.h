@@ -29,7 +29,7 @@ static NSString *kLogoOpacityKey = @"logoOpacity";
 @property (weak) IBOutlet NSView *mainView;
 @property (strong) IBOutlet NSImageView *imageView;
 @property (strong) IBOutlet NSView *logoView;
-@property (weak) IBOutlet NSImageView *hubbleLogo;
+@property (weak) IBOutlet NSImageView *partnerLogo;
 @property (weak) IBOutlet NSBox *logoDivider;
 @property (weak) IBOutlet NSImageView *affectivaLogo;
 @property (strong) AVCaptureSession *session;
@@ -52,7 +52,7 @@ static NSString *kLogoOpacityKey = @"logoOpacity";
 @property (strong) NSMutableDictionary *faceMeasurements;
 @property (weak) IBOutlet NSView *classifiersView;
 
-@property (assign) CGFloat hubbleLogoAspectRatio;
+@property (assign) CGFloat partnerLogoAspectRatio;
 @property (assign) CGFloat affectivaLogoAspectRatio;
 
 @property (assign) BOOL selectedClassifiersDirty;

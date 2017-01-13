@@ -460,7 +460,7 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kDrawFramesToScreenKey : [NSNumber numberWithBool:YES]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kProcessRateKey : [NSNumber numberWithFloat:10.0]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoSizeKey : [NSNumber numberWithFloat:25.0]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoOpacityKey : [NSNumber numberWithFloat:90.0]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoOpacityKey : [NSNumber numberWithFloat:30.0]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kSelectedClassifiersKey : [NSMutableArray arrayWithObjects:@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear", nil]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kMaxClassifiersShownKey : [NSNumber numberWithInteger:6]}];
 }
@@ -475,14 +475,6 @@
     self.detector = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-#if 0
-- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize;
-{
-    [self updateImageViewToSize:frameSize];
-    return frameSize;
-}
-#endif
 
 // Update the image frame to fit the enclosing view bounds using aspect fill, where the entire
 // window bounds are filled and the image can overflow in one direction to preserve aspect ratio.
@@ -516,14 +508,6 @@
         newImageViewFrame.size.height = imageHeight * yScale;
     }
 
-#if 0
-    double minScale = (xScale < yScale) ? xScale : yScale;
-    double maxScale = (xScale > yScale) ? xScale : yScale;
-
-    newImageViewFrame.size.width = windowWidth * maxScale;
-    newImageViewFrame.size.height = windowHeight * maxScale;
-#endif
-
     // Center the image view in the main window.
     newImageViewFrame.origin.x = (windowWidth - newImageViewFrame.size.width) / 2.0;
     newImageViewFrame.origin.y = (windowHeight - newImageViewFrame.size.height) / 2.0;
@@ -544,78 +528,109 @@
     double windowWidth = viewBounds.size.width;
     double windowHeight = viewBounds.size.height;
 
-    // Position the logo view and preserve its aspect ratio.
-#define kLogoViewInsetHorizontalFactor 0.03
-#define kLogoViewInsetVerticalFactor 0.04
+    if ((windowWidth == 0.0) || (windowHeight == 0.0) || (self.logoSize == 0.0))
+    {
+        return;
+    }
+
+    // When set, the partner logo and a divider will be shown above the Affectiva logo.
+    // Set to 0 to show only the Affectiva logo in the logo view.
+#define SHOW_PARTNER_LOGO 0
+
+    // Position the logo(s) inside the view, while preserving the aspect ratio of each logo.
+#define kLogoViewInsetHorizontal 10.0   // View inset from the upper-right corner of the window.
+#define kLogoViewInsetVertical   10.0
+
+    // The inset parameters for the view contents are scaled proportionately based
+    // on the view size, so the view inset grows proportionately as the view grows.
+#define kLogoViewContentInsetHorizontalFactor 0.05   // Range: 0.0 to 0.5
+#define kLogoViewContentInsetVerticalFactor   0.05   // Range: 0.0 to 0.5
     CGFloat logoViewScaleFactor = (self.logoSize / 100.0);
-    CGFloat logoViewInsetHorizontal = logoViewScaleFactor * windowWidth * kLogoViewInsetHorizontalFactor;
-    CGFloat logoViewInsetVertical = logoViewInsetHorizontal;
+    CGFloat logoViewInsetHorizontal = kLogoViewInsetHorizontal;
+    CGFloat logoViewInsetVertical = kLogoViewInsetVertical;
+
     CGFloat newLogoViewWidth = (windowWidth - 2.0 * logoViewInsetHorizontal) * logoViewScaleFactor;
-    CGFloat newLogoViewWidthInset = newLogoViewWidth - 2.0 * logoViewInsetHorizontal;
+    CGFloat newLogoViewHeight = 0.0;
     CGFloat newLogoViewOriginX = windowWidth - newLogoViewWidth - logoViewInsetHorizontal;
 
-    // Position Affectiva logo
-#define kAffectivaLogoScaleFactor 0.40   // Scale of Affectiva logo relative to Hubble logo.
-    CGFloat newAffectivaLogoWidth = newLogoViewWidth * kAffectivaLogoScaleFactor;
+    CGFloat logoViewContentInsetHorizontal = logoViewScaleFactor * windowWidth * kLogoViewContentInsetHorizontalFactor;
+    CGFloat logoViewContentInsetVertical = logoViewScaleFactor * windowHeight * kLogoViewContentInsetVerticalFactor;
+
+    CGFloat newLogoViewContentWidthInset = newLogoViewWidth - 2.0 * logoViewContentInsetHorizontal;
+
+    // Position the Affectiva logo.
+#if SHOW_PARTNER_LOGO
+#define kAffectivaLogoScaleFactor 0.44   // Scale of Affectiva logo relative to the view content size.
+    CGFloat newAffectivaLogoWidth = newLogoViewContentWidthInset * kAffectivaLogoScaleFactor;
+#else
+    CGFloat newAffectivaLogoWidth = newLogoViewContentWidthInset;
+#endif
     CGFloat newAffectivaLogoHeight = newAffectivaLogoWidth / self.affectivaLogoAspectRatio;
-    CGFloat newAffectivaLogoOriginX = newLogoViewWidth - logoViewInsetHorizontal - newAffectivaLogoWidth;
-    CGFloat newAffectivaLogoOriginY = logoViewInsetVertical;
+    CGFloat newAffectivaLogoOriginX = newLogoViewWidth - logoViewContentInsetHorizontal - newAffectivaLogoWidth;
+    CGFloat newAffectivaLogoOriginY = logoViewContentInsetVertical;
 
     NSRect newAffectivaLogoFrame = CGRectMake(newAffectivaLogoOriginX, newAffectivaLogoOriginY, newAffectivaLogoWidth, newAffectivaLogoHeight);
     self.affectivaLogo.imageScaling = NSImageScaleAxesIndependently;
     self.affectivaLogo.frame = newAffectivaLogoFrame;
-//    self.affectivaLogo.layer.backgroundColor = CGColorCreateGenericRGB(0.0, 1.0, 0.0, 1.0);
-//    self.affectivaLogo.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, self.logoOpacity/100.0);
 
-    // Position divider
-#define kDividerScaleFactorHorizontal 0.8 // 0.69   // Scale of divider relative to the logo view.
+#if 1
+    NSLog(@"Affectiva Logo View origin = %f, %f; dimensions: %f x %f\n", self.affectivaLogo.frame.origin.x, self.affectivaLogo.frame.origin.y, self.affectivaLogo.frame.size.width, self.affectivaLogo.frame.size.height);
+#endif
+
+    // Add the lower vertical spacing plus logo height to the view height.
+    newLogoViewHeight += logoViewContentInsetVertical + newAffectivaLogoHeight;
+
+#if SHOW_PARTNER_LOGO
+    // Position the divider between the logos, centered horizontally.
+#define kDividerScaleFactorHorizontal 0.8   // Scale of divider relative to the logo view.
 #define kDividerOffsetFactorVertical 0.05    // Top offset factor of divider relative to the logo view.
     CGFloat newDividerVerticalSpacing = newLogoViewWidth * kDividerOffsetFactorVertical;
-    CGFloat newDividerWidth = newLogoViewWidthInset * kDividerScaleFactorHorizontal;
+    CGFloat newDividerWidth = newLogoViewContentWidthInset * kDividerScaleFactorHorizontal;
     CGFloat newDividerHeight = 2.0;
-//    CGFloat newDividerOriginX = newLogoViewWidth - logoViewInsetHorizontal - newDividerWidth;
-    CGFloat newDividerOriginX = newLogoViewWidth - logoViewInsetHorizontal - (newLogoViewWidthInset - newDividerWidth) / 2.0 - newDividerWidth;
-    CGFloat newDividerOriginY = newAffectivaLogoOriginY + newAffectivaLogoHeight + newDividerVerticalSpacing;
+
+    CGFloat newDividerOriginX = newLogoViewWidth - logoViewContentInsetHorizontal - (newLogoViewContentWidthInset - newDividerWidth) / 2.0 - newDividerWidth;
+    CGFloat newDividerOriginY = newLogoViewHeight + newDividerVerticalSpacing;
 
     NSRect newDividerFrame = CGRectMake(newDividerOriginX, newDividerOriginY, newDividerWidth, newDividerHeight);
     self.logoDivider.frame = newDividerFrame;
 
-    // Update Affectiva logo frame to center under the divider.
-//    newAffectivaLogoOriginX = newLogoViewWidth - logoViewInsetHorizontal - (newDividerWidth - newAffectivaLogoWidth) / 2.0 - newAffectivaLogoWidth;
-        newAffectivaLogoOriginX = newLogoViewWidth - logoViewInsetHorizontal - (newLogoViewWidthInset - newAffectivaLogoWidth) / 2.0 - newAffectivaLogoWidth;
+    // Add the lower vertical spacing plus divider height to the view height.
+    newLogoViewHeight += newDividerVerticalSpacing + newDividerHeight;
+
+    // Update the Affectiva logo frame to center it under the divider.
+    newAffectivaLogoOriginX = newLogoViewWidth - logoViewContentInsetHorizontal - (newLogoViewContentWidthInset - newAffectivaLogoWidth) / 2.0 - newAffectivaLogoWidth;
     newAffectivaLogoFrame = CGRectMake(newAffectivaLogoOriginX, newAffectivaLogoOriginY, newAffectivaLogoWidth, newAffectivaLogoHeight);
     self.affectivaLogo.frame = newAffectivaLogoFrame;
 
-    // Position Hubble Homes logo
-    CGFloat newHubbleLogoWidth = newLogoViewWidthInset;
-    CGFloat newHubbleLogoHeight = newHubbleLogoWidth / self.hubbleLogoAspectRatio;
-    CGFloat newHubbleLogoOriginX = logoViewInsetHorizontal;
-    CGFloat newHubbleLogoOriginY = newDividerOriginY + newDividerHeight + newDividerVerticalSpacing;
+    // Position partner logo
+    CGFloat newPartnerLogoWidth = newLogoViewContentWidthInset;
+    CGFloat newPartnerLogoHeight = newPartnerLogoWidth / self.partnerLogoAspectRatio;
+    CGFloat newPartnerLogoOriginX = logoViewContentInsetHorizontal;
+    CGFloat newPartnerLogoOriginY = newLogoViewHeight + newDividerVerticalSpacing;
 
-    NSRect newHubbleLogoFrame = CGRectMake(newHubbleLogoOriginX, newHubbleLogoOriginY, newHubbleLogoWidth, newHubbleLogoHeight);
-    self.hubbleLogo.imageScaling = NSImageScaleAxesIndependently;
-    self.hubbleLogo.frame = newHubbleLogoFrame;
-//    self.hubbleLogo.layer.backgroundColor = CGColorCreateGenericRGB(0.0, 0.0, 1.0, 1.0);
-//    self.hubbleLogo.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, self.logoOpacity/100.0);
+    NSRect newPartnerLogoFrame = CGRectMake(newPartnerLogoOriginX, newPartnerLogoOriginY, newPartnerLogoWidth, newPartnerLogoHeight);
+    self.partnerLogo.imageScaling = NSImageScaleAxesIndependently;
+    self.partnerLogo.frame = newPartnerLogoFrame;
 
-#if 0
-    NSLog(@"Hubble Logo View origin = %f, %f; dimensions: %f x %f\n", newHubbleLogoFrame.origin.x, newHubbleLogoFrame.origin.y, newHubbleLogoFrame.size.width, newHubbleLogoFrame.size.height);
-#endif
+    // Add the lower vertical spacing plus the partner logo height to the view height.
+    newLogoViewHeight += newDividerVerticalSpacing + newPartnerLogoHeight;
+#else
+    self.logoDivider.hidden = YES;
+    self.partnerLogo.hidden = YES;
+#endif // SHOW_PARTNER_LOGO
 
-    // Calculate the logo view height last so it just encloses all of the internal elements.
-    CGFloat newLogoViewHeight = newHubbleLogoOriginY + newHubbleLogoHeight + logoViewInsetVertical;
+    // Add the top margin onto the logo view height.
+    newLogoViewHeight += logoViewContentInsetVertical;
+
+    // Calculate the logo view height last so it encloses all of the internal elements.
     CGFloat newLogoViewOriginY = windowHeight - newLogoViewHeight - logoViewInsetVertical;
 
     // Finally set the frame for the full view.
     NSRect newLogoViewFrame = CGRectMake(newLogoViewOriginX, newLogoViewOriginY, newLogoViewWidth, newLogoViewHeight);
     self.logoView.frame = newLogoViewFrame;
     self.logoView.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, self.logoOpacity/100.0);
-
-#if 0
-    NSLog(@"Logo View origin = %f, %f; dimensions: %f x %f\n", newLogoViewFrame.origin.x, newLogoViewFrame.origin.y, newLogoViewFrame.size.width, newLogoViewFrame.size.height);
-#endif
-    
-
+    self.logoView.layer.cornerRadius = 12.0;
+    self.logoView.hidden = NO;
 }
 
 - (void)viewDidLoad;
@@ -642,9 +657,11 @@
     path = [[NSBundle mainBundle] pathForResource:@"unknown-glasses" ofType:@"png" inDirectory:@"media"];
     self.unknownImageWithGlasses = [[NSImage alloc] initWithContentsOfFile:path];
 
-    path = [[NSBundle mainBundle] pathForResource:@"hubble_connected" ofType:@"png" inDirectory:@"."];
-    NSSize hubbleLogoSize = [[[NSImage alloc] initWithContentsOfFile:path] size];
-    self.hubbleLogoAspectRatio = (hubbleLogoSize.height == 0) ? 1.0 : (hubbleLogoSize.width / hubbleLogoSize.height);
+#if SHOW_PARTNER_LOGO
+    path = [[NSBundle mainBundle] pathForResource:@"Partner_Logo" ofType:@"png" inDirectory:@"."];
+    NSSize partnerLogoSize = [[[NSImage alloc] initWithContentsOfFile:path] size];
+    self.partnerLogoAspectRatio = (partnerLogoSize.height == 0) ? 1.0 : (partnerLogoSize.width / partnerLogoSize.height);
+#endif
 
     path = [[NSBundle mainBundle] pathForResource:@"Poweredby_Affectiva_clearbgk_FNL" ofType:@"png" inDirectory:@"."];
     NSSize affectivaLogoSize = [[[NSImage alloc] initWithContentsOfFile:path] size];
@@ -663,22 +680,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 #endif
-
-    self.mainView.layer.backgroundColor = CGColorCreateGenericRGB(246/255.0, 137/255.0, 51/255.0, 0.4);
-
-    self.logoView.layer.backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.7);
-    self.logoView.layer.cornerRadius = 12.0;
-
-#if 0
-    self.logoDivider.borderColor = [NSColor colorWithCalibratedRed:0.227f
-                                                           green:0.251f
-                                                            blue:0.337
-                                                           alpha:0.8];
-    self.logoDivider.fillColor = [NSColor colorWithCalibratedRed:0.227f
-                                                           green:0.251f
-                                                            blue:0.337
-                                                           alpha:0.8];
-#endif
+    self.logoView.hidden = YES;
 
     [self.shareButton sendActionOn:NSLeftMouseDownMask];
     [self.shareButton.cell setHighlightsBy:NSContentsCellMask];
@@ -733,6 +735,7 @@
 {
     [super viewDidAppear];
     [self becomeFirstResponder];
+
 #ifdef VIDEO_TEST
     self.mediaFilename = [[NSBundle mainBundle] pathForResource:@"face1" ofType:@"mov"];
     
@@ -959,7 +962,7 @@
     [self.detector setDetectAllEmotions:YES];
     [self.detector setDetectAllExpressions:YES];
     [self.detector setDetectEmojis:YES];
-//    [self.detector enableAnalytics];
+    [self.detector enableAnalytics];
     self.detector.gender = TRUE;
     self.detector.glasses = TRUE;
     
