@@ -663,7 +663,7 @@
     self.partnerLogoAspectRatio = (partnerLogoSize.height == 0) ? 1.0 : (partnerLogoSize.width / partnerLogoSize.height);
 #endif
 
-    path = [[NSBundle mainBundle] pathForResource:@"Poweredby_Affectiva_clearbgk_FNL" ofType:@"png" inDirectory:@"."];
+    path = [[NSBundle mainBundle] pathForResource:@"Affectiva_Logo_Clear_Background" ofType:@"png" inDirectory:@"."];
     NSSize affectivaLogoSize = [[[NSImage alloc] initWithContentsOfFile:path] size];
     self.affectivaLogoAspectRatio = (affectivaLogoSize.height == 0) ? 1.0 : (affectivaLogoSize.width / affectivaLogoSize.height);
 
