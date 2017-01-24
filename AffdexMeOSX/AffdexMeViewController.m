@@ -109,7 +109,6 @@
     
     self.timestampOfLastProcessedFrame = time;
 
-
     // setup arrays of points and rects
     self.facePointsToDraw = [NSMutableArray new];
     self.faceRectsToDraw = [NSMutableArray new];
@@ -332,22 +331,16 @@
         }
         
         newImage = [AFDXDetector imageByDrawingPoints:self.drawFacePoints ? self.facePointsToDraw : nil
-                                    andRectangles:self.drawFaceBox ? self.faceRectsToDraw : nil
-                                        andImages:imagesArray
-                                       withRadius:self.pointSize
-                                  usingPointColor:[NSColor whiteColor]
-                              usingRectangleColor:faceBoundsColor
-                                  usingImageRects:rectsArray
-                                          onImage:newImage];
+                                        andRectangles:self.drawFaceBox ? self.faceRectsToDraw : nil
+                                            andImages:imagesArray
+                                           withRadius:self.pointSize
+                                      usingPointColor:[NSColor whiteColor]
+                                  usingRectangleColor:faceBoundsColor
+                                      usingImageRects:rectsArray
+                                              onImage:newImage];
     }
 
-    // flip image if the front camera is being used so that the perspective is mirrored.
-    if (self.cameraToUse == AFDX_CAMERA_FRONT) {
-        NSImage *flippedImage = newImage;
-        [self.imageView setImage:flippedImage];
-    } else {
-        [self.imageView setImage:newImage];
-    }
+    [self.imageView setImage:newImage];
 
     // Update image view size to implement scale to fill, where the minimum axis scales to the window size.
     [self updateImageFrameForSize:[newImage size]];
@@ -459,8 +452,8 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kDrawFrameRateKey : [NSNumber numberWithBool:NO]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kDrawFramesToScreenKey : [NSNumber numberWithBool:YES]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kProcessRateKey : [NSNumber numberWithFloat:10.0]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoSizeKey : [NSNumber numberWithFloat:25.0]}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoOpacityKey : [NSNumber numberWithFloat:30.0]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoSizeKey : [NSNumber numberWithFloat:20.0]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoOpacityKey : [NSNumber numberWithFloat:0.0]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kSelectedClassifiersKey : [NSMutableArray arrayWithObjects:@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear", nil]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kMaxClassifiersShownKey : [NSNumber numberWithInteger:6]}];
 }
@@ -511,7 +504,7 @@
     // Center the image view in the main window.
     newImageViewFrame.origin.x = (windowWidth - newImageViewFrame.size.width) / 2.0;
     newImageViewFrame.origin.y = (windowHeight - newImageViewFrame.size.height) / 2.0;
-    self.imageView.frame = newImageViewFrame; // CGRectMake(0, 0, imageViewWidth, imageViewHeight);
+    self.imageView.frame = newImageViewFrame;
 
 #if 0
     NSLog(@"Image dimensions: %f x %f\n", imageWidth, imageHeight);
@@ -528,7 +521,7 @@
     double windowWidth = viewBounds.size.width;
     double windowHeight = viewBounds.size.height;
 
-    if ((windowWidth == 0.0) || (windowHeight == 0.0) || (self.logoSize == 0.0))
+    if ((windowWidth == 0.0) || (windowHeight == 0.0))
     {
         return;
     }
@@ -573,7 +566,7 @@
     self.affectivaLogo.imageScaling = NSImageScaleAxesIndependently;
     self.affectivaLogo.frame = newAffectivaLogoFrame;
 
-#if 1
+#if 0
     NSLog(@"Affectiva Logo View origin = %f, %f; dimensions: %f x %f\n", self.affectivaLogo.frame.origin.x, self.affectivaLogo.frame.origin.y, self.affectivaLogo.frame.size.width, self.affectivaLogo.frame.size.height);
 #endif
 
