@@ -12,6 +12,19 @@
 
 //#define VIDEO_TEST
 
+static NSString *kSelectedCameraKey = @"selectedCamera";
+static NSString *kFacePointsKey = @"drawFacePoints";
+static NSString *kFaceBoxKey = @"drawFaceBox";
+static NSString *kDrawDominantEmojiKey = @"drawDominantEmoji";
+static NSString *kDrawAppearanceIconsKey = @"drawAppearanceIcons";
+static NSString *kDrawFrameRateKey = @"drawFrameRate";
+static NSString *kDrawFramesToScreenKey = @"drawFramesToScreen";
+static NSString *kPointSizeKey = @"pointSize";
+static NSString *kProcessRateKey = @"maxProcessRate";
+static NSString *kLogoSizeKey = @"logoSize";
+static NSString *kLogoOpacityKey = @"logoOpacity";
+static NSString *kSmallFaceModeKey = @"smallFaceMode";
+
 @interface AffdexImageView : NSImageView
 
 @end
@@ -454,6 +467,7 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kProcessRateKey : [NSNumber numberWithFloat:10.0]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoSizeKey : [NSNumber numberWithFloat:20.0]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLogoOpacityKey : [NSNumber numberWithFloat:0.0]}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kSmallFaceModeKey : [NSNumber numberWithBool:NO]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kSelectedClassifiersKey : [NSMutableArray arrayWithObjects:@"anger", @"joy", @"sadness", @"disgust", @"surprise", @"fear", nil]}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kMaxClassifiersShownKey : [NSNumber numberWithInteger:6]}];
 }
@@ -664,15 +678,6 @@
     self.expressions = [ClassifierModel expressions];
     self.emojis = [ClassifierModel emojis];
     
-#if 0
-    self.selectedClassifiers = [[[NSUserDefaults standardUserDefaults] objectForKey:@"classifiers"] mutableCopy];
-    if (self.selectedClassifiers == nil)
-    {
-        self.selectedClassifiers = [NSMutableArray arrayWithObjects:@"anger", @"contempt", @"disgust", @"fear", @"joy", @"sadness", nil];
-        [[NSUserDefaults standardUserDefaults] setObject:self.selectedClassifiers forKey:@"classifiers"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-#endif
     self.logoView.hidden = YES;
 
     [self.shareButton sendActionOn:NSLeftMouseDownMask];
@@ -682,9 +687,9 @@
 - (void)viewWillDisappear;
 {
     // remove ourself as an observer
-    [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                            forKeyPath:kSelectedCameraKey];
-    
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kSelectedCameraKey];
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kSmallFaceModeKey];
+
     [self stopDetector];
     
     [self resignFirstResponder];
@@ -722,6 +727,11 @@
                                             forKeyPath:kSelectedCameraKey
                                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                                context:(__bridge void *)kSelectedCameraKey];
+
+    [[NSUserDefaults standardUserDefaults] addObserver:self
+                                            forKeyPath:kSmallFaceModeKey
+                                               options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                               context:(__bridge void *)kSmallFaceModeKey];
 }
 
 - (void)viewDidAppear;
@@ -739,21 +749,25 @@
 #endif
 }
 
+-(void)updateDetectorOnKeyPathChange;
+{
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self stopDetector];
+    NSError *error = [self startDetector];
+    if (nil != error)
+    {
+        NSAlert *alert = [NSAlert alertWithError:error];
+        [alert runModal];
+
+        [NSApp terminate:self];
+    }
+}
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     if (context == (__bridge void *)kSelectedCameraKey)
     {
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [self stopDetector];
-        NSError *error = [self startDetector];
-        if (nil != error)
-        {
-            NSAlert *alert = [NSAlert alertWithError:error];
-            [alert runModal];
-            
-            [NSApp terminate:self];
-        }
-        
+        [self updateDetectorOnKeyPathChange];
         return;
     }
 
@@ -790,6 +804,16 @@
         BOOL value = [v boolValue];
         
         self.drawAppearanceIcons = value;
+    }
+    else
+    if (context == (__bridge void *)kSmallFaceModeKey)
+    {
+        BOOL value = [v boolValue];
+
+        if (self.smallFaceMode != value) {
+            self.smallFaceMode = value;
+            [self updateDetectorOnKeyPathChange];
+        }
     }
     else
     if (context == (__bridge void *)kDrawFrameRateKey)
@@ -876,7 +900,10 @@
     self.detector = [[AFDXDetector alloc] initWithDelegate:self usingFile:self.mediaFilename maximumFaces:maximumFaces];
 #else
     // create our detector with our desired facial expresions, using the front facing camera
-    self.detector = [[AFDXDetector alloc] initWithDelegate:self usingCaptureDevice:device maximumFaces:maximumFaces faceMode:SMALL_FACES];
+    self.detector = [[AFDXDetector alloc] initWithDelegate:self
+                                        usingCaptureDevice:device
+                                              maximumFaces:maximumFaces
+                                                  faceMode:self.smallFaceMode ? SMALL_FACES : LARGE_FACES];
 #endif
     
     // add ourself as an observer of various settings

@@ -14,6 +14,7 @@
 @property (weak) IBOutlet NSCollectionView *collectionView;
 @property (strong) NSArray *availableClassifiers;
 @property (strong) NSMutableArray *selectedClassifiers;
+@property (weak) IBOutlet NSScrollView *scrollView;
 @property (weak) IBOutlet NSTextField *instructionLabel;
 @property (weak) IBOutlet NSArrayController *arrayController;
 

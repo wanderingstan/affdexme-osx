@@ -12,18 +12,6 @@
 #import "ExpressionViewController.h"
 #import <Affdex/Affdex.h>
 
-static NSString *kSelectedCameraKey = @"selectedCamera";
-static NSString *kFacePointsKey = @"drawFacePoints";
-static NSString *kFaceBoxKey = @"drawFaceBox";
-static NSString *kDrawDominantEmojiKey = @"drawDominantEmoji";
-static NSString *kDrawAppearanceIconsKey = @"drawAppearanceIcons";
-static NSString *kDrawFrameRateKey = @"drawFrameRate";
-static NSString *kDrawFramesToScreenKey = @"drawFramesToScreen";
-static NSString *kPointSizeKey = @"pointSize";
-static NSString *kProcessRateKey = @"maxProcessRate";
-static NSString *kLogoSizeKey = @"logoSize";
-static NSString *kLogoOpacityKey = @"logoOpacity";
-
 @interface AffdexMeViewController : NSViewController <AFDXDetectorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, NSSharingServicePickerDelegate, NSWindowDelegate>
 
 @property (weak) IBOutlet NSView *mainView;
@@ -49,6 +37,7 @@ static NSString *kLogoOpacityKey = @"logoOpacity";
 @property (assign) CGFloat pointSize;
 @property (assign) CGFloat logoSize;
 @property (assign) CGFloat logoOpacity;
+@property (assign) BOOL smallFaceMode;
 @property (strong) NSMutableDictionary *faceMeasurements;
 @property (weak) IBOutlet NSView *classifiersView;
 
