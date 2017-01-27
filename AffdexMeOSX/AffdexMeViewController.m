@@ -9,6 +9,7 @@
 #import "AffdexMeViewController.h"
 #import "ClassifierModel.h"
 #import "NSImage+Extensions.h"
+#import <objc/runtime.h>
 
 //#define VIDEO_TEST
 
@@ -65,6 +66,11 @@
 @property (assign) CGFloat fpsUnprocessed;
 @property (assign) CGFloat fpsProcessed;
 
+// OSC
+@property (strong) OSCConnection *oscConnection;
+@property (strong) NSArray *oscFeaturesToSend;
+@property int oscFaceSendCount;
+
 @end
 
 @implementation AffdexMeViewController
@@ -109,12 +115,12 @@
     
     self.timestampOfLastProcessedFrame = time;
 
-
     // setup arrays of points and rects
     self.facePointsToDraw = [NSMutableArray new];
     self.faceRectsToDraw = [NSMutableArray new];
 
     // Handle each metric in the array
+    int faceProcessedCount = 0;
     for (AFDXFace *face in [faces allValues])
     {
         NSDictionary *faceData = face.userInfo;
@@ -185,9 +191,70 @@
                 }
             }
         }
+        faceProcessedCount++;
+
     }
+
+    
+    // Send to OSC
+    if ([faces count] >= self.oscFaceSendCount)
+    {
+        NSArray* facesToSend = [[faces allValues] subarrayWithRange: NSMakeRange(0, self.oscFaceSendCount)];
+        [self sendOscForFaces:facesToSend forExpressions:self.oscFeaturesToSend];
+    }
+
     self.selectedClassifiersDirty = NO;
 };
+
+#pragma mark OSC sending
+- (void)sendOscForFaces:(NSArray*)faces forExpressions:(NSArray*)expressions
+{
+    // Send OSC
+    if (self.oscConnection.connected)
+    {
+        OSCMutableMessage* faceOscPacket = [[OSCMutableMessage alloc] init];
+        faceOscPacket.address = @"/wek/inputs";
+        
+        NSMutableArray* logStrings = [[NSMutableArray alloc] init];
+        
+        for (AFDXFace *face in faces)
+        {
+            
+            // Assemble values from face features to send in osc packet
+            unsigned int numberOfProperties = 0;
+            objc_property_t *propertyArray = class_copyPropertyList([AFDXExpressions class], &numberOfProperties);
+            
+            for (NSUInteger i = 0; i < numberOfProperties; i++)
+            {
+                objc_property_t property = propertyArray[i];
+                NSString *propertyName = [[NSString alloc] initWithUTF8String:property_getName(property)];
+                //                    NSString *attributesString = [[NSString alloc] initWithUTF8String:property_getAttributes(property)];
+                //                NSLog(@"Property %@ attributes: %@ value: %@", propertyName, attributesString, [face.expressions valueForKey:propertyName]);
+                
+                if ([expressions containsObject:propertyName])
+                {
+                    // Add to packet
+                    [faceOscPacket addFloat:[[face.expressions valueForKey:propertyName] floatValue]];
+                    
+                    // Log it
+                    [logStrings addObject:[NSString stringWithFormat:@"%18s: %6.2f", [propertyName UTF8String], [[face.expressions valueForKey:propertyName] floatValue]]];
+                }
+            }
+            [logStrings addObject:@"\n"];
+        }
+        // Add final count to Log
+        [logStrings addObject:[NSString stringWithFormat:@"TOTAL PARAMETERS: %lu", (unsigned long)faceOscPacket.arguments.count]];
+        
+        self.oscLogLabel.stringValue = [logStrings componentsJoinedByString:@"\n"];
+        
+        // Send it!
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.oscConnection sendPacket:faceOscPacket];
+        });
+        
+    }
+
+}
 
 - (void)unprocessedImageReady:(AFDXDetector *)detector image:(NSImage *)image atTime:(NSTimeInterval)time;
 {
@@ -509,6 +576,17 @@
 
     [self.shareButton sendActionOn:NSLeftMouseDownMask];
     [self.shareButton.cell setHighlightsBy:NSContentsCellMask];
+    
+    // OSC setup
+    {
+        self.oscConnection = [[OSCConnection alloc] init];
+        self.oscConnection.delegate = self;
+        self.oscConnection.continuouslyReceivePackets = YES;
+        
+        // GUI
+        [[self.oscLogLabel cell] setBackgroundStyle:NSBackgroundStyleRaised];
+    }
+
 }
 
 - (void)viewWillDisappear;
@@ -863,5 +941,26 @@
 {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://github.com/Affectiva/affdexme-osx"]];
 }
+
+#pragma mark -
+#pragma mark OSC
+
+- (IBAction)connect:(NSButton *)sender
+{
+    NSError *error;
+    UInt16 remotePort = 6448;
+    NSString* remoteHost = @"127.0.0.1";
+    if (![self.oscConnection connectToHost:remoteHost port:remotePort protocol:OSCConnectionUDP error:&error])
+    {
+        [self presentError:error];
+        return;
+    }
+    
+    self.oscFaceSendCount = [self.oscFaceSendCountTextField.stringValue intValue];
+    self.oscFeaturesToSend = [self.oscFeaturesToSendTextField.stringValue componentsSeparatedByString:@"\n"];
+    
+    self.oscConnectGroupBox.hidden = YES;
+}
+
 
 @end

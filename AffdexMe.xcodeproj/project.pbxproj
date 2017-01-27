@@ -25,6 +25,8 @@
 		68DEC48A1A178731009FCB2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68DEC4881A178731009FCB2E /* MainMenu.xib */; };
 		68DEC4961A178731009FCB2E /* AffdexMeOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */; };
 		A3D08E77559302A1656F311A /* Pods_AffdexMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */; };
+		F615BB6B1E3A5ED200BFF4CF /* CocoaOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F615BB691E3A5DF800BFF4CF /* CocoaOSC.framework */; };
+		F615BB6C1E3A5ED200BFF4CF /* CocoaOSC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F615BB691E3A5DF800BFF4CF /* CocoaOSC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F615BB6C1E3A5ED200BFF4CF /* CocoaOSC.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +73,7 @@
 		68BA0DE61C98486900DFB13A /* ClassifierPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierPickerViewController.m; sourceTree = "<group>"; };
 		68BA0DEB1C987F3100DFB13A /* ClassifierModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierModel.h; sourceTree = "<group>"; };
 		68BA0DEC1C987F3100DFB13A /* ClassifierModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierModel.m; sourceTree = "<group>"; };
-		68DEC47C1A178731009FCB2E /* AffdexMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AffdexMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		68DEC47C1A178731009FCB2E /* AffdexMe-OSC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AffdexMe-OSC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DEC4801A178731009FCB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DEC4811A178731009FCB2E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		68DEC4821A178731009FCB2E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -82,6 +85,7 @@
 		68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AffdexMeOSXTests.m; sourceTree = "<group>"; };
 		6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AffdexMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		819FE234EFB7A6A78C5A92A9 /* Pods-AffdexMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AffdexMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AffdexMe/Pods-AffdexMe.release.xcconfig"; sourceTree = "<group>"; };
+		F615BB691E3A5DF800BFF4CF /* CocoaOSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaOSC.framework; path = Frameworks/CocoaOSC.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3D08E77559302A1656F311A /* Pods_AffdexMe.framework in Frameworks */,
+				F615BB6B1E3A5ED200BFF4CF /* CocoaOSC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +111,7 @@
 		0AEADA72BC3E2D322F9AE233 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F615BB691E3A5DF800BFF4CF /* CocoaOSC.framework */,
 				6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */,
 			);
 			name = Frameworks;
@@ -132,7 +138,7 @@
 		68DEC47D1A178731009FCB2E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				68DEC47C1A178731009FCB2E /* AffdexMe.app */,
+				68DEC47C1A178731009FCB2E /* AffdexMe-OSC.app */,
 				68DEC48F1A178731009FCB2E /* AffdexMeTests.xctest */,
 			);
 			name = Products;
@@ -218,7 +224,7 @@
 			);
 			name = AffdexMe;
 			productName = MeasureUpOSX;
-			productReference = 68DEC47C1A178731009FCB2E /* AffdexMe.app */;
+			productReference = 68DEC47C1A178731009FCB2E /* AffdexMe-OSC.app */;
 			productType = "com.apple.product-type.application";
 		};
 		68DEC48E1A178731009FCB2E /* AffdexMeTests */ = {
@@ -351,7 +357,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -487,12 +493,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+					"/Users/stan/Downloads/affdexme-osx/Frameworks/CocoaOSC.framework",
 				);
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.AffdexMeOSX;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "AffdexMe-OSC";
 				SWIFT_OBJC_BRIDGING_HEADER = "AffdexMe-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -508,12 +516,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+					"/Users/stan/Downloads/affdexme-osx/Frameworks/CocoaOSC.framework",
 				);
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.AffdexMeOSX;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "AffdexMe-OSC";
 				SWIFT_OBJC_BRIDGING_HEADER = "AffdexMe-Bridging-Header.h";
 			};
 			name = Release;

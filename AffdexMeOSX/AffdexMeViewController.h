@@ -11,6 +11,7 @@
 #import "PreferencesWindowController.h"
 #import "ExpressionViewController.h"
 #import <Affdex/Affdex.h>
+#import <CocoaOSC/CocoaOSC.h>
 
 static NSString *kSelectedCameraKey = @"selectedCamera";
 static NSString *kFacePointsKey = @"drawFacePoints";
@@ -22,7 +23,7 @@ static NSString *kDrawFramesToScreenKey = @"drawFramesToScreen";
 static NSString *kPointSizeKey = @"pointSize";
 static NSString *kProcessRateKey = @"maxProcessRate";
 
-@interface AffdexMeViewController : NSViewController <AFDXDetectorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, NSSharingServicePickerDelegate>
+@interface AffdexMeViewController : NSViewController <AFDXDetectorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, NSSharingServicePickerDelegate, OSCConnectionDelegate>
 
 @property (strong) IBOutlet NSImageView *imageView;
 @property (weak) IBOutlet NSImageView *processedImageView;
@@ -51,5 +52,13 @@ static NSString *kProcessRateKey = @"maxProcessRate";
 
 - (NSError *)startDetector;
 - (NSError *)stopDetector;
+
+@property (weak) IBOutlet NSButton *oscConnectButton;
+
+@property (weak) IBOutlet NSTextField *oscLogLabel;
+@property (weak) IBOutlet NSTextField *oscFeaturesToSendTextField;
+@property (weak) IBOutlet NSTextField *oscFaceSendCountTextField;
+
+@property (weak) IBOutlet NSBox *oscConnectGroupBox;
 
 @end

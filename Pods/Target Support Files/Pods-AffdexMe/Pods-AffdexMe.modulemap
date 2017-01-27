@@ -1,0 +1,6 @@
+framework module Pods_AffdexMe {
+  umbrella header "Pods-AffdexMe-umbrella.h"
+
+  export *
+  module * { export * }
+}
