@@ -25,8 +25,7 @@
 		68DEC48A1A178731009FCB2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68DEC4881A178731009FCB2E /* MainMenu.xib */; };
 		68DEC4961A178731009FCB2E /* AffdexMeOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */; };
 		A3D08E77559302A1656F311A /* Pods_AffdexMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */; };
-		F615BB6B1E3A5ED200BFF4CF /* CocoaOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F615BB691E3A5DF800BFF4CF /* CocoaOSC.framework */; };
-		F615BB6C1E3A5ED200BFF4CF /* CocoaOSC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F615BB691E3A5DF800BFF4CF /* CocoaOSC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F67E06081E3BD2EA0090080B /* CocoaOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67E06011E3BD2D90090080B /* CocoaOSC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +36,41 @@
 			remoteGlobalIDString = 68DEC47B1A178731009FCB2E;
 			remoteInfo = MeasureUpOSX;
 		};
+		F67E05FE1E3BD2D90090080B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F67E05F71E3BD2D90090080B /* CocoaOSC.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0B5068C51460E41500BD27ED;
+			remoteInfo = "CocoaOSC-ios";
+		};
+		F67E06001E3BD2D90090080B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F67E05F71E3BD2D90090080B /* CocoaOSC.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0B4C46841460E8B9007B5E06;
+			remoteInfo = "CocoaOSC-mac";
+		};
+		F67E06021E3BD2D90090080B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F67E05F71E3BD2D90090080B /* CocoaOSC.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0B4C46C51460EAAF007B5E06;
+			remoteInfo = "CocoaOSCDemo-ios";
+		};
+		F67E06041E3BD2D90090080B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F67E05F71E3BD2D90090080B /* CocoaOSC.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0B4C46E41460EC07007B5E06;
+			remoteInfo = "CocoaOSCDemo-mac";
+		};
+		F67E06061E3BD2E50090080B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F67E05F71E3BD2D90090080B /* CocoaOSC.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B4C46831460E8B9007B5E06;
+			remoteInfo = "CocoaOSC-mac";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,7 +80,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F615BB6C1E3A5ED200BFF4CF /* CocoaOSC.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +118,7 @@
 		68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AffdexMeOSXTests.m; sourceTree = "<group>"; };
 		6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AffdexMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		819FE234EFB7A6A78C5A92A9 /* Pods-AffdexMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AffdexMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AffdexMe/Pods-AffdexMe.release.xcconfig"; sourceTree = "<group>"; };
-		F615BB691E3A5DF800BFF4CF /* CocoaOSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaOSC.framework; path = Frameworks/CocoaOSC.framework; sourceTree = "<group>"; };
+		F67E05F71E3BD2D90090080B /* CocoaOSC.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaOSC.xcodeproj; path = Frameworks/CocoaOSC/CocoaOSC.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +126,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F67E06081E3BD2EA0090080B /* CocoaOSC.framework in Frameworks */,
 				A3D08E77559302A1656F311A /* Pods_AffdexMe.framework in Frameworks */,
-				F615BB6B1E3A5ED200BFF4CF /* CocoaOSC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,7 +144,6 @@
 		0AEADA72BC3E2D322F9AE233 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F615BB691E3A5DF800BFF4CF /* CocoaOSC.framework */,
 				6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */,
 			);
 			name = Frameworks;
@@ -120,6 +152,7 @@
 		68DEC4731A178731009FCB2E = {
 			isa = PBXGroup;
 			children = (
+				F67E05F71E3BD2D90090080B /* CocoaOSC.xcodeproj */,
 				6804019F1CC8F35F001AF417 /* camera-lens-icon.png */,
 				684C31C01CAC66B500718B91 /* AffdexMe.entitlements */,
 				688DFABC1CA037510045A9F0 /* classifiers.png */,
@@ -203,6 +236,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F67E05F81E3BD2D90090080B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F67E05FF1E3BD2D90090080B /* libCocoaOSC.a */,
+				F67E06011E3BD2D90090080B /* CocoaOSC.framework */,
+				F67E06031E3BD2D90090080B /* CocoaOSCios.app */,
+				F67E06051E3BD2D90090080B /* CocoaOSCmac.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -221,6 +265,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F67E06071E3BD2E50090080B /* PBXTargetDependency */,
 			);
 			name = AffdexMe;
 			productName = MeasureUpOSX;
@@ -270,7 +315,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 68DEC4771A178731009FCB2E /* Build configuration list for PBXProject "AffdexMe" */;
+			buildConfigurationList = 68DEC4771A178731009FCB2E /* Build configuration list for PBXProject "AffdexMe-OSC" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -281,6 +326,12 @@
 			mainGroup = 68DEC4731A178731009FCB2E;
 			productRefGroup = 68DEC47D1A178731009FCB2E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F67E05F81E3BD2D90090080B /* Products */;
+					ProjectRef = F67E05F71E3BD2D90090080B /* CocoaOSC.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				68DEC47B1A178731009FCB2E /* AffdexMe */,
@@ -288,6 +339,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F67E05FF1E3BD2D90090080B /* libCocoaOSC.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCocoaOSC.a;
+			remoteRef = F67E05FE1E3BD2D90090080B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F67E06011E3BD2D90090080B /* CocoaOSC.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaOSC.framework;
+			remoteRef = F67E06001E3BD2D90090080B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F67E06031E3BD2D90090080B /* CocoaOSCios.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = CocoaOSCios.app;
+			remoteRef = F67E06021E3BD2D90090080B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F67E06051E3BD2D90090080B /* CocoaOSCmac.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = CocoaOSCmac.app;
+			remoteRef = F67E06041E3BD2D90090080B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		68DEC47A1A178731009FCB2E /* Resources */ = {
@@ -394,6 +476,11 @@
 			target = 68DEC47B1A178731009FCB2E /* AffdexMe */;
 			targetProxy = 68DEC4901A178731009FCB2E /* PBXContainerItemProxy */;
 		};
+		F67E06071E3BD2E50090080B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CocoaOSC-mac";
+			targetProxy = F67E06061E3BD2E50090080B /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -499,7 +586,7 @@
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.AffdexMeOSX;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.affectiva.AffdexMeOSX-OSC";
 				PRODUCT_NAME = "AffdexMe-OSC";
 				SWIFT_OBJC_BRIDGING_HEADER = "AffdexMe-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -522,7 +609,7 @@
 				INFOPLIST_FILE = AffdexMeOSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.AffdexMeOSX;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.affectiva.AffdexMeOSX-OSC";
 				PRODUCT_NAME = "AffdexMe-OSC";
 				SWIFT_OBJC_BRIDGING_HEADER = "AffdexMe-Bridging-Header.h";
 			};
@@ -569,7 +656,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		68DEC4771A178731009FCB2E /* Build configuration list for PBXProject "AffdexMe" */ = {
+		68DEC4771A178731009FCB2E /* Build configuration list for PBXProject "AffdexMe-OSC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				68DEC4971A178731009FCB2E /* Debug */,

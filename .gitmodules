@@ -1,0 +1,3 @@
+[submodule "Frameworks/CocoaOSC"]
+	path = Frameworks/CocoaOSC
+	url = https://github.com/danieldickison/CocoaOSC

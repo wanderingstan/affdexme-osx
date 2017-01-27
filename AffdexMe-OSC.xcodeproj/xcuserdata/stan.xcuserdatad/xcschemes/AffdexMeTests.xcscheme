@@ -19,7 +19,7 @@
                BlueprintIdentifier = "68DEC48E1A178731009FCB2E"
                BuildableName = "AffdexMeTests.xctest"
                BlueprintName = "AffdexMeTests"
-               ReferencedContainer = "container:AffdexMe.xcodeproj">
+               ReferencedContainer = "container:AffdexMe-OSC.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
