@@ -206,56 +206,6 @@
     self.selectedClassifiersDirty = NO;
 };
 
-#pragma mark OSC sending
-- (void)sendOscForFaces:(NSArray*)faces forExpressions:(NSArray*)expressions
-{
-    // Send OSC
-    if (self.oscConnection.connected)
-    {
-        OSCMutableMessage* faceOscPacket = [[OSCMutableMessage alloc] init];
-        faceOscPacket.address = @"/wek/inputs";
-        
-        NSMutableArray* logStrings = [[NSMutableArray alloc] init];
-        
-        for (AFDXFace *face in faces)
-        {
-            
-            // Assemble values from face features to send in osc packet
-            unsigned int numberOfProperties = 0;
-            objc_property_t *propertyArray = class_copyPropertyList([AFDXExpressions class], &numberOfProperties);
-            
-            for (NSUInteger i = 0; i < numberOfProperties; i++)
-            {
-                objc_property_t property = propertyArray[i];
-                NSString *propertyName = [[NSString alloc] initWithUTF8String:property_getName(property)];
-                //                    NSString *attributesString = [[NSString alloc] initWithUTF8String:property_getAttributes(property)];
-                //                NSLog(@"Property %@ attributes: %@ value: %@", propertyName, attributesString, [face.expressions valueForKey:propertyName]);
-                
-                if ([expressions containsObject:propertyName])
-                {
-                    // Add to packet
-                    [faceOscPacket addFloat:[[face.expressions valueForKey:propertyName] floatValue]];
-                    
-                    // Log it
-                    [logStrings addObject:[NSString stringWithFormat:@"%18s: %6.2f", [propertyName UTF8String], [[face.expressions valueForKey:propertyName] floatValue]]];
-                }
-            }
-            [logStrings addObject:@"\n"];
-        }
-        // Add final count to Log
-        [logStrings addObject:[NSString stringWithFormat:@"TOTAL PARAMETERS: %lu", (unsigned long)faceOscPacket.arguments.count]];
-        
-        self.oscLogLabel.stringValue = [logStrings componentsJoinedByString:@"\n"];
-        
-        // Send it!
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.oscConnection sendPacket:faceOscPacket];
-        });
-        
-    }
-
-}
-
 - (void)unprocessedImageReady:(AFDXDetector *)detector image:(NSImage *)image atTime:(NSTimeInterval)time;
 {
     NSImage *newImage = image;
@@ -944,6 +894,56 @@
 
 #pragma mark -
 #pragma mark OSC
+
+// Send OSC data for chosen expressions found on facers
+- (void)sendOscForFaces:(NSArray*)faces forExpressions:(NSArray*)expressions
+{
+    // Send OSC
+    if (self.oscConnection.connected)
+    {
+        OSCMutableMessage* faceOscPacket = [[OSCMutableMessage alloc] init];
+        faceOscPacket.address = @"/wek/inputs";
+        
+        NSMutableArray* logStrings = [[NSMutableArray alloc] init];
+        
+        for (AFDXFace *face in faces)
+        {
+            // Assemble values from face features to send in osc packet
+            unsigned int numberOfProperties = 0;
+            objc_property_t *propertyArray = class_copyPropertyList([AFDXExpressions class], &numberOfProperties);
+            
+            
+            // TODO: Include  emtions, orientation, appearance, faceBounds
+            // TODO: Don't iterate over all properties, just test if a property exists
+            for (NSUInteger i = 0; i < numberOfProperties; i++)
+            {
+                objc_property_t property = propertyArray[i];
+                NSString *propertyName = [[NSString alloc] initWithUTF8String:property_getName(property)];
+                if ([expressions containsObject:propertyName])
+                {
+                    // Add to packet
+                    [faceOscPacket addFloat:[[face.expressions valueForKey:propertyName] floatValue]];
+                    
+                    // Log it
+                    [logStrings addObject:[NSString stringWithFormat:@"%18s: %6.2f", [propertyName UTF8String], [[face.expressions valueForKey:propertyName] floatValue]]];
+                }
+            }
+            [logStrings addObject:@"\n"];
+        }
+        // Add final count to Log
+        [logStrings addObject:[NSString stringWithFormat:@"TOTAL PARAMETERS: %lu", (unsigned long)faceOscPacket.arguments.count]];
+        
+        self.oscLogLabel.stringValue = [logStrings componentsJoinedByString:@"\n"];
+        
+        // Send it!
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.oscConnection sendPacket:faceOscPacket];
+        });
+        
+    }
+    
+}
+
 
 - (IBAction)connect:(NSButton *)sender
 {
