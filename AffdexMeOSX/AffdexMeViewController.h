@@ -53,6 +53,7 @@ static NSString *kProcessRateKey = @"maxProcessRate";
 - (NSError *)startDetector;
 - (NSError *)stopDetector;
 
+// OSC
 @property (weak) IBOutlet NSButton *oscConnectButton;
 
 @property (weak) IBOutlet NSTextField *oscLogLabel;
@@ -60,5 +61,8 @@ static NSString *kProcessRateKey = @"maxProcessRate";
 @property (weak) IBOutlet NSTextField *oscFaceSendCountTextField;
 
 @property (weak) IBOutlet NSBox *oscConnectGroupBox;
+@property (weak) IBOutlet NSTextField *oscHostTextField;
+@property (weak) IBOutlet NSTextField *oscPortTextField;
+
 
 @end

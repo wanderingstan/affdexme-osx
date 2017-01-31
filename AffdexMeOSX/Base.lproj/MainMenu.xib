@@ -188,7 +188,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" misplaced="YES" id="dt7-Cn-0bT">
-                                    <rect key="frame" x="20" y="11" width="176" height="606"/>
+                                    <rect key="frame" x="20" y="11" width="176" height="586"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="646-fm-yo4">
                                         <font key="font" metaFont="smallSystem"/>
@@ -230,6 +230,9 @@ orientation.interocularDistance</mutableString>
                                             <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                         </allowedInputSourceLocales>
                                     </textFieldCell>
+                                    <connections>
+                                        <binding destination="joP-QY-KZx" name="value" keyPath="values.featuresToSendPref" id="w68-R1-GAi"/>
+                                    </connections>
                                 </textField>
                                 <button verticalHuggingPriority="750" misplaced="YES" id="B6J-0F-bTA">
                                     <rect key="frame" x="14" y="683" width="184" height="32"/>
@@ -243,7 +246,7 @@ orientation.interocularDistance</mutableString>
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="oyo-Xy-TPn">
-                                    <rect key="frame" x="18" y="625" width="94" height="25"/>
+                                    <rect key="frame" x="18" y="629" width="94" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Faces to Send:" id="y7d-WS-f9p">
                                         <font key="font" metaFont="system"/>
@@ -251,13 +254,60 @@ orientation.interocularDistance</mutableString>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="WFo-R9-pIC">
+                                    <rect key="frame" x="18" y="657" width="37" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Host:" id="D1d-ho-eaV">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                                 <textField verticalHuggingPriority="750" misplaced="YES" id="q43-X8-gBu">
-                                    <rect key="frame" x="118" y="628" width="58" height="22"/>
+                                    <rect key="frame" x="112" y="634" width="80" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1" drawsBackground="YES" id="tMF-BH-pFx">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button verticalHuggingPriority="750" misplaced="YES" id="hqV-nj-4Ia">
+                                    <rect key="frame" x="14" y="598" width="188" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="push" title="Show all features" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VM9-Rk-38l">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="showAllFeaturesButtonAction:" target="hw1-5l-3Je" id="6YL-9j-Lpp"/>
+                                    </connections>
+                                </button>
+                                <textField verticalHuggingPriority="750" misplaced="YES" id="abK-Te-UnV">
+                                    <rect key="frame" x="145" y="660" width="47" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="6448" drawsBackground="YES" id="9Sl-vH-FEn">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" misplaced="YES" id="LJH-TU-bYV">
+                                    <rect key="frame" x="56" y="660" width="59" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="127.0.0.1" drawsBackground="YES" id="CGa-Hf-4IY">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="bx7-ZV-IFQ">
+                                    <rect key="frame" x="110" y="655" width="37" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Port" id="VUS-xy-ZlD">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                             </subviews>
@@ -280,7 +330,9 @@ orientation.interocularDistance</mutableString>
                 <outlet property="oscConnectGroupBox" destination="kpT-p2-UCG" id="o8p-cD-EyN"/>
                 <outlet property="oscFaceSendCountTextField" destination="q43-X8-gBu" id="Te6-sk-Mdj"/>
                 <outlet property="oscFeaturesToSendTextField" destination="dt7-Cn-0bT" id="MRv-K3-THw"/>
+                <outlet property="oscHostTextField" destination="LJH-TU-bYV" id="Xf9-Q4-374"/>
                 <outlet property="oscLogLabel" destination="fN3-wr-mXh" id="rjK-x2-43r"/>
+                <outlet property="oscPortTextField" destination="abK-Te-UnV" id="o9m-Ph-LPZ"/>
                 <outlet property="processedImageView" destination="sfx-3a-2fc" id="4w8-63-04q"/>
                 <outlet property="resolution" destination="KD9-fh-LWq" id="bxR-5C-gPL"/>
                 <outlet property="shareButton" destination="sEj-Ss-Apx" id="aLd-CT-lPm"/>

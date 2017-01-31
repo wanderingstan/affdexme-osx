@@ -996,12 +996,47 @@
     
 }
 
+- (IBAction)showAllFeaturesButtonAction:(id)sender {
+    self.oscFeaturesToSendTextField.stringValue = (
+                                                   @"expressions.attention\n"
+                                                   "expressions.browFurrow\n"
+                                                   "expressions.browRaise\n"
+                                                   "expressions.cheekRaise\n"
+                                                   "expressions.chinRaise\n"
+                                                   "expressions.dimpler\n"
+                                                   "expressions.eyeClosure\n"
+                                                   "expressions.eyeWiden\n"
+                                                   "expressions.innerBrowRaise\n"
+                                                   "expressions.jawDrop\n"
+                                                   "expressions.lidTighten\n"
+                                                   "expressions.lipCornerDepressor\n"
+                                                   "expressions.lipPress\n"
+                                                   "expressions.lipPucker\n"
+                                                   "expressions.lipStretch\n"
+                                                   "expressions.lipSuck\n"
+                                                   "expressions.mouthOpen\n"
+                                                   "expressions.noseWrinkle\n"
+                                                   "expressions.smile\n"
+                                                   "expressions.upperLipRaise\n"
+                                                   "emotions.anger\n"
+                                                   "emotions.contempt\n"
+                                                   "emotions.disgust\n"
+                                                   "emotions.engagement\n"
+                                                   "emotions.joy\n"
+                                                   "emotions.sadness\n"
+                                                   "emotions.surprise\n"
+                                                   "emotions.valence\n"
+                                                   "orientation.yaw\n"
+                                                   "orientation.pitch\n"
+                                                   "orientation.roll\n"
+                                                   "orientation.interocularDistance"                                                  );
+}
 
 - (IBAction)connect:(NSButton *)sender
 {
     NSError *error;
-    UInt16 remotePort = 6448;
-    NSString* remoteHost = @"127.0.0.1";
+    UInt16 remotePort = [self.oscPortTextField.stringValue intValue];
+    NSString* remoteHost = self.oscHostTextField.stringValue;
     if (![self.oscConnection connectToHost:remoteHost port:remotePort protocol:OSCConnectionUDP error:&error])
     {
         [self presentError:error];
@@ -1013,6 +1048,8 @@
     
     self.oscConnectGroupBox.hidden = YES;
 }
+
+
 
 
 @end
