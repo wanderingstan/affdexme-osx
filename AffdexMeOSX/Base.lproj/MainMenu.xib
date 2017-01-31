@@ -181,38 +181,49 @@
                         </textFieldCell>
                     </textField>
                     <box misplaced="YES" boxType="custom" cornerRadius="4" title="Box" id="kpT-p2-UCG">
-                        <rect key="frame" x="20" y="483" width="219" height="401"/>
+                        <rect key="frame" x="20" y="151" width="219" height="733"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="Xp8-iM-bMn">
-                            <rect key="frame" x="1" y="1" width="217" height="399"/>
+                            <rect key="frame" x="1" y="1" width="217" height="731"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" misplaced="YES" id="dt7-Cn-0bT">
-                                    <rect key="frame" x="20" y="51" width="176" height="299"/>
+                                    <rect key="frame" x="20" y="11" width="176" height="606"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="646-fm-yo4">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <string key="title">attention
-browFurrow
-browRaise
-cheekRaise
-chinRaise
-dimpler
-eyeClosure
-eyeWiden
-innerBrowRaise
-jawDrop
-lidTighten
-lipCornerDepressor
-lipPress
-lipPucker
-lipStretch
-lipSuck
-mouthOpen
-noseWrinkle
-smile
-upperLipRaise
-</string>
+                                        <mutableString key="title">expressions.attention
+expressions.browFurrow
+expressions.browRaise
+expressions.cheekRaise
+expressions.chinRaise
+expressions.dimpler
+expressions.eyeClosure
+expressions.eyeWiden
+expressions.innerBrowRaise
+expressions.jawDrop
+expressions.lidTighten
+expressions.lipCornerDepressor
+expressions.lipPress
+expressions.lipPucker
+expressions.lipStretch
+expressions.lipSuck
+expressions.mouthOpen
+expressions.noseWrinkle
+expressions.smile
+expressions.upperLipRaise
+emotions.anger
+emotions.contempt
+emotions.disgust
+emotions.engagement
+emotions.joy
+emotions.sadness
+emotions.surprise
+emotions.valence
+orientation.yaw
+orientation.pitch
+orientation.roll
+orientation.interocularDistance</mutableString>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <allowedInputSourceLocales>
@@ -221,7 +232,7 @@ upperLipRaise
                                     </textFieldCell>
                                 </textField>
                                 <button verticalHuggingPriority="750" misplaced="YES" id="B6J-0F-bTA">
-                                    <rect key="frame" x="14" y="351" width="184" height="32"/>
+                                    <rect key="frame" x="14" y="683" width="184" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title="Connect OSC" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="voj-Tv-izc">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -232,7 +243,7 @@ upperLipRaise
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="oyo-Xy-TPn">
-                                    <rect key="frame" x="18" y="18" width="94" height="25"/>
+                                    <rect key="frame" x="18" y="625" width="94" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Faces to Send:" id="y7d-WS-f9p">
                                         <font key="font" metaFont="system"/>
@@ -241,7 +252,7 @@ upperLipRaise
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" misplaced="YES" id="q43-X8-gBu">
-                                    <rect key="frame" x="118" y="21" width="58" height="22"/>
+                                    <rect key="frame" x="118" y="628" width="58" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1" drawsBackground="YES" id="tMF-BH-pFx">
                                         <font key="font" metaFont="system"/>

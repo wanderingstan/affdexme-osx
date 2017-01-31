@@ -200,7 +200,7 @@
     if ([faces count] >= self.oscFaceSendCount)
     {
         NSArray* facesToSend = [[faces allValues] subarrayWithRange: NSMakeRange(0, self.oscFaceSendCount)];
-        [self sendOscForFaces:facesToSend forExpressions:self.oscFeaturesToSend];
+        [self sendOscForFaces:facesToSend forFeatures:self.oscFeaturesToSend];
     }
 
     self.selectedClassifiersDirty = NO;
@@ -896,7 +896,7 @@
 #pragma mark OSC
 
 // Send OSC data for chosen expressions found on facers
-- (void)sendOscForFaces:(NSArray*)faces forExpressions:(NSArray*)expressions
+- (void)sendOscForFaces:(NSArray*)faces forFeatures:(NSArray*)features
 {
     // Send OSC
     if (self.oscConnection.connected)
@@ -912,26 +912,78 @@
             unsigned int numberOfProperties = 0;
             objc_property_t *propertyArray = class_copyPropertyList([AFDXExpressions class], &numberOfProperties);
             
-            
-            // TODO: Include  emtions, orientation, appearance, faceBounds
-            // TODO: Don't iterate over all properties, just test if a property exists
-            for (NSUInteger i = 0; i < numberOfProperties; i++)
+            for (NSString* featureName in features)
             {
-                objc_property_t property = propertyArray[i];
-                NSString *propertyName = [[NSString alloc] initWithUTF8String:property_getName(property)];
-                if ([expressions containsObject:propertyName])
+                NSArray *featureComponents = [featureName componentsSeparatedByString:@"."];
+                float valueToSend = 0.0;
+                
+                if ([featureComponents count] != 2)
                 {
-                    // Add to packet
-                    [faceOscPacket addFloat:[[face.expressions valueForKey:propertyName] floatValue]];
-                    
-                    // Log it
-                    [logStrings addObject:[NSString stringWithFormat:@"%18s: %6.2f", [propertyName UTF8String], [[face.expressions valueForKey:propertyName] floatValue]]];
+                    [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
+                    continue;
                 }
+                else if ([featureComponents[0] isEqualToString:@"expressions"])
+                {
+                    if ([face.expressions valueForKey:featureComponents[1]] == nil)
+                    {
+                        [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
+                    }
+                    else
+                    {
+                        valueToSend = [[face.expressions valueForKey:featureComponents[1]] floatValue];
+                    }
+                }
+                else if ([featureComponents[0] isEqualToString:@"orientation"])
+                {
+                    if ([face.orientation valueForKey:featureComponents[1]] == nil)
+                    {
+                        [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
+                    }
+                    else
+                    {
+                        valueToSend = [[face.orientation valueForKey:featureComponents[1]] floatValue];
+                    }
+                }
+                else if ([featureComponents[0] isEqualToString:@"emotions"])
+                {
+                    if ([face.emotions valueForKey:featureComponents[1]] == nil)
+                    {
+                        [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
+                    }
+                    else
+                    {
+                        valueToSend = [[face.emotions valueForKey:featureComponents[1]] floatValue];
+                    }
+                }
+//                else if ([featureComponents[0] isEqualToString:@"faceBounds"])
+//                {
+//                    if ([face.faceBounds valueForKey:featureComponents[1]] == nil)
+//                    {
+//                        [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
+//                    }
+//                    else
+//                    {
+//                        valueToSend = [[face.faceBounds valueForKey:featureComponents[1]] floatValue];
+//                    }
+//                }
+                
+                // Add to packet
+                [faceOscPacket addFloat:valueToSend];
+                // Log it
+                NSString* graphString = (((valueToSend >= 0.0) && (valueToSend <= 500.0)) ?
+                                         [@"" stringByPaddingToLength:(valueToSend/10) withString: @"█" startingAtIndex:0] :
+                                         @"");
+                [logStrings addObject:[NSString stringWithFormat:@"%30s: %6.2f %@",
+                                       [featureName UTF8String],
+                                       valueToSend,
+                                       graphString] ];
             }
+            
             [logStrings addObject:@"\n"];
         }
         // Add final count to Log
-        [logStrings addObject:[NSString stringWithFormat:@"TOTAL PARAMETERS: %lu", (unsigned long)faceOscPacket.arguments.count]];
+        [logStrings insertObject:[NSString stringWithFormat:@"TOTAL FEATURES: %lu\n", (unsigned long)faceOscPacket.arguments.count]
+                         atIndex:0];
         
         self.oscLogLabel.stringValue = [logStrings componentsJoinedByString:@"\n"];
         
