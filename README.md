@@ -1,7 +1,7 @@
 AffdexMe OSC for Wekinator
 ===
 
-This app uses the [Affectiva SDK](http://developer.affectiva.com) to perform face and emotion detection and output this as OSC data, suitable for [Wekinator](http://www.wekinator.org/) machine learning. 
+This app uses the [Affectiva SDK](http://developer.affectiva.com) to perform face and emotion detection and output this as OSC data, suitable for [Wekinator](http://www.wekinator.org/) machine learning.  It is a fork of the [AffdexMe OSX](https://github.com/Affectiva/affdexme-osx) demo app.
 
 DMG download at: http://wanderingstan.com/drop/AffdexMeOSC.dmg
 
@@ -16,4 +16,19 @@ DMG download at: http://wanderingstan.com/drop/AffdexMeOSC.dmg
 
 NOTE: This is a minimally working program. :)
 
-It is forked from the [Affectiva OSX Demo app](https://github.com/Affectiva/affdexme-osx) and uses [CocoaOSC](https://github.com/danieldickison/CocoaOSC) for OSC communication.
+---
+
+In order to use this project, you will need to:
+- Obtain the Affectiva OSX SDK (visit http://www.affectiva.com/solutions/apis-sdks/)
+- Have a valid CocoaPods installation on your machine
+- Install the Affdex SDK on your machine using the Podfile:
+```
+pod install
+```
+
+- Open the Xcode workspace file AffdexMe-OSX.xcworkspace -- not the .xcodeproj file.
+- Build the project.
+- Run the app and smile!
+
+More info, including licence, at the original Affdex me repo:
+https://github.com/Affectiva/affdexme-osx
