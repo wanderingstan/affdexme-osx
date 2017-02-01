@@ -10,6 +10,7 @@ DMG download at: http://wanderingstan.com/drop/AffdexMeOSC.dmg
 3. Edit list of available features to only those that you want. (This is a simple text edit field for now. It will ignore any feature name not recognized)
 4. Enter number of faces to track. _Note: Data will only be send when this many faces are detected._
 5. If needed, edit OSC host and port.
+1. In Wekintor, press "Begin Listening". (This app doesn't behave well when it can't connect.)
 6. Press "Connect OSC" to begin transmitting data.
 7. For now, you must close and restart app to chage settings.
 
