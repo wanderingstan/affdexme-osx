@@ -26,6 +26,8 @@
 		68DEC4961A178731009FCB2E /* AffdexMeOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DEC4951A178731009FCB2E /* AffdexMeOSXTests.m */; };
 		A3D08E77559302A1656F311A /* Pods_AffdexMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C913AF9F1EAE26CD85B5A5C /* Pods_AffdexMe.framework */; };
 		F67E06081E3BD2EA0090080B /* CocoaOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67E06011E3BD2D90090080B /* CocoaOSC.framework */; };
+		F6B8DCF01E43F163007749F4 /* CocoaOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67E06011E3BD2D90090080B /* CocoaOSC.framework */; };
+		F6B8DCF11E43F163007749F4 /* CocoaOSC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F67E06011E3BD2D90090080B /* CocoaOSC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,13 @@
 			remoteGlobalIDString = 0B4C46831460E8B9007B5E06;
 			remoteInfo = "CocoaOSC-mac";
 		};
+		F6B8DCF21E43F163007749F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F67E05F71E3BD2D90090080B /* CocoaOSC.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B4C46831460E8B9007B5E06;
+			remoteInfo = "CocoaOSC-mac";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -80,6 +89,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F6B8DCF11E43F163007749F4 /* CocoaOSC.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +138,7 @@
 			files = (
 				F67E06081E3BD2EA0090080B /* CocoaOSC.framework in Frameworks */,
 				A3D08E77559302A1656F311A /* Pods_AffdexMe.framework in Frameworks */,
+				F6B8DCF01E43F163007749F4 /* CocoaOSC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +277,7 @@
 			);
 			dependencies = (
 				F67E06071E3BD2E50090080B /* PBXTargetDependency */,
+				F6B8DCF31E43F163007749F4 /* PBXTargetDependency */,
 			);
 			name = AffdexMe;
 			productName = MeasureUpOSX;
@@ -480,6 +492,11 @@
 			isa = PBXTargetDependency;
 			name = "CocoaOSC-mac";
 			targetProxy = F67E06061E3BD2E50090080B /* PBXContainerItemProxy */;
+		};
+		F6B8DCF31E43F163007749F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CocoaOSC-mac";
+			targetProxy = F6B8DCF21E43F163007749F4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

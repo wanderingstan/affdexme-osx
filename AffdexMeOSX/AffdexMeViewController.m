@@ -909,9 +909,6 @@
         for (AFDXFace *face in faces)
         {
             // Assemble values from face features to send in osc packet
-            unsigned int numberOfProperties = 0;
-            objc_property_t *propertyArray = class_copyPropertyList([AFDXExpressions class], &numberOfProperties);
-            
             for (NSString* featureName in features)
             {
                 NSArray *featureComponents = [featureName componentsSeparatedByString:@"."];
@@ -955,6 +952,7 @@
                         valueToSend = [[face.emotions valueForKey:featureComponents[1]] floatValue];
                     }
                 }
+                // TODO: Include Face Bounds
 //                else if ([featureComponents[0] isEqualToString:@"faceBounds"])
 //                {
 //                    if ([face.faceBounds valueForKey:featureComponents[1]] == nil)
@@ -970,7 +968,7 @@
                 // Add to packet
                 [faceOscPacket addFloat:valueToSend];
                 // Log it
-                NSString* graphString = (((valueToSend >= 0.0) && (valueToSend <= 500.0)) ?
+                NSString* graphString = (((valueToSend >= 0.0) && (valueToSend <= 100.0)) ?
                                          [@"" stringByPaddingToLength:(valueToSend/10) withString: @"█" startingAtIndex:0] :
                                          @"");
                 [logStrings addObject:[NSString stringWithFormat:@"%30s: %6.2f %@",
