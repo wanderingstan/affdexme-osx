@@ -16,6 +16,41 @@ DMG download at: http://wanderingstan.com/drop/AffdexMeOSC.dmg
 
 NOTE: This is a minimally working program. :)
 
+Current features that can be exposed via OSC:
+
+- expressions.attention
+- expressions.browFurrow
+- expressions.browRaise
+- expressions.cheekRaise
+- expressions.chinRaise
+- expressions.dimpler
+- expressions.eyeClosure
+- expressions.eyeWiden
+- expressions.innerBrowRaise
+- expressions.jawDrop
+- expressions.lidTighten
+- expressions.lipCornerDepressor
+- expressions.lipPress
+- expressions.lipPucker
+- expressions.lipStretch
+- expressions.lipSuck
+- expressions.mouthOpen
+- expressions.noseWrinkle
+- expressions.smile
+- expressions.upperLipRaise
+- emotions.anger
+- emotions.contempt
+- emotions.disgust
+- emotions.engagement
+- emotions.joy
+- emotions.sadness
+- emotions.surprise
+- emotions.valence
+- orientation.yaw
+- orientation.pitch
+- orientation.roll
+- orientation.interocularDistance
+
 ---
 
 In order to use this project, you will need to:
