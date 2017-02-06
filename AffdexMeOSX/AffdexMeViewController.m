@@ -899,7 +899,6 @@
 - (void)sendOscForFaces:(NSArray*)faces forFeatures:(NSArray*)features
 {
     // Send OSC
-    if (self.oscConnection.connected)
     {
         OSCMutableMessage* faceOscPacket = [[OSCMutableMessage alloc] init];
         faceOscPacket.address = @"/wek/inputs";
@@ -985,10 +984,16 @@
         
         self.oscLogLabel.stringValue = [logStrings componentsJoinedByString:@"\n"];
         
-        // Send it!
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.oscConnection sendPacket:faceOscPacket];
-        });
+        if (self.oscConnection.connected) {
+            // Send it!
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.oscConnection sendPacket:faceOscPacket];
+            });
+        }
+        else {
+            self.oscFaceSendCount = [self.oscFaceSendCountTextField.stringValue intValue];
+            self.oscFeaturesToSend = [self.oscFeaturesToSendTextField.stringValue componentsSeparatedByString:@"\n"];
+        }
         
     }
     
