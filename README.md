@@ -5,6 +5,8 @@ This app uses the [Affectiva SDK](http://developer.affectiva.com) to perform fac
 
 DMG download at: http://wanderingstan.com/drop/AffdexMeOSC.dmg
 
+![Animated gif of face detection in action](http://wanderingstan.com/drop/Affdex-OSC-480.gif)
+
 1. Launch app
 2. Press "Show all features" to list all facial features that can be measured.
 3. Edit list of available features to only those that you want. (This is a simple text edit field for now. It will ignore any feature name not recognized)
