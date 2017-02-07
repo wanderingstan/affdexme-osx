@@ -52,6 +52,7 @@ Current features that can be exposed via OSC:
 - orientation.pitch
 - orientation.roll
 - orientation.interocularDistance
+- extra.faceToFaceDistance (The distance between this and adjacent face)
 
 ---
 
