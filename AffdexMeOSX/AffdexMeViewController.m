@@ -898,141 +898,169 @@
 // Send OSC data for chosen expressions found on facers
 - (void)sendOscForFaces:(NSArray*)faces forFeatures:(NSArray*)features
 {
-    // Send OSC
+    OSCMutableMessage* faceOscPacket = [[OSCMutableMessage alloc] init];
+    faceOscPacket.address = @"/wek/inputs";
+    
+    NSMutableArray* logStrings = [[NSMutableArray alloc] init];
+    
+    for (int faceIndex = 0; faceIndex < faces.count; faceIndex++)
     {
-        OSCMutableMessage* faceOscPacket = [[OSCMutableMessage alloc] init];
-        faceOscPacket.address = @"/wek/inputs";
+        AFDXFace *face = faces[faceIndex];
         
-        NSMutableArray* logStrings = [[NSMutableArray alloc] init];
-        
-        for (AFDXFace *face in faces)
+        // Assemble values from face features to send in osc packet
+        for (NSString* featureName in features)
         {
-            // Assemble values from face features to send in osc packet
-            for (NSString* featureName in features)
+            NSArray *featureComponents = [featureName componentsSeparatedByString:@"."];
+            float valueToSend = 0.0;
+            
+            if ([featureComponents count] != 2)
             {
-                NSArray *featureComponents = [featureName componentsSeparatedByString:@"."];
-                float valueToSend = 0.0;
-                
-                if ([featureComponents count] != 2)
+                if ([featureName isEqualToString:@""])
+                {
+                    [logStrings addObject:@" "];
+                }
+                else
+                {
+                    [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
+                }
+                continue;
+            }
+            else if ([featureComponents[0] isEqualToString:@"expressions"])
+            {
+                if ([face.expressions valueForKey:featureComponents[1]] == nil)
                 {
                     [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
                     continue;
                 }
-                else if ([featureComponents[0] isEqualToString:@"expressions"])
+                else
                 {
-                    if ([face.expressions valueForKey:featureComponents[1]] == nil)
-                    {
-                        [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
-                    }
-                    else
-                    {
-                        valueToSend = [[face.expressions valueForKey:featureComponents[1]] floatValue];
-                    }
+                    valueToSend = [[face.expressions valueForKey:featureComponents[1]] floatValue];
                 }
-                else if ([featureComponents[0] isEqualToString:@"orientation"])
+            }
+            else if ([featureComponents[0] isEqualToString:@"orientation"])
+            {
+                if ([face.orientation valueForKey:featureComponents[1]] == nil)
                 {
-                    if ([face.orientation valueForKey:featureComponents[1]] == nil)
-                    {
-                        [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
-                    }
-                    else
-                    {
-                        valueToSend = [[face.orientation valueForKey:featureComponents[1]] floatValue];
-                    }
+                    [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
+                    continue;
                 }
-                else if ([featureComponents[0] isEqualToString:@"emotions"])
+                else
                 {
-                    if ([face.emotions valueForKey:featureComponents[1]] == nil)
-                    {
-                        [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
-                    }
-                    else
-                    {
-                        valueToSend = [[face.emotions valueForKey:featureComponents[1]] floatValue];
-                    }
+                    valueToSend = [[face.orientation valueForKey:featureComponents[1]] floatValue];
                 }
-                // TODO: Include Face Bounds
-//                else if ([featureComponents[0] isEqualToString:@"faceBounds"])
-//                {
-//                    if ([face.faceBounds valueForKey:featureComponents[1]] == nil)
-//                    {
-//                        [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
-//                    }
-//                    else
-//                    {
-//                        valueToSend = [[face.faceBounds valueForKey:featureComponents[1]] floatValue];
-//                    }
-//                }
-                
-                // Add to packet
-                [faceOscPacket addFloat:valueToSend];
-                // Log it
-                NSString* graphString = (((valueToSend >= 0.0) && (valueToSend <= 100.0)) ?
-                                         [@"" stringByPaddingToLength:(valueToSend/10) withString: @"█" startingAtIndex:0] :
-                                         @"");
-                [logStrings addObject:[NSString stringWithFormat:@"%30s: %6.2f %@",
-                                       [featureName UTF8String],
-                                       valueToSend,
-                                       graphString] ];
+            }
+            else if ([featureComponents[0] isEqualToString:@"emotions"])
+            {
+                if ([face.emotions valueForKey:featureComponents[1]] == nil)
+                {
+                    [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
+                    continue;
+                }
+                else
+                {
+                    valueToSend = [[face.emotions valueForKey:featureComponents[1]] floatValue];
+                }
+            }
+            else if ([featureComponents[0] isEqualToString:@"extra"])
+            {
+                if ([featureComponents[1] isEqualToString:@"faceToFaceDistance"] && (faceIndex > 0))
+                {
+                    CGSize diffRect = CGSizeDistanceBetweenRects(((AFDXFace*)faces[faceIndex-1]).faceBounds,
+                                                                 ((AFDXFace*)faces[faceIndex]).faceBounds);
+                    valueToSend = sqrt(diffRect.height * diffRect.height + diffRect.width * diffRect.width);
+                }
+                else
+                {
+                    continue;
+                }
             }
             
-            [logStrings addObject:@"\n"];
+            // TODO: Include Face Bounds
+            //                else if ([featureComponents[0] isEqualToString:@"faceBounds"])
+            //                {
+            //                    if ([face.faceBounds valueForKey:featureComponents[1]] == nil)
+            //                    {
+            //                        [logStrings addObject:[NSString stringWithFormat:@"%18s: INVALID FEATURE", [featureName UTF8String]]];
+            //                    }
+            //                    else
+            //                    {
+            //                        valueToSend = [[face.faceBounds valueForKey:featureComponents[1]] floatValue];
+            //                    }
+            //                }
+            
+            // Add to packet
+            [faceOscPacket addFloat:valueToSend];
+            // Log it
+            NSString* graphString = (((valueToSend >= 0.0) && (valueToSend <= 100.0)) ?
+                                     [@"" stringByPaddingToLength:(valueToSend/10) withString: @"█" startingAtIndex:0] :
+                                     @"");
+            [logStrings addObject:[NSString stringWithFormat:@"%30s: %6.2f %@",
+                                   [featureName UTF8String],
+                                   valueToSend,
+                                   graphString] ];
         }
-        // Add final count to Log
-        [logStrings insertObject:[NSString stringWithFormat:@"TOTAL FEATURES: %lu\n", (unsigned long)faceOscPacket.arguments.count]
-                         atIndex:0];
         
-        self.oscLogLabel.stringValue = [logStrings componentsJoinedByString:@"\n"];
-        
-        if (self.oscConnection.connected) {
-            // Send it!
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.oscConnection sendPacket:faceOscPacket];
-            });
-        }
-        else {
-            self.oscFaceSendCount = [self.oscFaceSendCountTextField.stringValue intValue];
-            self.oscFeaturesToSend = [self.oscFeaturesToSendTextField.stringValue componentsSeparatedByString:@"\n"];
-        }
-        
+        [logStrings addObject:@"\n"];
     }
+
+    
+    // Add final count to Log
+    [logStrings insertObject:[NSString stringWithFormat:@"TOTAL FEATURES: %lu\n", (unsigned long)faceOscPacket.arguments.count]
+                     atIndex:0];
+    
+    self.oscLogLabel.stringValue = [logStrings componentsJoinedByString:@"\n"];
+    
+    
+    if (self.oscConnection.connected) {
+        // Send it!
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.oscConnection sendPacket:faceOscPacket];
+        });
+    }
+    else {
+        self.oscFaceSendCount = [self.oscFaceSendCountTextField.stringValue intValue];
+        self.oscFeaturesToSend = [self.oscFeaturesToSendTextField.stringValue componentsSeparatedByString:@"\n"];
+    }
+    
     
 }
 
 - (IBAction)showAllFeaturesButtonAction:(id)sender {
     self.oscFeaturesToSendTextField.stringValue = (
-                                                   @"expressions.attention\n"
-                                                   "expressions.browFurrow\n"
-                                                   "expressions.browRaise\n"
-                                                   "expressions.cheekRaise\n"
-                                                   "expressions.chinRaise\n"
-                                                   "expressions.dimpler\n"
-                                                   "expressions.eyeClosure\n"
-                                                   "expressions.eyeWiden\n"
-                                                   "expressions.innerBrowRaise\n"
-                                                   "expressions.jawDrop\n"
-                                                   "expressions.lidTighten\n"
-                                                   "expressions.lipCornerDepressor\n"
-                                                   "expressions.lipPress\n"
-                                                   "expressions.lipPucker\n"
-                                                   "expressions.lipStretch\n"
-                                                   "expressions.lipSuck\n"
-                                                   "expressions.mouthOpen\n"
-                                                   "expressions.noseWrinkle\n"
-                                                   "expressions.smile\n"
-                                                   "expressions.upperLipRaise\n"
-                                                   "emotions.anger\n"
-                                                   "emotions.contempt\n"
-                                                   "emotions.disgust\n"
-                                                   "emotions.engagement\n"
-                                                   "emotions.joy\n"
-                                                   "emotions.sadness\n"
-                                                   "emotions.surprise\n"
-                                                   "emotions.valence\n"
-                                                   "orientation.yaw\n"
-                                                   "orientation.pitch\n"
-                                                   "orientation.roll\n"
-                                                   "orientation.interocularDistance"                                                  );
+       @"expressions.attention\n"
+       "expressions.browFurrow\n"
+       "expressions.browRaise\n"
+       "expressions.cheekRaise\n"
+       "expressions.chinRaise\n"
+       "expressions.dimpler\n"
+       "expressions.eyeClosure\n"
+       "expressions.eyeWiden\n"
+       "expressions.innerBrowRaise\n"
+       "expressions.jawDrop\n"
+       "expressions.lidTighten\n"
+       "expressions.lipCornerDepressor\n"
+       "expressions.lipPress\n"
+       "expressions.lipPucker\n"
+       "expressions.lipStretch\n"
+       "expressions.lipSuck\n"
+       "expressions.mouthOpen\n"
+       "expressions.noseWrinkle\n"
+       "expressions.smile\n"
+       "expressions.upperLipRaise\n"
+       "emotions.anger\n"
+       "emotions.contempt\n"
+       "emotions.disgust\n"
+       "emotions.engagement\n"
+       "emotions.joy\n"
+       "emotions.sadness\n"
+       "emotions.surprise\n"
+       "emotions.valence\n"
+       "orientation.yaw\n"
+       "orientation.pitch\n"
+       "orientation.roll\n"
+       "orientation.interocularDistance\n"
+       "extra.faceToFaceDistance\n"
+       );
 }
 
 - (IBAction)connect:(NSButton *)sender
@@ -1053,6 +1081,29 @@
 }
 
 
+// Calculate distance between 2 CGRects, with 0 returned for intersection
+// See: http://stackoverflow.com/questions/10347085/distance-between-two-rectangles
+CGSize CGSizeDistanceBetweenRects(CGRect rect1, CGRect rect2)
+{
+    if (CGRectIntersectsRect(rect1, rect2))
+    {
+        return CGSizeMake(0, 0);
+    }
+    
+    CGRect mostLeft = rect1.origin.x < rect2.origin.x ? rect1 : rect2;
+    CGRect mostRight = rect2.origin.x < rect1.origin.x ? rect1 : rect2;
+    
+    CGFloat xDifference = mostLeft.origin.x == mostRight.origin.x ? 0 : mostRight.origin.x - (mostLeft.origin.x + mostLeft.size.width);
+    xDifference = MAX(0, xDifference);
+    
+    CGRect upper = rect1.origin.y < rect2.origin.y ? rect1 : rect2;
+    CGRect lower = rect2.origin.y < rect1.origin.y ? rect1 : rect2;
+    
+    CGFloat yDifference = upper.origin.y == lower.origin.y ? 0 : lower.origin.y - (upper.origin.y + upper.size.height);
+    yDifference = MAX(0, yDifference);
+    
+    return CGSizeMake(xDifference, yDifference);
+}
 
 
 @end
